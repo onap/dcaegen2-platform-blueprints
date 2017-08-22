@@ -1,0 +1,1062 @@
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
+  - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2 }}/type_files/dnsdesig/dns_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2 }}/type_files/sshkeyshare/sshkey_types.yaml
+
+inputs:
+  centos7image_id:
+    type: string
+    default: ''
+  ubuntu1404image_id:
+    type: string
+    default: ''
+  ubuntu1604image_id:
+    type: string
+  flavor_id:
+    type: string
+  security_group:
+    type: string
+  public_net:
+    type: string
+  private_net:
+    type: string
+  openstack: {}
+  fake_designate:
+    type: string
+    default: ''
+  keypair:
+    type: string
+  location_prefix:
+    type: string
+  location_domain:
+    type: string
+  key_filename:
+    type: string
+  codesource_url:
+    type: string
+  codesource_version:
+    type: string
+
+  vm_init_cdap:
+    type: string
+    default: |
+      wget -qO- $CODE_SOURCE/${CODE_VERSION}-raw/cloud_init/cdap-init.sh >/tmp/cdap-init.sh
+      sh /tmp/cdap-init.sh "$CODE_SOURCE" "$CODE_VERSION" "$CLUSTER_INDEX" "$CLUSTER_SIZE" "$CLUSTER_FQDNS" "$CLUSTER_LOCAL_IPS" "$CLUSTER_FLOATING_IPS" "$DATACENTER" "$REGISTERED_NAME"
+  location_id:
+    default: "solutioning-central"
+  cdap_cluster_name:
+    type: string
+    default: "cdap"
+
+node_templates:
+  key_pair:
+    type: cloudify.openstack.nodes.KeyPair
+    properties:
+      private_key_path: { get_input: key_filename }
+      use_external_resource: True
+      resource_id: { get_input: keypair }
+      openstack_config: &open_conf
+        get_input: openstack
+  private_net:
+    type: cloudify.openstack.nodes.Network
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: private_net }
+      openstack_config: *open_conf
+  security_group:
+    type: cloudify.openstack.nodes.SecurityGroup
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: security_group }
+      openstack_config: *open_conf
+
+  sharedsshkey_cdap:
+    type: ccsdk.nodes.ssh.keypair
+  hostdeps_cdap:
+    type: cloudify.nodes.Root
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap00
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap00
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap01
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap01
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap02
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap02
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap03
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap03
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap04
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap04
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap05
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap05
+      - type: cloudify.relationships.depends_on
+        target: dns_cdap06
+      - type: cloudify.relationships.depends_on
+        target: fixedip_cdap06
+  fixedip_cdap00:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap00:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap00:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap00.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap00
+  host_cdap00:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap00' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=00
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap00
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap00
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  fixedip_cdap01:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap01:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap01:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap01.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap01
+  host_cdap01:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap01' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=01
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap01
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap01
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  fixedip_cdap02:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap02:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap02:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap02.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap02
+  host_cdap02:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap02' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=02
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - "REGISTERED_NAME="
+                  - { get_input: cdap_cluster_name }
+                  - "\n"                  
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap02
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap02
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  
+  fixedip_cdap03:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap03:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap03:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap03.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap03
+  host_cdap03:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap03' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=03
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap03
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap03
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  fixedip_cdap04:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap04:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap04:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap04.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap04
+  host_cdap04:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap04' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=04
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap04
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap04
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  fixedip_cdap05:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap05:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap05:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap05.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap05
+  host_cdap05:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap05' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=05
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap05
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap05
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
+  fixedip_cdap06:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cdap06:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cdap06:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cdap06.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cdap06
+  host_cdap06:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cdap06' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_cdap, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    set -x
+                    CLUSTER_INDEX=06
+                    CLUSTER_SIZE=7
+                    CLUSTER_FQDNS=
+                  - { get_property: [ dns_cdap00, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap01, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap02, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap03, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap04, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap05, fqdn ] }
+                  - ','
+                  - { get_property: [ dns_cdap06, fqdn ] }
+                  - "\nCLUSTER_FLOATING_IPS="
+                  - { get_attribute: [ floatingip_cdap00, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap01, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap02, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap03, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap04, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap05, floating_ip_address ] }
+                  - ','
+                  - { get_attribute: [ floatingip_cdap06, floating_ip_address ] }
+                  - "\nCLUSTER_LOCAL_IPS="
+                  - { get_attribute: [ fixedip_cdap00, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap01, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap02, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap03, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap04, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap05, fixed_ip_address ] }
+                  - ','
+                  - { get_attribute: [ fixedip_cdap06, fixed_ip_address ] }
+                  - "\nCODE_SOURCE="
+                  - { get_input: codesource_url }
+                  - "\nCODE_VERSION="
+                  - { get_input: codesource_version }
+                  - "\n"
+                  - "DATACENTER="
+                  - { get_input: location_id }
+                  - "\n"
+                  - { get_input: vm_init_cdap }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cdap06
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cdap06
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: hostdeps_cdap
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_cdap
