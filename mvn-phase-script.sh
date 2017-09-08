@@ -223,6 +223,14 @@ upload_wagons_and_type_yamls()
   done
 }
 
+upload_yamls()
+{
+  YAMLS=$(ls -1 ./*.yaml)
+  for YAML in "${YAMLS[@]}" ; do
+    upload_raw_file "$YAML"
+  done
+}
+
 
 
 build_and_push_docker()
@@ -308,18 +316,16 @@ compile)
   ;;
 test)
   echo "==> test phase script"
-  run_tox_test
   ;;
 package)
   echo "==> package phase script"
-  build_wagons
   ;;
 install)
   echo "==> install phase script"
   ;;
 deploy)
   echo "==> deploy phase script"
-  upload_wagons_and_type_yamls
+  upload_yamls
   ;;
 *)
   echo "==> unprocessed phase"
