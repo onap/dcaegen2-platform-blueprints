@@ -1,0 +1,380 @@
+#
+# ============LICENSE_START==========================================
+# ===================================================================
+# Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+# ===================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END============================================
+#
+# ECOMP and OpenECOMP are trademarks
+# and service marks of AT&T Intellectual Property.
+#
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml"
+
+inputs:
+  centos7image_id:
+    type: string
+  ubuntu1604image_id:
+    type: string
+  flavor_id:
+    type: string
+  security_group:
+    type: string
+  public_net:
+    type: string
+  private_net:
+    type: string
+  openstack: {}
+  keypair:
+    type: string
+  location_prefix:
+    type: string
+  location_domain:
+    type: string
+  key_filename:
+    type: string
+  codesource_url:
+    type: string
+  codesource_version:
+    type: string
+  datacenter:
+    type: string
+  vm_init_cnsl_00:
+    type: string
+    default: |-
+      #!/bin/sh
+      set -x
+      DATACENTER=
+  vm_init_cnsl_01:
+    type: string
+    default: |
+      CONSULVER=0.8.3
+      CONSULNAME=consul_${CONSULVER}_linux_amd64
+      MYIP=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/local-ipv4`
+      MYNAME=`hostname`
+      echo >>/etc/hosts
+      echo $MYIP $MYNAME >>/etc/hosts
+      mkdir -p /opt/consul/config /opt/consul/data /opt/consul/bin
+
+      # Download Consul
+      apt-get update
+      apt-get install unzip
+      wget https://releases.hashicorp.com/consul/${CONSULVER}/${CONSULNAME}.zip
+      unzip -d /opt/consul/bin  ${CONSULNAME}.zip
+      rm ${CONSULNAME}.zip
+      chmod +x  /opt/consul/bin/consul
+
+      # NOTE: Not using port 80 for http to avoid port collision of user facing services
+      # particularly for more large scale deployments of Consul.
+      cat <<EOF > /opt/consul/config/consul.json
+      {
+        "bind_addr" : "$MYIP",
+        "client_addr" : "0.0.0.0",
+        "bootstrap_expect" : 3,
+        "data_dir" : "/opt/consul/data",
+        "datacenter": "$DATACENTER",
+        "http_api_response_headers": {
+            "Access-Control-Allow-Origin" : "*"
+        },
+        "server": true,
+        "ui": true,
+        "enable_syslog": true,
+        "log_level": "info",
+        "ports": {
+            "dns": 53
+        }
+      }
+      EOF
+      cat <<EOF > /lib/systemd/system/consul.service
+      [Unit]
+      Description=Consul
+      Requires=network-online.target
+      After=network.target
+      [Service]
+      Type=simple
+      ExecStart=/opt/consul/bin/consul agent -config-dir=/opt/consul/config
+      ExecReload=/bin/kill -HUP \$MAINPID
+      [Install]
+      WantedBy=multi-user.target
+      EOF
+      systemctl enable consul
+      systemctl start consul
+node_templates:
+  key_pair:
+    type: cloudify.openstack.nodes.KeyPair
+    properties:
+      private_key_path: { get_input: key_filename }
+      use_external_resource: True
+      resource_id: { get_input: keypair }
+      openstack_config: &open_conf
+        get_input: openstack
+  private_net:
+    type: cloudify.openstack.nodes.Network
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: private_net }
+      openstack_config: *open_conf
+  security_group:
+    type: cloudify.openstack.nodes.SecurityGroup
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: security_group }
+      openstack_config: *open_conf
+  fixedip_cnsl00:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cnsl00:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cnsl00:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cnsl00.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cnsl00, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl00
+  host_cnsl00:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cnsl00' ] }
+              userdata:
+                concat:
+                  - { get_input: vm_init_cnsl_00 }
+                  - { get_input: datacenter }
+                  - |+
+
+                  - { get_input: vm_init_cnsl_01 }
+                  - concat:
+                      - 'until /opt/consul/bin/consul join '
+                      - { get_attribute: [host_cnsl01, ip] }
+                      - ' '
+                      - { get_attribute: [host_cnsl02, ip]}
+                      - '; do sleep 15; done'
+
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cnsl00
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cnsl00
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_cnsl00
+      - type: cloudify.relationships.depends_on
+        target: host_cnsl01
+      - type: cloudify.relationships.depends_on
+        target: host_cnsl02
+  fixedip_cnsl01:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cnsl01:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cnsl01:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cnsl01.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cnsl01, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl01
+  host_cnsl01:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cnsl01' ] }
+              userdata:
+                concat:
+                  - { get_input: vm_init_cnsl_00 }
+                  - { get_input: datacenter }
+                  - |+
+
+                  - { get_input: vm_init_cnsl_01 }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cnsl01
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cnsl01
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_cnsl01
+  fixedip_cnsl02:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_cnsl02:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_cnsl02:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, 'cnsl02.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cnsl02, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl02
+  dns_cluster:
+    type: ccsdk.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ 'dcae-cnsl.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_cnsl00, floating_ip_address ] }
+                - { get_attribute: [ floatingip_cnsl01, floating_ip_address ] }
+                - { get_attribute: [ floatingip_cnsl02, floating_ip_address ] }
+
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl00
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl01
+      - type: cloudify.relationships.depends_on
+        target: floatingip_cnsl02
+  host_cnsl02:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, 'cnsl02' ] }
+              userdata:
+                concat:
+                  - { get_input: vm_init_cnsl_00 }
+                  - { get_input: datacenter }
+                  - |+
+
+                  - { get_input: vm_init_cnsl_01 }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_cnsl02
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_cnsl02
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_cnsl02
+
+outputs:
+  public_ip:
+    value: { get_attribute: [floatingip_cnsl00, floating_ip_address] }
