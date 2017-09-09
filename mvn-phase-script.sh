@@ -209,25 +209,24 @@ upload_raw_file()
 }
 
 
-
 upload_wagons_and_type_yamls()
 {
   WAGONS=$(ls -1 ./*.wgn)
-  for WAGON in "${WAGONS[@]}" ; do
+  for WAGON in $WAGONS ; do
     WAGON_NAME=$(echo "$WAGON" | cut -f1 -d '-')
     WAGON_VERSION=$(echo "$WAGON" | cut -f2 -d '-')
     WAGON_TYPEFILE=$(grep -rl "$WAGON_NAME" | grep yaml | head -1)
-   
+
     upload_raw_file "$WAGON"
     upload_raw_file "$WAGON_TYPEFILE"
   done
 }
 
-upload_yamls()
+upload_files_of_extension()
 {
-  YAMLS=$(ls -1 ./*.yaml)
-  for YAML in "${YAMLS[@]}" ; do
-    upload_raw_file "$YAML"
+  FILES=$(ls -1 ./*."$1")
+  for F in $FILES ; do
+    upload_raw_file "$F"
   done
 }
 
@@ -325,7 +324,7 @@ install)
   ;;
 deploy)
   echo "==> deploy phase script"
-  upload_yamls
+  upload_files_of_extension yaml
   ;;
 *)
   echo "==> unprocessed phase"
