@@ -18,6 +18,8 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
+set -ex
+
 
 echo "running script: [$0] for module [$1] at stage [$2]"
 
@@ -37,7 +39,7 @@ else
   echo "=> for STAGING/RELEASE artifact build"
   MVN_DEPLOYMENT_TYPE='STAGING'
 fi
-echo "MVN_DEPLOYMENT_TYPE is             [$DEPLOYMENT_TYPE]"
+echo "MVN_DEPLOYMENT_TYPE is             [$MVN_DEPLOYMENT_TYPE]"
 
 
 TIMESTAMP=$(date +%C%y%m%dT%H%M%S)
@@ -73,14 +75,28 @@ echo "MVN_RAWREPO_SERVERID is            [$MVN_RAWREPO_SERVERID]"
 echo "MVN_DOCKERREGISTRY_DAILY is        [$MVN_DOCKERREGISTRY_DAILY]"
 echo "MVN_DOCKERREGISTRY_RELEASE is      [$MVN_DOCKERREGISTRY_RELEASE]"
 
+clean_templated_files() 
+{
+  TEMPLATE_FILES=$(find . -name "*-template")
+  for F in $TEMPLATE_FILES; do
+    F2=$(echo "$F" | sed 's/-template$//')
+    rm -f "$F2"
+  done
+}
+
+
 expand_templates() 
 {
   # set up env variables, get ready for template resolution
-  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.plugins/releases"
-  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.plugins/snapshots"
-  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.blueprints/releases"
-  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.blueprints/snapshots"  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/releases"
-  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/snapshots"  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.plugins/releases"
+  # NOTE: CCSDK artifacts do not distinguish REALESE vs SNAPSHOTs
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.plugins"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.plugins"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.blueprints"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.blueprints"
+ 
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/releases"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/snapshots"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.plugins/releases"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.plugins/snapshots"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.blueprints/releases"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.blueprints/snapshots"
@@ -91,7 +107,20 @@ expand_templates()
   export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_snapshots="$MVN_DOCKERREGISTRY_DAILY/snapshots"
 
 
+  TEMPLATE_FILES=$(find . -name "*-template")
+  for F in $TEMPLATE_FILES; do
+    F2=$(echo "$F" | sed 's/-template$//')
+    cp "$F" "$F2"
+    MOD=$(stat --format '%a' "$F")
+    chmod "$MOD" "$F2"
+  done
+   
+
   TEMPLATES=$(env |grep ONAPTEMPLATE)
+  if [ -z "$TEMPLATES" ]; then
+    return 0
+  fi
+
   echo "====> Resolving the following temaplate from environment variables "
   echo "[$TEMPLATES]"
   SELFFILE=$(echo "$0" | rev | cut -f1 -d '/' | rev)
@@ -99,17 +128,24 @@ expand_templates()
     KEY=$(echo "$TEMPLATE" | cut -f1 -d'=')
     VALUE=$(echo "$TEMPLATE" | cut -f2 -d'=')
     VALUE2=$(echo "$TEMPLATE" | cut -f2 -d'=' |sed 's/\//\\\//g')
-    FILES=$(grep -rl "$KEY")
+    FILES=$(grep -rlv "$KEY")
+
+    if [ -z "$FILES" ]; then
+      continue
+    fi
 
     # assuming FILES is not longer than 2M bytes, the limit for variable value max size on this VM
     for F in $FILES; do
-       if [[ $F == *"$SELFFILE" ]]; then
-          continue
-       fi
-       echo "======> Resolving template $KEY to value $VALUE for file $F"
-       sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" "$F"
+      if [[ $F == *"$SELFFILE" ]]; then
+        continue
+      fi
+      if [[ "$F" == *-template ]]; then
+        continue
+      fi
 
-       #cat "$F"
+      echo "======> Resolving template $KEY to value $VALUE for file $F"
+      sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" "$F"
+      #cat "$F"
     done
 
     #if [ ! -z "$FILES" ]; then
@@ -184,6 +220,8 @@ upload_raw_file()
   EXT=$(echo "$OUTPUT_FILE" | rev |cut -f1 -d '.' |rev)
   if [ "$EXT" == 'yaml' ]; then
     OUTPUT_FILE_TYPE='text/x-yaml'
+  elif [ "$EXT" == 'sh' ]; then
+    OUTPUT_FILE_TYPE='text/x-shellscript'
   elif [ "$EXT" == 'gz' ]; then
     OUTPUT_FILE_TYPE='application/gzip'
   elif [ "$EXT" == 'wgn' ]; then
@@ -199,14 +237,18 @@ upload_raw_file()
     SEND_TO="${REPO}/${FQDN}/releases"
   else
     echo "Unreconfnized deployment type, quit"
-    exit
+    exit 1
   fi
+  if [ ! -z $MVN_PROJECT_MODULEID ]; then
+    SEND_TO="$SEND_TO/$MVN_PROJECT_MODULEID"
+  fi 
 
   echo "Sending ${OUTPUT_FILE} to Nexus: ${SEND_TO}"
   curl -vkn --netrc-file "${NETRC}" --upload-file "${OUTPUT_FILE}" -X PUT -H "Content-Type: $OUTPUT_FILE_TYPE" "${SEND_TO}/${OUTPUT_FILE}-${MVN_PROJECT_VERSION}-${TIMESTAMP}"
   curl -vkn --netrc-file "${NETRC}" --upload-file "${OUTPUT_FILE}" -X PUT -H "Content-Type: $OUTPUT_FILE_TYPE" "${SEND_TO}/${OUTPUT_FILE}-${MVN_PROJECT_VERSION}"
   curl -vkn --netrc-file "${NETRC}" --upload-file "${OUTPUT_FILE}" -X PUT -H "Content-Type: $OUTPUT_FILE_TYPE" "${SEND_TO}/${OUTPUT_FILE}"
 }
+
 
 
 upload_wagons_and_type_yamls()
@@ -216,7 +258,7 @@ upload_wagons_and_type_yamls()
     WAGON_NAME=$(echo "$WAGON" | cut -f1 -d '-')
     WAGON_VERSION=$(echo "$WAGON" | cut -f2 -d '-')
     WAGON_TYPEFILE=$(grep -rl "$WAGON_NAME" | grep yaml | head -1)
-
+   
     upload_raw_file "$WAGON"
     upload_raw_file "$WAGON_TYPEFILE"
   done
@@ -299,11 +341,11 @@ build_and_push_docker()
 
 
 
-
-
+# Customize the section below for each project
 case $MVN_PHASE in
 clean)
   echo "==> clean phase script"
+  clean_templated_files
   rm -rf ./venv-* ./*.wgn
   ;;
 generate-sources)
@@ -325,6 +367,18 @@ install)
 deploy)
   echo "==> deploy phase script"
   upload_files_of_extension yaml
+
+  case $MVN_PROJECT_MODULEID in
+  bootstrap)
+    build_and_push_docker
+    ;;
+  scripts)
+    upload_files_of_extension sh
+    ;;
+  *)
+    echo "====> unknown mvn project module"
+    ;;
+  esac
   ;;
 *)
   echo "==> unprocessed phase"
