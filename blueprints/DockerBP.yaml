@@ -1,0 +1,306 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
+  - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/docker/2.3.0/node-type.yaml
+ 
+inputs:
+  registered_dockerhost_name:
+    description: the name that this Dockerhost is registered as
+  location_id:
+    description: the location ID for the location where the Docker hsot is being deployed
+    type: string
+  registrator_image:
+    description: |-
+      Full uri to registrator Docker image. Note! You should be using the forked version of
+      registrator in order to have Consul health checks for Docker containers.
+    type: string
+  centos7image_id:
+    type: string
+    default: ''
+  ubuntu1604image_id:
+    type: string
+  flavor_id:
+    type: string
+  security_group:
+    type: string
+  public_net:
+    type: string
+  private_net:
+    type: string
+  openstack: {}
+  fake_designate:
+    type: string
+    default: ''
+  keypair:
+    type: string
+  location_prefix:
+    type: string
+  location_domain:
+    type: string
+  node_name:
+    description: Used to construct the fqdn of the docker host
+    type: string
+    default: dokr00
+  key_filename:
+    type: string
+  codesource_url:
+    type: string
+  codesource_version:
+    type: string
+  vm_init_dokr_00:
+    type: string
+    default: |-
+      #!/bin/sh
+      set -x
+      DATACENTER=
+  vm_init_dokr_01:
+    type: string
+    default: |-
+      REGNAME=
+  vm_init_dokr_fqdn:
+    type: string
+    description: |-
+      The FQDN environment variable is to be used in the cloud init script for the Docker host.
+      This is to be applied as metadata on the Consul node for the Docker host under the key
+      "fqdn".
+    default: |-
+      FQDN=
+  vm_init_dokr_service_tags:
+    type: string
+    description: |-
+      Environment variable assigned to a list of strings that are to be used as tags to label
+      the docker host. These tags are used when registering the docker host as a service in 
+      Consul. The format of this input parameter is a string that is a shell script variable
+      assignment of the variable SERVICE_TAGS. It must be either null or a json array of strings.
+      Here is a valid example of when the value is a json array:
+
+          'SERVICE_TAGS="[\"foo\", \"bar\"]"'
+
+      Note how the double quotes per array element are escaped.
+    default: "SERVICE_TAGS=null"
+  vm_init_dokr_02:
+    type: string
+    default: |
+      MYIP=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/local-ipv4`
+      MYPUB=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/public-ipv4`
+      echo "My public IP: $MYPUB"
+      MYNAME=`hostname`
+      echo >>/etc/hosts
+      echo $MYIP $MYNAME >>/etc/hosts
+
+      # Grab nameservers to be used to setup recursors for Consul
+      cat <<EOF > /tmp/grab_nameservers.py
+      with open("/etc/resolv.conf", "r") as f:
+        nss = [line.split(" ")[1].strip() for line in f.readlines() if line.startswith("nameserver")]
+        print("[\"{0}\"]".format("\",\"".join(nss)))
+      EOF
+      NAMESERVERS=$(python3 /tmp/grab_nameservers.py)
+
+      mkdir -p /opt/consul/config /opt/consul/data /opt/consul/bin
+      # Download Consul from Nexus
+      curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > /opt/consul/bin/consul_0.8.3_linux_amd64
+      chmod +x  /opt/consul/bin/consul_0.8.3_linux_amd64
+      ln -s /opt/consul/bin/consul_0.8.3_linux_amd64 /opt/consul/bin/consul 
+      cat <<EOF > /opt/consul/config/consul.json
+      {
+        "bind_addr" : "0.0.0.0",
+        "client_addr" : "0.0.0.0",
+        "advertise_addr" : "$MYIP",
+        "data_dir" : "/opt/consul/data",
+        "datacenter": "$DATACENTER",
+        "http_api_response_headers": {
+           "Access-Control-Allow-Origin" : "*"
+        },
+        "rejoin_after_leave": true,
+        "server": false,
+        "ui": false,
+        "enable_syslog": true,
+        "log_level": "info",
+        "ports": {
+            "dns": 53
+        },
+        "recursors": $NAMESERVERS,
+        "service" : {
+          "id": "$REGNAME",
+          "name": "$REGNAME",
+          "address": "$MYPUB",
+          "port": 2376,
+          "tags": $SERVICE_TAGS
+        },
+        "node_meta": {
+          "fqdn": "$FQDN"
+        }
+      }
+      EOF
+
+      # Specify DOCKER_HOST environment variable to support healthchecks for Docker containers
+      # in Consul. Tried using the local unix socket but that did not work (possible bug in Consul)
+      # so forcing to use the http connection to Docker engine.
+      cat <<EOF > /lib/systemd/system/consul.service
+      [Unit]
+      Description=Consul
+      Requires=network-online.target
+      After=network.target
+      [Service]
+      Type=simple
+      Environment=DOCKER_HOST=tcp://localhost:2376
+      ExecStart=/opt/consul/bin/consul agent -config-dir=/opt/consul/config
+      ExecReload=/bin/kill -HUP \$MAINPID
+      [Install]
+      WantedBy=multi-user.target
+      EOF
+      systemctl enable consul
+      systemctl start consul
+      until /opt/consul/bin/consul join "cloudify-manager-${DATACENTER}"
+      do
+        echo Waiting to join Consul cluster
+        sleep 60
+      done
+
+      apt-get update
+      DEBIAN_FRONTEND=noninteractive apt-get install -y -q linux-image-extra-`uname -r` linux-image-extra-virtual apparmor dirmngr
+      DEBIAN_FRONTEND=noninteractive apt-get install -y -q docker.io
+      echo 'DOCKER_OPTS="--raw-logs -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock"' >>/etc/default/docker
+      systemctl restart docker
+node_templates:
+  key_pair:
+    type: cloudify.openstack.nodes.KeyPair
+    properties:
+      private_key_path: { get_input: key_filename }
+      use_external_resource: True
+      resource_id: { get_input: keypair }
+      openstack_config: &open_conf
+        get_input: openstack
+  private_net:
+    type: cloudify.openstack.nodes.Network
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: private_net }
+      openstack_config: *open_conf
+  security_group:
+    type: cloudify.openstack.nodes.SecurityGroup
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: security_group }
+      openstack_config: *open_conf
+  fixedip_dokr00:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }    
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_dokr00:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_dokr00:
+    type: dcae.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, { get_input: node_name }, '.', { get_input: location_domain } ] }
+      fakeurl: { get_input: fake_designate }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_dokr00, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_dokr00
+  host_dokr00:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, { get_input: node_name }] }
+              userdata: 
+                concat:
+                  - { get_input: vm_init_dokr_00 }
+                  - { get_input: location_id }
+                  - |+
+                  
+                  - { get_input: vm_init_dokr_01 }
+                  - { get_input: registered_dockerhost_name }
+                  - |+
+
+                  - { get_input: vm_init_dokr_fqdn }
+                  - { get_property: [ dns_dokr00, fqdn ] }
+                  - |+
+
+                  - { get_input: vm_init_dokr_service_tags }
+                  - |+
+                                 
+                  - { get_input: vm_init_dokr_02 }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_dokr00
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_dokr00
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_dokr00
+
+  registrator:
+    type: dcae.nodes.DockerContainer
+    properties:
+        name:
+            'registrator'
+        image:
+            { get_input: registrator_image }
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              EXTERNAL_IP: 
+                get_attribute: [ floatingip_dokr00, floating_ip_address ]
+            volumes:
+              - host:
+                  path: '/var/run/docker.sock'
+                container:
+                  bind: '/tmp/docker.sock'
+                  mode: 'ro'
+  
+  docker_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+        location_id:
+            { get_input: location_id }
+        docker_host_override:
+            { get_input: registered_dockerhost_name }
+    relationships:
+          - type: cloudify.relationships.depends_on #this is to avoid a race condition
+            target: host_dokr00

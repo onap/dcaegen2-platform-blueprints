@@ -1,0 +1,137 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint is used to install and to uninstall DCAE inventory and DCAE service change
+  handler which are platform services. These applications are Docker containers. This blueprint
+  depends upon the deployment of a Docker host and the deployment of a central postgres that is
+  registered with Consul.
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/docker/2.3.0/node-type.yaml
+
+inputs:
+
+  location_id:
+    description: Location of where to deploy to
+
+  docker_host_override:
+    description: Target docker host to deploy applications to
+  asdc_address:
+    description: SDC host
+  asdc_uri:
+    description: SDC url
+  asdc_user:
+    description: SDC username
+  asdc_password:
+    description: SDC password
+  asdc_environment_name:
+    description: SDC environment name
+
+  postgres_user_inventory:
+    description: Postgres user for inventory
+  postgres_password_inventory:
+    description: Postgres password for inventory
+
+  service_change_handler_image:
+    description: Full uri to service change handler Docker image
+  inventory_image:
+    description: Full uri to inventory Docker image
+
+node_templates:
+
+  service-change-handler:
+    type: dcae.nodes.DockerContainerForPlatforms
+    properties:
+      name:
+        "service-change-handler"
+      application_config:
+        asdcDistributionClient:
+          asdcAddress: { get_input: asdc_address }
+          asdcUri: { get_input: asdc_uri }
+          user: { get_input: asdc_user }
+          password: { get_input: asdc_password }
+          pollingInterval: 20
+          pollingTimeout: 20
+          consumerGroup: dcae
+          consumerId: dcae-sch
+          environmentName: { get_input: asdc_environment_name }
+          keyStorePath:
+          keyStorePassword:
+          activateServerTLSAuth: false
+          isFilterInEmptyResources: false
+        dcaeInventoryClient:
+          uri: http://inventory:8080
+      image:
+        { get_input: service_change_handler_image }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: inventory
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+
+  inventory:
+    type: dcae.nodes.DockerContainerForPlatforms
+    properties:
+      name:
+        "inventory"
+      application_config:
+        database:
+          driverClass: org.postgresql.Driver
+          user: { get_input: postgres_user_inventory }
+          password: { get_input: postgres_password_inventory }
+          url: jdbc:postgresql://pstg-write:5432/dcae_inv
+          properties:
+            charSet: UTF-8
+          maxWaitForConnection: 1s
+          validationQuery: "/* MyService Health Check */ SELECT 1"
+          minSize: 2
+          maxSize: 8
+          initialSize: 2
+          checkConnectionWhileIdle: false
+          evictionInterval: 10s
+          minIdleTime: 1 minute
+        dcaeControllerConnection:
+          host: dcae-controller-hostname
+          port: 9998
+          basePath: resources
+          user: 
+          password: 
+          required: false
+        databusControllerConnection:
+          host: databus-controller-hostname
+          port: 8443
+          mechId: 
+          password: 
+          required: false
+        httpClient:
+          minThreads: 1
+          maxThreads: 128
+          gzipEnabled: false
+          gzipEnabledForRequests: false
+          timeout: 5000milliseconds
+          connectionTimeout: 5000milliseconds
+      docker_config:
+        healthcheck:
+          type: "http"
+          interval: "30s"
+          timeout: "3s"
+          endpoint: "/dcae-service-types"
+      image:
+        { get_input: inventory_image }
+      host_port:
+        8080
+      container_port:
+        8080
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+
+  docker_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+        location_id:
+            { get_input: location_id }
+        docker_host_override:
+            { get_input: docker_host_override }
