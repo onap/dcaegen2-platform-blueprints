@@ -81,7 +81,9 @@ node_templates:
           driverClass: org.postgresql.Driver
           user: { get_input: postgres_user_inventory }
           password: { get_input: postgres_password_inventory }
-          url: jdbc:postgresql://pstg-write:5432/dcae_inv
+          # NOTE: The database name here has been changed to the default "postgres" database
+          # to use the private postgres instance and not the central postgres database.
+          url: jdbc:postgresql://pstg-write:5432/postgres
           properties:
             charSet: UTF-8
           maxWaitForConnection: 1s
@@ -127,6 +129,32 @@ node_templates:
     relationships:
       - type: dcae.relationships.component_contained_in
         target: docker_host
+      - type: cloudify.relationships.depends_on
+        target: postgres
+
+  postgres:
+    type: dcae.nodes.DockerContainer
+    properties:
+        name:
+            "pstg-write"
+        image:
+            "postgres:9.5.2"
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              PGDATA:
+                "/var/lib/postgresql/data/pgdata"
+              POSTGRES_PASSWORD:
+                { get_input: postgres_password_inventory }
+              SERVICE_NAME:
+                "pstg-write"
+            ports:
+              - "5432:5432"
 
   docker_host:
     type: dcae.nodes.SelectedDockerHost
