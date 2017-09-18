@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_040796cb",
+        "filename": "blueprints/policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 515
+      },
+      "writtenOn": "2017-09-18T22:22:58Z",
+      "side": 1,
+      "message": "This was just an example from the documentation on how to set an ENV variable..",
+      "revId": "b72a6d3abaeb54ca3e6cc6a876b99dbf3db0ec77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_e40932de",
+        "filename": "blueprints/policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 515
+      },
+      "writtenOn": "2017-09-18T22:22:58Z",
+      "side": 1,
+      "message": "You should remove this unless you have ENV variables to set.",
+      "revId": "b72a6d3abaeb54ca3e6cc6a876b99dbf3db0ec77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_24685a86",
+        "filename": "blueprints/policy_handler_sample_app_config.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 515
+      },
+      "writtenOn": "2017-09-18T22:22:58Z",
+      "side": 1,
+      "message": "what is this URL? could this be an intrinsic function or a lookup in Consul?",
+      "revId": "b72a6d3abaeb54ca3e6cc6a876b99dbf3db0ec77",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
