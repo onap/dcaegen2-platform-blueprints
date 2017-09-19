@@ -1,0 +1,64 @@
+# ============LICENSE_START=======================================================
+# org.onap.dcae
+# ================================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+#
+# ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint deploys/manages the DCAE policy-handler as a Docker container
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/docker/2.4.0/node-type.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml"
+
+inputs:
+
+  location_id:
+    description: Deployment location
+
+  docker_host_override:
+    description: Target docker host
+    default: 'platform_dockerhost'
+
+  policy_handler_image:
+    description: Docker image for policy_handler
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/org.onap.dcaegen2.platform.policy_handler:1.0.0'
+
+  application_config:
+    description: policy handler application configuration - requires info on policy-engine
+    default: {}
+
+node_templates:
+  policy_handler:
+    type: dcae.nodes.DockerContainerForPlatforms
+    properties:
+        name: 'policy_handler'
+        image: { get_input: policy_handler_image }
+        application_config: { get_input: application_config }
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+
+  # Docker host
+  docker_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+        location_id: { get_input: location_id }
+        docker_host_override: { get_input: docker_host_override }
