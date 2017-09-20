@@ -1,0 +1,81 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+    This blueprint is for managing the CDAP infrastructure
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/cdap/14.2.4/cdap_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/docker/2.3.0/node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
+
+inputs:
+    location_id:
+        default: "rework-central"
+    cdap_cluster_name:
+        type: string
+        default: "cdap"
+    broker_image: 
+        type: string
+        description: full url to cdap broker image
+
+node_templates: 
+    
+    broker_deleter:
+         #does nothing on install, but deletes all registered apps when broker is uninstalled
+         #uninstalling the broker without doing this leaves them in purgatory forever, unless CDAP was also uninstalled, but that may or may not be true or in the same blueprint. 
+         type: dcae.nodes.broker_deleter
+         properties:
+             location_id: { get_input: location_id }
+         interfaces:
+             cloudify.interfaces.lifecycle:
+                 delete:
+                     inputs:
+                         connected_broker_dns_name: { get_property: [cdap_broker, name] }
+         relationships:
+             - type: cloudify.relationships.depends_on
+               target: cdap_broker
+
+    cdap_broker:
+        type: dcae.nodes.DockerContainerForPlatforms
+        properties:
+            name: 'cdap_broker'
+            application_config: 
+                bindingttw: 5
+                hcinterval: 60s
+                autoderegisterafter: 10m
+                pipelinehealthlimit: 2
+            host_port:      7777
+            container_port: 7777
+            docker_config:
+                healthcheck:
+                    type: "http"
+                    #broker has a semi healthcheck endpoint at root right now, TODO would be to add a real /healtcheck endpoint
+                    endpoint: "/"
+                    interval: "120s"
+                    timeout: "60s"
+            image: { get_input : broker_image }
+        interfaces:
+          cloudify.interfaces.lifecycle:
+            start:
+              inputs:
+                envs:
+                  CDAP_CLUSTER_TO_MANAGE: { get_input: cdap_cluster_name }
+                volumes:
+                  - host:
+                      path: '/tmp/log/cdapbroker/'
+                    container:
+                      bind: '/tmp/log/cdapbroker/' #Broker EELF log directory
+                      mode: 'rw'
+        relationships:
+          - type: dcae.relationships.component_contained_in
+            target: docker_host
+                
+    docker_host:
+        type: dcae.nodes.SelectedDockerHost
+        properties:
+            location_id:
+                { get_input: location_id }
+            docker_host_override:
+                'platform_dockerhost'
+                #WARNING: ASSUMES THIS EXISTS AND IS ALREADY REGISTERED

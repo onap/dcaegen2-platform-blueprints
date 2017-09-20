@@ -1,0 +1,48 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint installs the config binding service
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/docker/2.3.0/node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
+
+inputs:
+
+  location_id:
+    description: Location of where to deploy to
+
+  docker_host_override:
+    description: Target docker host to deploy applications to
+    # This default comes from the DockerBP.yaml
+    default: 'platform_dockerhost'
+  
+  cbs_image: 
+    description: full url of the CBS image
+
+node_templates:
+  # Config binding service
+  service-config-binding:
+    type: dcae.nodes.DockerContainerForPlatforms
+    properties:
+        name: 'config_binding_service'
+        host_port: 10000
+        container_port: 10000
+        image: { get_input : cbs_image }
+        docker_config:
+            healthcheck:
+                type: "http"
+                endpoint: "/healthcheck"
+
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host
+
+  docker_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+        location_id:
+            { get_input: location_id }
+        docker_host_override:
+            { get_input: docker_host_override }
