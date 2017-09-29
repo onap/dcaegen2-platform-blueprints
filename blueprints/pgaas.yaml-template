@@ -1,8 +1,11 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 
+<<<<<<< HEAD
 # TODO
 # add consul registration
 
+=======
+>>>>>>> f62e307...  update pgaas blueprints
 # ============LICENSE_START====================================================
 # org.onap.dcae
 # =============================================================================
@@ -23,19 +26,32 @@
 
 tosca_definitions_version: cloudify_dsl_1_3
 
+<<<<<<< HEAD
 description: >
   This blueprint is used to install and to uninstall a central postgres as a platform service.
   This blueprint depends upon the deployment of the pgaas_plugin and Consul.
+=======
+#description: |-
+#  This blueprint is used to install and to uninstall a central postgres as a platform service.
+#  This blueprint depends upon the deployment of the pgaas_plugin and Consul.
+>>>>>>> f62e307...  update pgaas blueprints
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
   - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
   - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
 
+<<<<<<< HEAD
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml
+=======
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml"
+>>>>>>> f62e307...  update pgaas blueprints
 
 inputs:
   # environment info
