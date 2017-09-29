@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a437d4f_8ab22804",
+        "filename": "blueprints/pgaas-cluster.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2017-09-29T17:49:46Z",
+      "side": 1,
+      "message": "merge conflicts",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 15
+      },
+      "revId": "4172fd82bfe246fd453b745d7e944aae123d2a62",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a437d4f_6ab704f6",
+        "filename": "blueprints/pgaas-database.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2017-09-29T17:49:46Z",
+      "side": 1,
+      "message": "merge conflict",
+      "range": {
+        "startLine": 5,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 43
+      },
+      "revId": "4172fd82bfe246fd453b745d7e944aae123d2a62",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
