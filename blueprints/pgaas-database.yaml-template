@@ -2,7 +2,7 @@
 
 tosca_definitions_version: cloudify_dsl_1_3
 
-description: >
+description: |-
   This blueprint is used to install and to uninstall a persistent database into the central postgres as a platform service.
   This blueprint depends upon the deployment of the pgaas_plugin, the PGaaS Cinder volume, the PGaaS service, and Consul.
   This blueprint is part of a suite of three blueprints that allow a PGaaS
@@ -17,7 +17,7 @@ description: >
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
 
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml"
 
 inputs:
   # environment info
@@ -48,7 +48,8 @@ inputs:
   pgaas_cluster_name:
     type: string
     default: pgcl
-  database_contacts: {}
+  database_contacts:
+    type: {}
     default: {}
   database_description:
     type: string
