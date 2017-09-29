@@ -1,0 +1,421 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+
+# TODO
+# add consul registration
+
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint is used to install and to uninstall a central postgres as a platform service.
+  This blueprint depends upon the deployment of the pgaas_plugin and Consul.
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
+  - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
+
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml
+
+inputs:
+  # environment info
+  blueprint_version:
+    type: string
+    default: 'VERSION-STAMP-GOES-HERE'
+  flavor_id:
+    type: string
+  key_filename:
+    type: string
+  keypair:
+    type: string
+  location_domain:
+    type: string
+  location_prefix:
+    type: string
+  openstack: {}
+  private_net:
+    type: string
+  public_net:
+    type: string
+  security_group:
+    type: string
+  ubuntu1604image_id:
+    type: string
+
+  # pgaas-specific info
+  pgaas_cluster_name:
+    type: string
+    default: pstg
+
+  vm_init_pgrs:
+    type: string
+    default: |
+      #!/bin/sh
+      echo All output will be found in /tmp/ins.out and /tmp/ins.err
+      exec > /tmp/ins.out 2> /tmp/ins.err
+      set -x
+      if [ "$(dnsdomainname 2>/dev/null)" = "" ]
+      then
+        echo WARNING WARNING WARNING
+        echo The DNS DHCP settings did not work properly.
+        exit 1
+      fi
+
+      CONFDIR=/var/config/DCAE/chef/
+      mkdir -p $CONFDIR
+
+      CONF=$CONFDIR/pgaas-postgres.conf
+      cat <<EOF > $CONF
+      master: ${MASTER%%.*}
+      secondmaster: notused
+      DRTR_NODE_KSTOREFILE: /opt/app/dcae-certificate/keystore.jks
+      DRTR_NODE_KSTOREPASS: "No Certificate"
+      DRTR_NODE_PVTKEYPASS: "No Certificate"
+      PG_NODES: $PG_NODES
+      PG_JAVA_HOME : /opt/app/java/jdk/jdk170
+      PG_CLUSTER: central
+      EOF
+
+      apt-get update
+
+      # invoking apt-get separately allows a failure to be ignored
+      for i in openjdk-7-jdk openjdk-8-jdk python-pip python3-pip curl gawk; do apt-get install -y $i;done
+      pip install pyyaml
+
+      # prevent servers from starting
+      echo  "exit 101" > /usr/sbin/policy-rc.d; chmod a+x /usr/sbin/policy-rc.d
+
+      # invoking apt-get separately allows a failure to be ignored
+      for i in postgresql libpq5 repmgr python-psycopg2 python3-psycopg2 libgetopt-java; do apt-get install -y $i; done
+
+      # allow servers to autostart again
+      rm -f /usr/sbin/policy-rc.d
+
+      ( umask 077; sed 's/^/*:*:*:postgres:/' < /root/.pgrspw > ~postgres/.pgpass; chown postgres:postgres ~postgres/.pgpass )
+
+      if [ ! -f $CONF ]
+      then echo "$CONF does not exist" 1>&2; exit 1
+      fi
+
+      echo Look in /tmp/pgaas.out for output from installing PGaaS
+      NEXUS={{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform }}/debs
+      for pkg in cdf_17.10.0-LATEST.deb pgaas_17.10.0-LATEST.deb
+      do
+          OUT=/tmp/$pkg
+          curl -s -k -f -o $OUT $NEXUS/$pkg
+          dpkg --install $OUT
+      done
+
+      case $(hostname) in
+      do
+        *00 ) WRITE=-write ;;
+        *01 ) WRITE= ;;
+      esac
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d '{"name" : "${CLUSTER_NAME}${WRITE}", "Address" : "${LOCAL_IP}", "Port" : 5432}"
+
+      echo ALL DONE
+
+node_templates:
+  key_pair:
+    type: cloudify.openstack.nodes.KeyPair
+    properties:
+      private_key_path: { get_input: key_filename }
+      use_external_resource: True
+      resource_id: { get_input: keypair }
+      openstack_config: &open_conf
+        get_input: openstack
+  private_net:
+    type: cloudify.openstack.nodes.Network
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: private_net }
+      openstack_config: *open_conf
+  security_group:
+    type: cloudify.openstack.nodes.SecurityGroup
+    properties:
+      use_external_resource: True
+      resource_id: { get_input: security_group }
+      openstack_config: *open_conf
+
+  sharedsshkey_pgrs:
+    type: dcae.nodes.ssh.keypair
+
+  fixedip_pgrs00:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_pgrs00:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_pgrs00:
+    type: dcae.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_pgrs00, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_pgrs00
+  host_pgrs00:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_pgrs, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_pgrs, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    ( umask 077; echo -n postgres | cat - /root/.sshkey/id_rsa | md5sum | awk '{ print $1 }' > /root/.pgrspw )
+                    set -x
+                  - "\n"
+                  - "CLUSTER_NAME='"
+                  - { get_input: pgaas_cluster_name }
+                  - "'\n"
+                  - "LOCATION_PREFIX='"
+                  - { get_input: location_prefix }
+                  - "'\n"
+                  - "LOCATION_DOMAIN='"
+                  - { get_input: location_domain }
+                  - "'\n"
+                  - "MASTER='"
+                  - { get_property: [ dns_pgrs00, fqdn ] }
+                  - "'\n"
+                  - "LOCAL_IP='"
+                  - { get_attribute: [ host_pgrs00, ip ] }
+                  - "'\n"
+                  - "PG_NODES='"
+                  - { get_property: [ dns_pgrs00, fqdn ] }
+                  - '|'
+                  - { get_property: [ dns_pgrs01, fqdn ] }
+                  - "'\n"
+                  - { get_input: vm_init_pgrs }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_pgrs00
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_pgrs00
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_pgrs00
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_pgrs
+  fixedip_pgrs01:
+    type: cloudify.openstack.nodes.Port
+    properties:
+      port:
+        extra_dhcp_opts:
+          - opt_name: 'domain-name'
+            opt_value: { get_input: location_domain }
+      openstack_config: *open_conf
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: private_net
+  floatingip_pgrs01:
+    type: cloudify.openstack.nodes.FloatingIP
+    properties:
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              floating_network_name: { get_input: public_net }
+  dns_pgrs01:
+    type: dcae.nodes.dns.arecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              ip_addresses:
+                - { get_attribute: [ floatingip_pgrs01, floating_ip_address ] }
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: floatingip_pgrs01
+  host_pgrs01:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      install_agent: false
+      image: { get_input: ubuntu1604image_id }
+      flavor: { get_input: flavor_id }
+      management_network_name: { get_input: private_net }
+      openstack_config: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              name: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01' ] }
+              userdata:
+                concat:
+                  - |-
+                    #!/bin/sh
+                    mkdir /root/.sshkey
+                    echo '
+                  - { get_attribute: [ sharedsshkey_pgrs, public ] }
+                  - |-
+                    ' >/root/.sshkey/id_rsa.pub
+                    echo '
+                  - { get_attribute: [ sharedsshkey_pgrs, base64private ] }
+                  - |-
+                    ' | base64 -d >/root/.sshkey/id_rsa
+                    chmod 700 /root/.sshkey
+                    chmod 600 /root/.sshkey/*
+                    ( umask 077; echo -n postgres | cat - /root/.sshkey/id_rsa | md5sum | awk '{ print $1 }' > /root/.pgrspw )
+                    set -x
+                  - "\n"
+                  - "CLUSTER_NAME='"
+                  - { get_input: pgaas_cluster_name }
+                  - "'\n"
+                  - "LOCATION_PREFIX='"
+                  - { get_input: location_prefix }
+                  - "'\n"
+                  - "LOCATION_DOMAIN='"
+                  - { get_input: location_domain }
+                  - "'\n"
+                  - "MASTER='"
+                  - { get_property: [ dns_pgrs00, fqdn ] }
+                  - "'\n"
+                  - "LOCAL_IP='"
+                  - { get_attribute: [ host_pgrs01, ip ] }
+                  - "'\n"
+                  - "PG_NODES='"
+                  - { get_property: [ dns_pgrs00, fqdn ] }
+                  - '|'
+                  - { get_property: [ dns_pgrs01, fqdn ] }
+                  - "'\n"
+                  - { get_input: vm_init_pgrs }
+    relationships:
+      - type: cloudify.openstack.server_connected_to_port
+        target: fixedip_pgrs01
+      - type: cloudify.openstack.server_connected_to_security_group
+        target: security_group
+      - type: cloudify.openstack.server_connected_to_floating_ip
+        target: floatingip_pgrs01
+      - type: cloudify.openstack.server_connected_to_keypair
+        target: key_pair
+      - type: cloudify.relationships.depends_on
+        target: dns_pgrs01
+      - type: cloudify.relationships.depends_on
+        target: sharedsshkey_pgrs
+
+  # CNAME records
+  dns_pgrs_rw:
+    type: dcae.nodes.dns.cnamerecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '-write.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              cname: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
+
+  dns_pgrs_ro:
+    type: dcae.nodes.dns.cnamerecord
+    properties:
+      fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '.', { get_input: location_domain } ] }
+      openstack: *open_conf
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            args:
+              cname: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
+
+  # tie to pgaas_plugin database
+  pgaas_cluster:
+    type: dcae.nodes.pgaas.cluster
+    properties:
+      writerfqdn: { get_property: [ dns_pgrs_rw, fqdn ] }
+      readerfqdn: { get_property: [ dns_pgrs_ro, fqdn ] }
+    relationships:
+      - type: dcae.relationships.pgaas_cluster_uses_sshkeypair
+        target: sharedsshkey_pgrs
+      - type: cloudify.relationships.depends_on
+        target: dns_pgrs_rw
+      - type: cloudify.relationships.depends_on
+        target: dns_pgrs_ro
+
+outputs:
+  public_ip00:
+    value: { get_attribute: [host_pgrs00, ip] }
+  public_ip01:
+    value: { get_attribute: [host_pgrs01, ip] }
+  writerfqdn:
+    value: { get_property: [ dns_pgrs_rw, fqdn ] }
+  readerfqdn:
+    value: { get_property: [ dns_pgrs_ro, fqdn ] }
+  dns_pgrs00:
+    value: { get_property: [ dns_pgrs00, fqdn ] }
+  dns_pgrs01:
+    value: { get_property: [ dns_pgrs01, fqdn ] }
+  version:
+    value: { get_input: blueprint_version }
