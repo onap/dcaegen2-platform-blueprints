@@ -1,8 +1,5 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
-
-# TODO
-# add consul registration
-
+#
 # ============LICENSE_START====================================================
 # org.onap.dcae
 # =============================================================================

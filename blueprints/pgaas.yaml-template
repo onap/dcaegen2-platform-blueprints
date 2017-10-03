@@ -1,6 +1,5 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
-
-
+#
 # ============LICENSE_START====================================================
 # org.onap.dcae
 # =============================================================================
@@ -20,6 +19,10 @@
 # ============LICENSE_END======================================================
 
 tosca_definitions_version: cloudify_dsl_1_3
+
+description: |-
+  This blueprint is used to install and to uninstall a central postgres as a platform service.
+  This blueprint depends upon the deployment of the pgaas_plugin and Consul.
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
