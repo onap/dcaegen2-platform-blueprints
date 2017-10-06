@@ -35,7 +35,7 @@ description: |-
 imports: 
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
 
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/pgaas_plugin/1.0.0/pgaas_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
 
 inputs: 
   location_domain: 
