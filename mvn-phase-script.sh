@@ -121,7 +121,7 @@ expand_templates()
     return 0
   fi
 
-  echo "====> Resolving the following temaplate from environment variables "
+  echo "====> Expanding the following template from environment variables "
   echo "[$TEMPLATES]"
   SELFFILE=$(echo "$0" | rev | cut -f1 -d '/' | rev)
   for TEMPLATE in $TEMPLATES; do
@@ -149,14 +149,34 @@ expand_templates()
     done
 
     #if [ ! -z "$FILES" ]; then
-    #   echo "====> Resolving template $VALUE to value $VALUE"
+    #   echo "====> Expanding template $VALUE to value $VALUE"
     #   #CMD="grep -rl \"$VALUE\" | tr '\n' '\0' | xargs -0 sed -i \"s/{{[[:space:]]*$VALUE[[:space:]]*}}/$VALUE/g\""
     #   grep -rl "$KEY" | tr '\n' '\0' | xargs -0 sed -i 's/$KEY/$VALUE2/g'
     #   #echo $CMD
     #   #eval $CMD
     #fi
   done
-  echo "====> Done template reolving"
+  echo "====> Done template expanding"
+}
+
+test_templates()
+{
+    # make certain that the type references exist
+    TMP=$(mktemp)
+    trap 'rm -f $TMP' 0 1 2 3 15
+    find . -name '*-template' | sed 's/-template$//' |
+    while read file
+    do
+        egrep '^  - .?https?://' < $file
+    done  | awk '{print $2}' | sort -u |
+    while read url
+    do
+	curl -L -w '%{http_code}' -s -o /dev/null "$url" > $TMP
+	case $(< $TMP) in
+	    2* ) ;;
+	    * ) echo "$url not found"; exit 1 ;;
+	esac
+    done
 }
 
 
@@ -357,6 +377,7 @@ compile)
   ;;
 test)
   echo "==> test phase script"
+  test_templates
   ;;
 package)
   echo "==> package phase script"
