@@ -164,11 +164,11 @@ test_templates()
     # make certain that the type references exist
     TMP=$(mktemp)
     trap 'rm -f $TMP' 0 1 2 3 15
-    find . -name '*-template' | sed 's/-template$//' |
+    find . -name '*-template' | sed -e 's/-template$//' |
     while read file
     do
         egrep '^  - .?https?://' < $file
-    done  | awk '{print $2}' | sort -u |
+    done  | awk '{print $2}' | sed -e 's/"//g' | sort -u |
     while read url
     do
 	curl -L -w '%{http_code}' -s -o /dev/null "$url" > $TMP
