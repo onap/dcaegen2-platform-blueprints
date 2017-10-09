@@ -31,13 +31,11 @@ imports:
 
 inputs:
     location_id:
-        default: "rework-central"
+        type: string
+        default: ""
     cdap_cluster_name:
         type: string
         default: "cdap"
-    broker_image: 
-        type: string
-        description: full url to cdap broker image
 
 node_templates: 
     
@@ -45,8 +43,6 @@ node_templates:
          #does nothing on install, but deletes all registered apps when broker is uninstalled
          #uninstalling the broker without doing this leaves them in purgatory forever, unless CDAP was also uninstalled, but that may or may not be true or in the same blueprint. 
          type: dcae.nodes.broker_deleter
-         properties:
-             location_id: { get_input: location_id }
          interfaces:
              cloudify.interfaces.lifecycle:
                  delete:
@@ -74,7 +70,7 @@ node_templates:
                     endpoint: "/"
                     interval: "120s"
                     timeout: "60s"
-            image: { get_input : broker_image }
+            image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.cdapbroker:4.0"
         interfaces:
           cloudify.interfaces.lifecycle:
             start:

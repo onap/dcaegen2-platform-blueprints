@@ -29,18 +29,14 @@ imports:
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
 
 inputs:
-
   location_id:
-    description: Location of where to deploy to
+    type: string
+    default: ""
 
   docker_host_override:
     description: Target docker host to deploy applications to
-    # This default comes from the DockerBP.yaml
     default: 'platform_dockerhost'
-  
-  cbs_image: 
-    description: full url of the CBS image
-
+ 
 node_templates:
   # Config binding service
   service-config-binding:
@@ -49,7 +45,7 @@ node_templates:
         name: 'config_binding_service'
         host_port: 10000
         container_port: 10000
-        image: { get_input : cbs_image }
+        image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:1.2"
         docker_config:
             healthcheck:
                 type: "http"
