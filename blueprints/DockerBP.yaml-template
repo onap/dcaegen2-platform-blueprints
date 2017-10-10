@@ -26,8 +26,10 @@ imports:
   - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationship/1.0.0/node-type.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/docker-node-type.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml
+
+
  
 inputs:
   registered_dockerhost_name:
