@@ -1,0 +1,105 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+
+imports: 
+  - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
+
+inputs:
+  ves_fault_publish_url:
+    type: string
+    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_FAULT_OUTPUT/"
+  ves_measurement_publish_url:
+    type: string
+    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT/"
+  dh_override:
+    type: string
+    default: "dockerhost.dcae.devlab.onap.org"
+  dh_location_id:
+    type: string
+    default: "rework-central"
+
+node_templates: 
+  docker_host_host: 
+    properties: 
+      docker_host_override: 
+        get_input: dh_override
+      location_id: 
+        get_input: dh_location_id
+    type: dcae.nodes.SelectedDockerHost
+  topic0: 
+    properties: 
+      topic_name: ves_fault
+    type: dcae.nodes.Topic
+  topic1: 
+    properties: 
+      topic_name: ves_measurement
+    type: dcae.nodes.Topic
+  ves_ves: 
+    interfaces: 
+      cloudify.interfaces.lifecycle: 
+        stop: 
+          inputs: 
+            cleanup_image: true
+    properties: 
+      application_config: 
+        collector.dmaap.streamid: fault=ves_fault|syslog=ves_syslog|heartbeat=ves_heartbeat|measurementsForVfScaling=ves_measurement|mobileFlow=ves_mobileflow|other=ves_other|stateChange=ves_statechange|thresholdCrossingAlert=ves_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling
+        collector.inputQueue.maxPending: "8096"
+        collector.keystore.alias: "dynamically generated"
+        collector.keystore.file.location: /opt/app/dcae-certificate/keystore.jks
+        collector.keystore.passwordfile: /opt/app/dcae-certificate/.password
+        collector.schema.checkflag: "1"
+        collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.json\"}"
+        collector.service.port: "8080"
+        collector.service.secure.port: "8443"
+        event.transform.flag: "0"
+        header.authflag: "0"
+        header.authlist: "userid1,base64encodepwd1|userid2,base64encodepwd2"
+        services_calls: []
+        streams_publishes: 
+          - 
+            ves_fault: 
+              dmaap_info: 
+                topic_url: 
+                  get_input: ves_fault_publish_url
+              type: message_router
+          - 
+            ves_measurement: 
+              dmaap_info: 
+                topic_url:
+                  get_input: ves_measurement_publish_url
+              type: message_router
+        tomcat.maxthreads: "200"
+      docker_config: 
+        healthcheck: 
+          endpoint: /healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
+      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1-latest"
+      service_component_type: dcaegen2-collectors-ves
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_host_host
+    type: dcae.nodes.DockerContainerForComponentsUsingDmaap
