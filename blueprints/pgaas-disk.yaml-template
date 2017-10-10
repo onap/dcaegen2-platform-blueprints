@@ -72,12 +72,9 @@ inputs:
   pgaas_cluster_name:
     type: string
     default: pgcl
-<<<<<<< HEAD
-=======
   cinder_volume_size:
     type: string
     default: 300
->>>>>>> f62e307...  update pgaas blueprints
 
 node_templates:
   key_pair:
