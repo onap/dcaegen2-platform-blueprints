@@ -1,0 +1,8 @@
+Code-Review+1: Tommy Carpenter <tommy@research.att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Tue, 10 Oct 2017 15:07:17 +0000
+Reviewed-on: http://gerrit.onap.org/r/17967
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
