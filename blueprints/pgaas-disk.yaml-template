@@ -87,7 +87,7 @@ node_templates:
         get_input: openstack
 
   sharedsshkey_pgrs:
-    type: dcae.nodes.ssh.keypair
+    type: ccsdk.nodes.ssh.keypair
 
   private_net:
     type: cloudify.openstack.nodes.Network

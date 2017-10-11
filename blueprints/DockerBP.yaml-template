@@ -56,9 +56,6 @@ inputs:
   private_net:
     type: string
   openstack: {}
-  fake_designate:
-    type: string
-    default: ''
   keypair:
     type: string
   location_prefix:
@@ -233,10 +230,9 @@ node_templates:
             args:
               floating_network_name: { get_input: public_net }
   dns_dokr00:
-    type: dcae.nodes.dns.arecord
+    type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, { get_input: node_name }, '.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
