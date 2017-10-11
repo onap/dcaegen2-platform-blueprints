@@ -37,6 +37,10 @@ inputs:
   location_id:
     description: the location ID for the location where the Docker hsot is being deployed
     type: string
+  target_datacenter:
+    description: |-
+      This is the name of the target Consul datacenter that the docker host will try to join
+    type: string
   registrator_image:
     description: |-
       Full uri to registrator Docker image. Note! You should be using the forked version of
@@ -123,9 +127,10 @@ inputs:
 
       mkdir -p /opt/consul/config /opt/consul/data /opt/consul/bin
       # Download Consul from Nexus
-      curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > /opt/consul/bin/consul_0.8.3_linux_amd64
-      chmod +x  /opt/consul/bin/consul_0.8.3_linux_amd64
-      ln -s /opt/consul/bin/consul_0.8.3_linux_amd64 /opt/consul/bin/consul 
+      apt-get update
+      DEBIAN_FRONTEND=noninteractive apt-get install -y -q unzip
+      curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > /opt/consul/bin/consul_0.8.3_linux_amd64.zip
+      unzip /opt/consul/bin/consul_0.8.3_linux_amd64.zip
       cat <<EOF > /opt/consul/config/consul.json
       {
         "bind_addr" : "0.0.0.0",
@@ -182,7 +187,6 @@ inputs:
         sleep 60
       done
 
-      apt-get update
       DEBIAN_FRONTEND=noninteractive apt-get install -y -q linux-image-extra-`uname -r` linux-image-extra-virtual apparmor dirmngr
       DEBIAN_FRONTEND=noninteractive apt-get install -y -q docker.io
       echo 'DOCKER_OPTS="--raw-logs -H tcp://0.0.0.0:2376 -H unix:///var/run/docker.sock"' >>/etc/default/docker
@@ -261,7 +265,7 @@ node_templates:
               userdata: 
                 concat:
                   - { get_input: vm_init_dokr_00 }
-                  - { get_input: location_id }
+                  - { get_input: target_datacenter }
                   - |+
                   
                   - { get_input: vm_init_dokr_01 }
