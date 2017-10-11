@@ -44,29 +44,9 @@ imports:
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
 
 inputs:
-  # environment info
   blueprint_version:
     type: string
     default: 'VERSION-STAMP-GOES-HERE'
-  flavor_id:
-    type: string
-  key_filename:
-    type: string
-  keypair:
-    type: string
-  location_domain:
-    type: string
-  location_prefix:
-    type: string
-  openstack: {}
-  private_net:
-    type: string
-  public_net:
-    type: string
-  security_group:
-    type: string
-  ubuntu1604image_id:
-    type: string
 
   # pgaas-specific info
   pgaas_cluster_name:
@@ -75,6 +55,8 @@ inputs:
   cinder_volume_size:
     type: string
     default: 300
+
+{{ ONAPTEMPLATE_STANDARD_INPUTS_TYPES }}
 
 node_templates:
   key_pair:
@@ -137,5 +119,5 @@ node_templates:
         target: sharedsshkey_pgrs
 
 outputs:
-  version:
+  blueprint_version:
     value: { get_input: blueprint_version }

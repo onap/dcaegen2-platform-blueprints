@@ -42,34 +42,16 @@ imports:
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
 
 inputs:
-  # environment info
   blueprint_version:
     type: string
     default: 'VERSION-STAMP-GOES-HERE'
-  flavor_id:
-    type: string
-  key_filename:
-    type: string
-  keypair:
-    type: string
-  location_domain:
-    type: string
-  location_prefix:
-    type: string
-  openstack: {}
-  private_net:
-    type: string
-  public_net:
-    type: string
-  security_group:
-    type: string
-  ubuntu1604image_id:
-    type: string
 
   # pgaas-specific info
   pgaas_cluster_name:
     type: string
     default: pgcl
+
+{{ ONAPTEMPLATE_STANDARD_INPUTS_TYPES }}
 
   vm_init_pgrs:
     type: string
@@ -437,5 +419,5 @@ outputs:
     value: { get_property: [ dns_pgrs00, fqdn ] }
   dns_pgrs01:
     value: { get_property: [ dns_pgrs01, fqdn ] }
-  version:
+  blueprint_version:
     value: { get_input: blueprint_version }
