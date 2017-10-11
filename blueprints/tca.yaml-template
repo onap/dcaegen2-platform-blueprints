@@ -1,0 +1,95 @@
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/cdapcloudify/14/cdapcloudify_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dcaepolicyplugin/1/dcaepolicyplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml
+
+inputs:
+  connected_broker_dns_name:
+    type: string
+    default: cdap_broker
+  dcae_service_location:
+    type: string
+node_templates:
+  policy_0:
+    type: dcae.nodes.policy
+    properties:
+      policy_id: something_filled_by_CLAMP
+  tca_tca:
+    type: dcae.nodes.MicroService.cdap
+    properties:
+      app_config:
+        appDescription: DCAE Analytics Threshold Crossing Alert Application
+        appName: dcae-tca
+        tcaAlertsAbatementTableName: TCAAlertsAbatementTable
+        tcaAlertsAbatementTableTTLSeconds: '1728000'
+        tcaSubscriberOutputStreamName: TCASubscriberOutputStream
+        tcaVESAlertsTableName: TCAVESAlertsTable
+        tcaVESAlertsTableTTLSeconds: '1728000'
+        tcaVESMessageStatusTableName: TCAVESMessageStatusTable
+        tcaVESMessageStatusTableTTLSeconds: '86400'
+        thresholdCalculatorFlowletInstances: '2'
+      app_preferences:
+        aaiEnrichmentHost: 123.123.123.123
+        aaiEnrichmentIgnoreSSLCertificateErrors: 'true'
+        aaiEnrichmentPortNumber: '8443'
+        aaiEnrichmentProtocol: https
+        aaiEnrichmentProxyURL: http://username:password@proxyhost.com:8080
+        aaiEnrichmentUserName: DCAE
+        aaiEnrichmentUserPassword: DCAE
+        aaiVMEnrichmentAPIPath: /aai/v11/search/nodes-query
+        aaiVNFEnrichmentAPIPath: /aai/v11/network/generic-vnfs/generic-vnf
+        enableAAIEnrichment: 'true'
+        enableAlertCEFFormat: 'false'
+        publisherContentType: application/json
+        publisherHostName: zldcmtc1njmsrt00.homer.att.com
+        publisherHostPort: '3905'
+        publisherMaxBatchSize: '1'
+        publisherMaxRecoveryQueueSize: '100000'
+        publisherPollingInterval: '20000'
+        publisherProtocol: https
+        publisherTopicName: com.att.dcae.dmaap.mtnje2.DcaeTestVESPub
+        publisherUserName: m00502@tca.af.dcae.att.com
+        publisherUserPassword: Te5021abc
+        subscriberConsumerGroup: OpenDCAE-c12
+        subscriberConsumerId: c12
+        subscriberContentType: application/json
+        subscriberHostName: zldcmtc1njmsrt00.homer.att.com
+        subscriberHostPort: '3905'
+        subscriberMessageLimit: '-1'
+        subscriberPollingInterval: '30000'
+        subscriberProtocol: https
+        subscriberTimeoutMS: '-1'
+        subscriberTopicName: com.att.dcae.dmaap.mtnje2.DcaeTestVESSub
+        subscriberUserName: m00502@tca.af.dcae.att.com
+        subscriberUserPassword: Te5021abc
+        tca_policy: '{"domain":"measurementsForVfScaling","metricsPerEventName":[{"eventName":"Mfvs_eNodeB_RANKPI","controlLoopSchemaType":"VNF","policyScope":"resource=vFirewall;type=configuration","policyName":"configuration.dcae.microservice.tca.xml","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"CL-FRWL-LOW-TRAFFIC-SIG-d925ed73-8231-4d02-9545-db4e101f88f8","closedLoopEventStatus":"ONSET","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedBroadcastPacketsAccumulated","thresholdValue":4000,"direction":"LESS_OR_EQUAL","severity":"MAJOR"},{"closedLoopControlName":"CL-FRWL-HIGH-TRAFFIC-SIG-EA36FE84-9342-5E13-A656-EC5F21309A09","closedLoopEventStatus":"ONSET","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedBroadcastPacketsAccumulated","thresholdValue":20000,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL"},{"closedLoopControlName":"CL-FRWL-HIGH-TRAFFIC-SIG-EA36FE84-9342-5E13-A656-EC5F21309A09","closedLoopEventStatus":"ABATED","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedBroadcastPacketsAccumulated","thresholdValue":0,"direction":"EQUAL","severity":"CRITICAL"}]},{"eventName":"vLoadBalancer","controlLoopSchemaType":"VNF","policyScope":"resource=vLoadBalancer;type=configuration","policyName":"configuration.dcae.microservice.tca.xml","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"CL-LBAL-LOW-TRAFFIC-SIG-FB480F95-A453-6F24-B767-FD703241AB1A","closedLoopEventStatus":"ONSET","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedBroadcastPacketsAccumulated","thresholdValue":500,"direction":"LESS_OR_EQUAL","severity":"MAJOR"},{"closedLoopControlName":"CL-LBAL-LOW-TRAFFIC-SIG-0C5920A6-B564-8035-C878-0E814352BC2B","closedLoopEventStatus":"ONSET","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedBroadcastPacketsAccumulated","thresholdValue":5000,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL"}]}]}'
+      artifact_name: dcae-analytics-cdap-tca
+      artifact_version: 2.0.0
+      connections:
+        streams_publishes: []
+        streams_subscribes: []
+      jar_url: {{ ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_releases }}/dcae-analytics-cdap-tca/2.0.0/dcae-analytics-cdap-tca-2.0.0.jar
+      location_id:
+        get_input: dcae_service_location
+      namespace: cdap_tca_hi_lo
+      programs:
+      - program_id: TCAVESCollectorFlow
+        program_type: flows
+      - program_id: TCADMaaPMRSubscriberWorker
+        program_type: workers
+      - program_id: TCADMaaPMRPublisherWorker
+        program_type: workers
+      service_component_type: cdap_app_tca
+      streamname: TCASubscriberOutputStream
+    relationships:
+    - target: policy_0
+      type: cloudify.relationships.depends_on
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          inputs:
+            connected_broker_dns_name:
+              get_input: connected_broker_dns_name
+

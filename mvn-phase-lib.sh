@@ -117,6 +117,17 @@ expand_templates()
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.blueprints/snapshots"
 
   export ONAPTEMPLATE_PYPIURL_org_onap_dcaegen2="${MVN_PYPISERVER_BASEURL}"
+
+  # docker registry templates are for poll, so use PUBLIC registry
+  export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases="$MVN_DOCKERREGISTRY_PUBLIC"
+  export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_snapshots="${MVN_DOCKERREGISTRY_PUBLIC}/snapshots"
+
+  # Mvn repo
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_snapshots="${MVN_NEXUSPROXY}/service/local/repositories/snapshots/content/org/onap/dcaegen2/analytics/tca"
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_staging="${MVN_NEXUSPROXY}/service/local/repositories/staging/content/org/onap/dcaegen2/analytics/tca"
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_releases="${MVN_NEXUSPROXY}/service/local/repositories/releases/content/org/onap/dcaegen2/analytics/tca"
+
+
   export ONAPTEMPLATE_STANDARD_INPUTS_TYPES="  # standard inputs list
   centos7image_id:
     type: string
@@ -144,9 +155,6 @@ expand_templates()
   codesource_version:
     type: string"
 
-  # docker registry templates are for poll, so use PUBLIC registry
-  export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases="$MVN_DOCKERREGISTRY_PUBLIC"
-  export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_snapshots="${MVN_DOCKERREGISTRY_PUBLIC}/snapshots"
 
   TEMPLATES=$(env |grep ONAPTEMPLATE | sed 's/=.*//' | sort -u)
   if [ -z "$TEMPLATES" ]; then
