@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+# -*- indent-tabs-mode: nil -*-
+# Copyright (C) 2017 AT&T Intellectual Property. All rights reserved. 
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this code except in compliance
+# with the License. You may obtain a copy of the License
+# at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+from __future__ import print_function
+
+"""
+
+ NAME
+    check-blueprint-vs-input - given a blueprint and inputs file pair, validate them against each other
+
+ USAGE
+    check-blueprint-vs-input [-v] [-t] -b BLUEPRINT [-B exclusion-list] -i INPUTS [-B exclusion-list]
+
+ DESCRIPTION
+"""
+description = """
+    Validate a blueprint and inputs file against each other. This looks for the inputs: node of the blueprint
+    file, the inputs used by {get_input} within the blueprint, and the values found in the inputs file. The
+    files may be in either YAML or JSON formats. The names default to blueprint.yaml and inputs.yaml. If
+    a blueprint inputs name has a default value, it is not considered an error if it is not in the inputs file.
+
+    If using a template inputs file, add the -t/--template option. This will look for the inputs under
+    an "inputs:" node instead of at the top level.
+
+    If there are blueprint nodes or inputs nodes that should not be considered an error, specify them
+    using the -B/--blueprint-exclusion-list and -I/inputs-exclusion-list parameters.
+
+    "check-blueprint-vs-input --help" will list all of the available options.
+"""
+
+import sys, argparse, json, yaml
+from yaml.composer import Composer
+from yaml.constructor import Constructor
+from yaml.constructor import SafeConstructor
+from yaml.constructor import ScalarNode
+
+def main():
+    DEF_BLUEPRINT_NAME = "blueprint.yaml"
+    DEF_INPUTS_NAME = "inputs.yaml"
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("-b", "--blueprint", type=str, help="Path to blueprint file, defaults to '%s'" % DEF_BLUEPRINT_NAME,
+                        default=DEF_BLUEPRINT_NAME)
+    parser.add_argument("-i", "--inputs", type=str, help="Port to listen on, defaults to '%s'" % DEF_INPUTS_NAME,
+                        default=DEF_INPUTS_NAME)
+    parser.add_argument("-B", "--blueprint-exclusion-list", type=str, help="Comma-separated list of names not to warn about not being in the blueprint file", default="")
+    parser.add_argument("-I", "--inputs-exclusion-list", type=str, help="Comma-separated list of names not to warn about not being in the inputs file", default="")
+    parser.add_argument("-t", "--inputs-template", help="Treat inputs file as coming from template area", action="store_true")
+    parser.add_argument("-v", "--verbose", help="Verbose, may be specified multiple times", action="count", default=0)
+    args = parser.parse_args()
+
+    blueprintExclusionList = args.blueprint_exclusion_list.split(",")
+    if args.verbose: print("blueprintExclusionList=%s" % blueprintExclusionList)
+
+    inputsExclusionList = args.inputs_exclusion_list.split(",")
+    if args.verbose: print("inputsExclusionList=%s" % inputsExclusionList)
+
+    def loadYaml(filename, where):
+        """
+        Load a YAML file
+
+        Line number manipulation is inspired by:
+        https://stackoverflow.com/questions/13319067/parsing-yaml-return-with-line-number
+
+        The YAML loader parses the file first into a set of nodes. Capture the
+        line numbers and column numbers during that parsing pass.
+        The YAML object is then created from those objects.
+        """
+
+        def compose_node(parent, index):
+            lineno = loader.line    # the line number where the previous token has ended (plus empty lines)
+            # column = loader.column
+            node = Composer.compose_node(loader, parent, index)
+            node.__lineno__ = lineno + 1
+            # node.__column__ = column + 1
+            return node
+
+        def construct_scalar(node):
+            where[node.value] = str(node.__lineno__) # + ":" + str(node.__column__)
+            return SafeConstructor.construct_scalar(loader, node)
+
+        def construct_mapping(node, deep=False):
+            mapping = SafeConstructor.construct_mapping(loader, node, deep=deep)
+            mapping['__lineno__'] = str(node.__lineno__) # + ":" + str(node.__column__)
+            return mapping
+
+        yread = None
+        try:
+            with open(filename, "r") as fd:
+                yread = fd.read()
+        except:
+            type, value, traceback = sys.exc_info()
+            sys.exit(value)
+
+        loader = yaml.SafeLoader(yread)
+        loader.compose_node = compose_node
+        loader.construct_mapping = construct_mapping
+        loader.construct_scalar = construct_scalar
+        data = loader.get_single_data()
+        if args.verbose > 2:
+            print("================ %s ================" % filename)
+            yaml.dump(data, sys.stdout)
+            print("================================")
+        return data
+
+    blueprint = loadYaml(args.blueprint, {})
+    inputsWhere = { }
+    inputs = loadYaml(args.inputs, inputsWhere)
+
+    # if inputs file is empty, provide an empty dictionary
+    if inputs is None: inputs = { }
+
+    # blueprint file has inputs under the inputs: node
+    blueprintInputs = blueprint['inputs']
+
+    # inputs file normally has inputs at the top level,
+    # but templated inputs files have themunder the inputs: node
+    if args.inputs_template: inputs = inputs['inputs']
+
+
+    exitval = 0
+
+    def check_blueprint_inputs(blueprintInputs, inputs, inputsExclusionList):
+        """
+        check the blueprint inputs against the inputs file
+        """
+        foundone = False
+        for input in blueprintInputs:
+            if input == '__lineno__': continue
+            if args.verbose: print("blueprint input=%s\n%s" % (input, blueprintInputs[input]))
+            if input in inputs:
+                if args.verbose: print("\tIS in inputs file")
+            else:
+                # print("blueprintInputs.get(input)=%s and blueprintInputs[input].get('default')=%s" % (blueprintInputs.get(input), blueprintInputs[input].get('default')))
+                if blueprintInputs.get(input) and blueprintInputs[input].get('default'):
+                    if args.verbose: print("\tHAS a default value")
+                elif input not in inputsExclusionList:
+                    print("<<<<<<<<<<<<<<<< %s (blueprint line %s) not in inputs file" % (input, blueprintInputs[input].get('__lineno__')))
+                    foundone = True
+                else:
+                    if args.verbose: print("<<<<<<<<<<<<<<<< %s not in inputs file, but being ignored" % input)
+        return foundone
+
+    # check the blueprint inputs: against the inputs file
+    if args.verbose: print("================ check the blueprint inputs: against the inputs file")
+    foundone = check_blueprint_inputs(blueprintInputs, inputs, inputsExclusionList)
+    if foundone: print("")
+    if foundone: exitval = 1
+
+    def prettyprint(msg,j):
+        print(msg)
+        json.dump(j, sys.stdout, indent=4, sort_keys=True)
+        print("")
+
+    def check_get_inputs(blueprint, blueprintInputs, inputs, inputsExclusionList):
+        """
+        check the blueprint get_input values against the inputs file
+        """
+
+        def findInputs(d, where):
+            if args.verbose > 2: print("check_get_inputs(): d=%s" % d)
+            ret = [ ]
+            if isinstance(d, dict):
+                if args.verbose: print("type(d) is dict")
+                for key,val in d.items():
+                    linecol = d.get('__lineno__')
+                    if args.verbose: print("looking at d[key=%s], line=%s" % (key, linecol))
+                    if key == '__lineno__': continue
+                    if key == "get_input":
+                        if args.verbose: print("found get_input, adding '%s'" % val)
+                        ret += [ val ]
+                        if not where.get(val): where[val] = str(linecol)
+                        else: where[val] += "," + str(linecol)
+                        return ret
+                    else:
+                        if args.verbose: print("going recursive on '%s'" % val)
+                        ret += findInputs(val, where)
+            elif isinstance(d, list):
+                if args.verbose: print("type(d) is list")
+                for val in d:
+                    if args.verbose: print("going recursive on '%s'" % val)
+                    ret += findInputs(val, where)
+            else:
+                if args.verbose: print("type(d) is scalar: %s" % d)
+            return ret
+
+        foundone = False
+        where = {}
+        inputList = findInputs(blueprint, where)
+        if args.verbose:
+            print("done looking for get_input, found:\n%s" % inputList)
+            prettyprint("where=",where)
+        alreadySeen = { }
+        for input in inputList:
+            if input not in alreadySeen:
+                alreadySeen[input] = True
+                if args.verbose: print("checking input %s" % input)
+                if input in inputs:
+                    if args.verbose: print("\tIS in input file")
+                else:
+                    if blueprintInputs.get(input) and blueprintInputs[input].get('default'):
+                        if args.verbose: print("\tHAS a default value")
+                    elif input not in inputsExclusionList:
+                        line = where[input]
+                        s = "s" if line.find(",") >= 0 else ""
+                        print(":::::::::::::::: get_input: {0} is NOT in input file (blueprint line{1} {2})".format(input, s, line))
+                        foundone = True
+                    else:
+                        if args.verbose:
+                            line = where[input]
+                            s = "s" if line.find(",") >= 0 else ""
+                            print(":::::::::::::::: get_input: %s is NOT in input file (blueprint line{1} {2}), but being ignored" % (input, s, line))
+
+        return foundone
+
+
+
+    # check the blueprint's get_input calls against the inputs file
+    if args.verbose: print("================ check the blueprint's get_input calls against the inputs file ================")
+    foundone = check_get_inputs(blueprint, blueprintInputs, inputs, inputsExclusionList)
+    if foundone: print("")
+    if foundone: exitval = 1
+
+    def check_inputs(blueprintInputs, inputs, blueprintExclusionList):
+        """
+        check the inputs file against the blueprints inputs list
+        """
+        foundone = False
+        # prettyprint("inputs=", inputs)
+        for key,val in inputs.items():
+            if key == '__lineno__': continue
+            if args.verbose: print("inputs key=%s" % key)
+            # print("inputs key=%s, line=%s, val=%s" % (key,inputsWhere[key],val)) # DELETE
+            if key in blueprintInputs:
+                if args.verbose: print("\tIS in blueprint")
+            else:
+                if key not in blueprintExclusionList:
+                    print(">>>>>>>>>>>>>>>> %s is in inputs file (around line %s) but not in blueprint file" % (key, inputsWhere[key]))
+                    foundone = True
+                else:
+                    if args.verbose: print(">>>>>>>>>>>>>>>> %s is in inputs file (around line %s), but not in blueprint file and being ignored" % (key, inputsWhere[key]))
+        return foundone
+
+    # check the inputs file against the blueprints input: section
+    if args.verbose: print("================ check the inputs file against the blueprints input: section ================")
+    foundone = check_inputs(blueprintInputs, inputs, blueprintExclusionList)
+    if foundone: exitval = 1
+    sys.exit(exitval)
+
+if __name__ == "__main__":
+    main()
