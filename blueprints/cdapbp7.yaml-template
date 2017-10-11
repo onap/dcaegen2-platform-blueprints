@@ -45,9 +45,6 @@ inputs:
   private_net:
     type: string
   openstack: {}
-  fake_designate:
-    type: string
-    default: ''
   keypair:
     type: string
   location_prefix:
@@ -152,7 +149,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap00.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -285,7 +281,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap01.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -418,7 +413,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap02.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -555,7 +549,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap03.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -688,7 +681,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap04.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -821,7 +813,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap05.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -954,7 +945,6 @@ node_templates:
     type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, 'cdap06.', { get_input: location_domain } ] }
-      fakeurl: { get_input: fake_designate }
       openstack: *open_conf
     interfaces:
       cloudify.interfaces.lifecycle:

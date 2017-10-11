@@ -183,7 +183,7 @@ node_templates:
             args:
               floating_network_name: { get_input: public_net }
   dns_pgrs00:
-    type: dcae.nodes.dns.arecord
+    type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -285,7 +285,7 @@ node_templates:
             args:
               floating_network_name: { get_input: public_net }
   dns_pgrs01:
-    type: dcae.nodes.dns.arecord
+    type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -389,7 +389,7 @@ node_templates:
 
   # CNAME records
   dns_pgrs_rw:
-    type: dcae.nodes.dns.cnamerecord
+    type: ccsdk.nodes.dns.cnamerecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '-write.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -401,7 +401,7 @@ node_templates:
               cname: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
 
   dns_pgrs_ro:
-    type: dcae.nodes.dns.cnamerecord
+    type: ccsdk.nodes.dns.cnamerecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '.', { get_input: location_domain } ] }
       openstack: *open_conf
