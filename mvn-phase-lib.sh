@@ -121,6 +121,11 @@ expand_templates()
   export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases="$MVN_DOCKERREGISTRY_PUBLIC"
   export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_snapshots="${MVN_DOCKERREGISTRY_PUBLIC}/snapshots"
 
+  # Mvn repo
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_snapshots="${MVN_NEXUSPROXY}/service/local/repositories/snapshots/content/org/onap/dcaegen2/analytics/tca"
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_staging="${MVN_NEXUSPROXY}/service/local/repositories/staging/content/org/onap/dcaegen2/analytics/tca"
+  export ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_releases="${MVN_NEXUSPROXY}/service/local/repositories/releases/content/org/onap/dcaegen2/analytics/tca"
+
 
   TEMPLATE_FILES=$(find . -name "*-template")
   for F in $TEMPLATE_FILES; do
@@ -156,7 +161,11 @@ expand_templates()
       if [[ $F == *"$SELFFILE" ]]; then
         continue
       fi
+      if [[ $F == *"mvn-phase-lib.sh" || $F == *"mvn-phase-script.sh" ]]; then
+        continue
+      fi
       if [[ "$F" == *-template ]]; then
+        # keeping the original template files
         continue
       fi
 
