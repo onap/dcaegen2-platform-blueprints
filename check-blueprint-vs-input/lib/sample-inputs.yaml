@@ -1,5 +1,5 @@
-centos7image_id: '7c8d7524-de1f-490b-8418-db294bfa2d65'
-ubuntu1604image_id: '4b09c18b-d69e-4ba8-a1bd-562cab91ff20'
+centos7image_id: 'some-value-in-guid-format'
+ubuntu1604image_id: 'another-value-in-guid-format'
 flavor_id: '4'
 security_group: '55a11193-6559-4f6c-b2d2-0119a9817062'
 public_net: 'admin_floating_228_net'

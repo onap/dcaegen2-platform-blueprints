@@ -35,34 +35,16 @@ imports:
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
 
 inputs:
-  # environment info
   blueprint_version:
     type: string
     default: 'VERSION-STAMP-GOES-HERE'
-  flavor_id:
-    type: string
-  key_filename:
-    type: string
-  keypair:
-    type: string
-  location_domain:
-    type: string
-  location_prefix:
-    type: string
-  openstack: {}
-  private_net:
-    type: string
-  public_net:
-    type: string
-  security_group:
-    type: string
-  ubuntu1604image_id:
-    type: string
 
   # pgaas-specific info
   pgaas_cluster_name:
     type: string
     default: pstg
+
+{{ ONAPTEMPLATE_STANDARD_INPUTS_TYPES }}
 
   vm_init_pgrs:
     type: string
@@ -155,7 +137,7 @@ node_templates:
       openstack_config: *open_conf
 
   sharedsshkey_pgrs:
-    type: dcae.nodes.ssh.keypair
+    type: ccsdk.nodes.ssh.keypair
 
   fixedip_pgrs00:
     type: cloudify.openstack.nodes.Port
@@ -179,7 +161,7 @@ node_templates:
             args:
               floating_network_name: { get_input: public_net }
   dns_pgrs00:
-    type: dcae.nodes.dns.arecord
+    type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -281,7 +263,7 @@ node_templates:
             args:
               floating_network_name: { get_input: public_net }
   dns_pgrs01:
-    type: dcae.nodes.dns.arecord
+    type: ccsdk.nodes.dns.arecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -364,7 +346,7 @@ node_templates:
 
   # CNAME records
   dns_pgrs_rw:
-    type: dcae.nodes.dns.cnamerecord
+    type: ccsdk.nodes.dns.cnamerecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '-write.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -376,7 +358,7 @@ node_templates:
               cname: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00.', { get_input: location_domain } ] }
 
   dns_pgrs_ro:
-    type: dcae.nodes.dns.cnamerecord
+    type: ccsdk.nodes.dns.cnamerecord
     properties:
       fqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '.', { get_input: location_domain } ] }
       openstack: *open_conf
@@ -414,5 +396,5 @@ outputs:
     value: { get_property: [ dns_pgrs00, fqdn ] }
   dns_pgrs01:
     value: { get_property: [ dns_pgrs01, fqdn ] }
-  version:
+  blueprint_version:
     value: { get_input: blueprint_version }

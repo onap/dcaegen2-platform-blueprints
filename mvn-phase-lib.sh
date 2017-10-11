@@ -116,64 +116,60 @@ expand_templates()
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.blueprints/snapshots"
 
   export ONAPTEMPLATE_PYPIURL_org_onap_dcaegen2="${MVN_PYPISERVER_BASEURL}"
+  export ONAPTEMPLATE_STANDARD_INPUTS_TYPES="  # standard inputs list
+  centos7image_id:
+    type: string
+  ubuntu1604image_id:
+    type: string
+  flavor_id:
+    type: string
+  security_group:
+    type: string
+  public_net:
+    type: string
+  private_net:
+    type: string
+  openstack: {}
+  keypair:
+    type: string
+  key_filename:
+    type: string
+  location_prefix:
+    type: string
+  location_domain:
+    type: string
+  codesource_url:
+    type: string
+  codesource_version:
+    type: string"
 
   # docker registry templates are for poll, so use PUBLIC registry
   export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases="$MVN_DOCKERREGISTRY_PUBLIC"
   export ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_snapshots="${MVN_DOCKERREGISTRY_PUBLIC}/snapshots"
 
+  TEMPLATES=$(env |grep ONAPTEMPLATE | sed 's/=.*//' | sort -u)
+  if [ -z "$TEMPLATES" ]; then
+    echo "No template variables found!"
+    return 0
+  fi
 
   TEMPLATE_FILES=$(find . -name "*-template")
   for F in $TEMPLATE_FILES; do
     F2=$(echo "$F" | sed 's/-template$//')
-    cp "$F" "$F2"
-    MOD=$(stat --format '%a' "$F")
-    chmod "$MOD" "$F2"
-  done
+    cp -p "$F" "$F2"
+    chmod u+w "$F2"
    
+    echo "====> Resolving the following template from environment variables "
+    echo "$TEMPLATES"
+    for KEY in $TEMPLATES; do
+      VALUE1=$(eval 'echo $"'"$KEY"'"' | sed 1q)
+      VALUE2=$(eval 'echo "$'"$KEY"'"' | sed -e 's/\//\\\//g' -e 's/$/\\/' -e '$s/\\$//')
 
-  TEMPLATES=$(env |grep ONAPTEMPLATE)
-  if [ -z "$TEMPLATES" ]; then
-    return 0
-  fi
-
-  echo "====> Resolving the following temaplate from environment variables "
-  echo "[$TEMPLATES]"
-  SELFFILE=$(echo "$0" | rev | cut -f1 -d '/' | rev)
-  for TEMPLATE in $TEMPLATES; do
-    KEY=$(echo "$TEMPLATE" | cut -f1 -d'=')
-    VALUE=$(echo "$TEMPLATE" | cut -f2 -d'=')
-    VALUE2=$(echo "$TEMPLATE" | cut -f2 -d'=' |sed 's/\//\\\//g')
-    set +e
-    FILES=$(grep -rl "$KEY")
-    set -e
-
-    if [ -z "$FILES" ]; then
-      continue
-    fi
-
-    # assuming FILES is not longer than 2M bytes, the limit for variable value max size on this VM
-    for F in $FILES; do
-      if [[ $F == *"$SELFFILE" ]]; then
-        continue
-      fi
-      if [[ "$F" == *-template ]]; then
-        continue
-      fi
-
-      echo "======> Resolving template $KEY to value $VALUE for file $F"
-      sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" "$F"
-      #cat "$F"
+      echo "======> Resolving template $KEY to value $VALUE1 for file $F2"
+      sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" "$F2"
     done
-
-    #if [ ! -z "$FILES" ]; then
-    #   echo "====> Resolving template $VALUE to value $VALUE"
-    #   #CMD="grep -rl \"$VALUE\" | tr '\n' '\0' | xargs -0 sed -i \"s/{{[[:space:]]*$VALUE[[:space:]]*}}/$VALUE/g\""
-    #   grep -rl "$KEY" | tr '\n' '\0' | xargs -0 sed -i 's/$KEY/$VALUE2/g'
-    #   #echo $CMD
-    #   #eval $CMD
-    #fi
   done
-  echo "====> Done template reolving"
+  echo "====> Done template resolving"
 }
 
 test_templates()
@@ -181,6 +177,8 @@ test_templates()
     # make certain that the type references exist
     TMP=$(mktemp)
     trap 'rm -f $TMP' 0 1 2 3 15
+
+    echo Verify that all of the import URLs are correct
     find . -name '*-template' | sed -e 's/-template$//' |
     while read file
     do
@@ -193,6 +191,13 @@ test_templates()
 	    2* ) ;;
 	    * ) echo ">>>>>>>>>>>>>>>> $url not found <<<<<<<<<<<<<<<<" ;;
 	esac
+    done
+
+    echo Verify that the inputs are correct
+    find . -name '*-template' | sed -e 's/-template$//' |
+    while read blueprint
+    do
+        check-blueprint-vs-input -b $blueprint -i check-blueprint-vs-input/lib/sample-inputs.yaml || true
     done
 }
 
