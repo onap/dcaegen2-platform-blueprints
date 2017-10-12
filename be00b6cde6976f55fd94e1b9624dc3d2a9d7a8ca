@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_c3b57132",
+        "filename": "blueprints/tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1711
+      },
+      "writtenOn": "2017-10-12T00:43:32Z",
+      "side": 1,
+      "message": "Lines 74 and 75 need to be removed for now. They cause blueprint validation failure",
+      "range": {
+        "startLine": 74,
+        "startChar": 6,
+        "endLine": 74,
+        "endChar": 17
+      },
+      "revId": "be00b6cde6976f55fd94e1b9624dc3d2a9d7a8ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
