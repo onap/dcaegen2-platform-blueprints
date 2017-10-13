@@ -129,8 +129,9 @@ inputs:
       # Download Consul from Nexus
       apt-get update
       DEBIAN_FRONTEND=noninteractive apt-get install -y -q unzip
-      curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > /opt/consul/bin/consul_0.8.3_linux_amd64.zip
-      unzip /opt/consul/bin/consul_0.8.3_linux_amd64.zip
+      CONSUL_BIN_DIR=/opt/consul/bin
+      curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > $CONSUL_BIN_DIR/consul_0.8.3_linux_amd64.zip
+      unzip $CONSUL_BIN_DIR/consul_0.8.3_linux_amd64.zip -d $CONSUL_BIN_DIR
       cat <<EOF > /opt/consul/config/consul.json
       {
         "bind_addr" : "0.0.0.0",
