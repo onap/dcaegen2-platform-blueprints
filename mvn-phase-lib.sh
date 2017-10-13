@@ -364,7 +364,7 @@ upload_files_of_extension()
 {
   FILES=$(ls -1 ./*."$1")
   for F in $FILES ; do
-    upload_raw_file "$F"
+    upload_raw_file "$F" "$2"
   done
 }
 

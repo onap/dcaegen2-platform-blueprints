@@ -115,7 +115,11 @@ install)
   ;;
 deploy)
   echo "==> deploy phase script"
-  upload_files_of_extension yaml
+  if [ -z "$MVN_PROJECT_MODULEID" ]; then
+    upload_files_of_extension yaml
+  else
+    upload_files_of_extension yaml "$MVN_PROJECT_MODULEID"
+  fi
   ;;
 *)
   echo "==> unprocessed phase"
