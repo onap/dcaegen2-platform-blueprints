@@ -132,6 +132,13 @@ inputs:
       CONSUL_BIN_DIR=/opt/consul/bin
       curl -Ss  https://releases.hashicorp.com/consul/0.8.3/consul_0.8.3_linux_amd64.zip > $CONSUL_BIN_DIR/consul_0.8.3_linux_amd64.zip
       unzip $CONSUL_BIN_DIR/consul_0.8.3_linux_amd64.zip -d $CONSUL_BIN_DIR
+      # NOTE: The health check for the docker host is a simple existence look up for
+      # registrator (name is hardcoded). It does not check if registrator is running.
+      # This would require a script health check which means we might need to turn on 
+      # "enable_script_check".
+      # NOTE: At the time of this change, there is no issue but there could be a
+      # chicken-and-egg issue where the health check might depend upon future downstream
+      # nodes (registrator) that downstream node requires a *healthy* docker host.
       cat <<EOF > /opt/consul/config/consul.json
       {
         "bind_addr" : "0.0.0.0",
@@ -156,7 +163,13 @@ inputs:
           "name": "$REGNAME",
           "address": "$MYPUB",
           "port": 2376,
-          "tags": $SERVICE_TAGS
+          "tags": $SERVICE_TAGS,
+          "checks": [
+            {
+              "http": "http://$MYPUB:2376/containers/registrator/json",
+              "interval": "30s"
+            }
+          ]
         },
         "node_meta": {
           "fqdn": "$FQDN"

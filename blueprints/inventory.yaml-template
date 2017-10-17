@@ -83,6 +83,12 @@ node_templates:
           isFilterInEmptyResources: false
         dcaeInventoryClient:
           uri: http://inventory:8080
+      docker_config:
+        healthcheck:
+          type: "docker"
+          interval: "30s"
+          timeout: "3s"
+          script: "/opt/health.sh"
       image:
         { get_input: service_change_handler_image }
     relationships:
