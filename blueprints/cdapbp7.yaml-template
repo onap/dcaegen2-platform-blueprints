@@ -61,7 +61,8 @@ inputs:
   vm_init_cdap:
     type: string
     default: |
-      wget -qO- $CODE_SOURCE/${CODE_VERSION}-raw/cloud_init/cdap-init.sh >/tmp/cdap-init.sh
+      #wget -qO- $CODE_SOURCE/${CODE_VERSION}-raw/cloud_init/cdap-init.sh >/tmp/cdap-init.sh
+      wget -qO- $CODE_SOURCE/${CODE_VERSION}/cdap-init.sh >/tmp/cdap-init.sh
       sh /tmp/cdap-init.sh "$CODE_SOURCE" "$CODE_VERSION" "$CLUSTER_INDEX" "$CLUSTER_SIZE" "$CLUSTER_FQDNS" "$CLUSTER_LOCAL_IPS" "$CLUSTER_FLOATING_IPS" "$DATACENTER" "$REGISTERED_NAME"
   location_id:
     default: "solutioning-central"
