@@ -111,7 +111,10 @@ inputs:
     type: string
     default: |
       MYIP=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/local-ipv4`
-      MYPUB=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/public-ipv4`
+      while [ -z "$MYPUB" ]; do
+        MYPUB=`wget -qO- http://169.254.169.254/2009-04-04/meta-data/public-ipv4`
+        sleep 5
+      done
       echo "My public IP: $MYPUB"
       MYNAME=`hostname`
       echo >>/etc/hosts
