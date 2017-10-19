@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_843e38b7",
+        "filename": "blueprints/DockerBP.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-10-19T12:20:12Z",
+      "side": 1,
+      "message": "isn\u0027t it more reliable to get rid of these two variables and set them based on {get_attribute: [floating_ip_dokr, floating_ip_addres]} ? (same for private)\n\neven better is to avoid IP addresses entirely and use DNS names",
+      "revId": "532197c07ffef4003f8cd04d787ff46eb2f49b95",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
