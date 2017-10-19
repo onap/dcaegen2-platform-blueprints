@@ -199,9 +199,11 @@ node_templates:
                   - concat:
                       - 'until /opt/consul/bin/consul join '
                       - { get_attribute: [host_cnsl01, ip] }
-                      - ' '
+                      - '; do sleep 5; done; '
+                  - concat:
+                      - 'until /opt/consul/bin/consul join '
                       - { get_attribute: [host_cnsl02, ip]}
-                      - '; do sleep 15; done'
+                      - '; do sleep 5; done'
 
     relationships:
       - type: cloudify.openstack.server_connected_to_port
