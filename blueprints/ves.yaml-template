@@ -29,16 +29,16 @@ imports:
 inputs:
   ves_fault_publish_url:
     type: string
-    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_FAULT_OUTPUT/"
+    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
   ves_measurement_publish_url:
     type: string
-    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT/"
+    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
   dh_override:
     type: string
-    default: "dockerhost.dcae.devlab.onap.org"
+    default: "component_dockerhost"
   dh_location_id:
     type: string
-    default: "rework-central"
+    default: "zone1"
 
 node_templates: 
   docker_host_host: 
@@ -48,14 +48,6 @@ node_templates:
       location_id: 
         get_input: dh_location_id
     type: dcae.nodes.SelectedDockerHost
-  topic0: 
-    properties: 
-      topic_name: ves_fault
-    type: dcae.nodes.Topic
-  topic1: 
-    properties: 
-      topic_name: ves_measurement
-    type: dcae.nodes.Topic
   ves_ves: 
     interfaces: 
       cloudify.interfaces.lifecycle: 
@@ -67,8 +59,8 @@ node_templates:
         collector.dmaap.streamid: fault=ves_fault|syslog=ves_syslog|heartbeat=ves_heartbeat|measurementsForVfScaling=ves_measurement|mobileFlow=ves_mobileflow|other=ves_other|stateChange=ves_statechange|thresholdCrossingAlert=ves_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling
         collector.inputQueue.maxPending: "8096"
         collector.keystore.alias: "dynamically generated"
-        collector.keystore.file.location: /opt/app/dcae-certificate/keystore.jks
-        collector.keystore.passwordfile: /opt/app/dcae-certificate/.password
+        collector.keystore.file.location: /opt/app/VESCollector/etc/keystore
+        collector.keystore.passwordfile: /opt/app/VESCollector/etc/passwordfile
         collector.schema.checkflag: "1"
         collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.json\"}"
         collector.service.port: "8080"
@@ -78,13 +70,11 @@ node_templates:
         header.authlist: "userid1,base64encodepwd1|userid2,base64encodepwd2"
         services_calls: []
         streams_publishes: 
-          - 
             ves_fault: 
               dmaap_info: 
                 topic_url: 
                   get_input: ves_fault_publish_url
               type: message_router
-          - 
             ves_measurement: 
               dmaap_info: 
                 topic_url:
@@ -97,9 +87,10 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1-latest"
+      image:  "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1-latest"
       service_component_type: dcaegen2-collectors-ves
     relationships:
       - type: dcae.relationships.component_contained_in
         target: docker_host_host
     type: dcae.nodes.DockerContainerForComponentsUsingDmaap
+
