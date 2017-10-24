@@ -83,7 +83,8 @@ echo "MVN_RAWREPO_SERVERID is            [$MVN_RAWREPO_SERVERID]"
 echo "MVN_DOCKERREGISTRY_SNAPSHOT is     [$MVN_DOCKERREGISTRY_SNAPSHOT]"
 echo "MVN_DOCKERREGISTRY_RELEASE is      [$MVN_DOCKERREGISTRY_RELEASE]"
 echo "MVN_DOCKERREGISTRY_PUBLIC is       [$MVN_DOCKERREGISTRY_PUBLIC]"
-
+echo "HOME is                            [$HOME]"
+echo "PROJECT_ROOT is                    [$PROJECT_ROOT]"
 
 source "${PROJECT_ROOT}"/mvn-phase-lib.sh 
 

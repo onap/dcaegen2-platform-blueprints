@@ -108,7 +108,9 @@ expand_templates()
   export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.plugins"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.blueprints"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_blueprints_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.platform.blueprints"
- 
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_storage_pgaas_debs_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.storage.pgaas/snapshots"
+  export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_storage_pgaas_debs_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.storage.pgaas/releases"
+
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/releases"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_snapshots="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2/snapshots"
   export ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.dcaegen2.platform.plugins/releases"
@@ -173,6 +175,7 @@ expand_templates()
     for KEY in $TEMPLATES; do
       VALUE1=$(eval 'echo "$"'"$KEY"'"' | sed 1q)
       VALUE2=$(eval 'echo "$'"$KEY"'"' | sed -e 's/\//\\\//g' -e 's/$/\\/' -e '$s/\\$//')
+      if [ -z "$VALUE2" ];then echo "WARNING WARNING WARNING: $KEY found with no expansion"; fi
 
       echo "======> Resolving template $KEY to value $VALUE1 for file $F2"
       sed -i "s/{{[[:space:]]*$KEY[[:space:]]*}}/$VALUE2/g" "$F2"
@@ -203,12 +206,13 @@ test_templates()
     done
 
     echo Verify that the inputs are correct
-    PATH=$PATH:$PWD/check-blueprint-vs-input/bin
+    PATH=$PATH:$PROJECT_ROOT/check-blueprint-vs-input/bin
     find . -name '*-template' | sed -e 's/-template$//' |
     while read blueprint
     do
-	check-blueprint-vs-input -b $blueprint -i check-blueprint-vs-input/lib/sample-inputs.yaml || true
-    done
+	check-blueprint-vs-input -b $blueprint -i $PROJECT_ROOT/check-blueprint-vs-input/lib/sample-inputs.yaml || true
+    done |
+    sed -e 's/^/WARNING WARNING WARNING: /'
 }
 
 
