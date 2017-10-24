@@ -97,8 +97,8 @@ inputs:
       fi
 
       echo Look in /tmp/pgaas.out for output from installing PGaaS
-      NEXUS={{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform }}/debs
-      for pkg in cdf_17.10.0-LATEST.deb pgaas_17.10.0-LATEST.deb
+      NEXUS={{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_storage_pgaas_debs_releases }}/debs
+      for pkg in cdf.deb-1.0.0 pgaas.deb-1.0.0
       do
           OUT=/tmp/$pkg
           curl -s -k -f -o $OUT $NEXUS/$pkg
