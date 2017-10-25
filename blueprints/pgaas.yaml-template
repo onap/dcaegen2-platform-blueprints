@@ -106,7 +106,6 @@ inputs:
       done
 
       case $(hostname) in
-      do
         *00 ) WRITE=-write ;;
         *01 ) WRITE= ;;
       esac
