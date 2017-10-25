@@ -75,6 +75,7 @@ inputs:
       CONSULNAME=consul_${CONSULVER}_linux_amd64
       MYIP=`curl -Ss http://169.254.169.254/2009-04-04/meta-data/local-ipv4`
       MYNAME=`hostname`
+      if [ ! -z "$(echo $MYNAME |grep '.')" ]; then MYNAME="$(echo $MYNAME | cut -f1 -d '.')"; fi
       echo >>/etc/hosts
       echo $MYIP $MYNAME >>/etc/hosts
       mkdir -p /opt/consul/config /opt/consul/data /opt/consul/bin
