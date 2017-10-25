@@ -46,9 +46,6 @@ inputs:
   pgaas_cluster_name:
     type: string
     default: pgcl
-  database_contacts:
-    type: {}
-    default: {}
   database_description:
     type: string
     default: 'This is a sample database'
