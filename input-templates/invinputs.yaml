@@ -1,10 +1,10 @@
 docker_host_override: "platform_dockerhost"
 asdc_address: '{{ sdc_ip_addr }}:8443'
 asdc_uri: 'https://{{ sdc_ip_addr }}:8443'
-asdc_user: "ci"
-asdc_password: !!str 123456
-asdc_environment_name: "ONAP-AMDOCS"
+asdc_user: "dcae"
+asdc_password: !!str Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
+asdc_environment_name: "AUTO"
 postgres_user_inventory: "postgres"
 postgres_password_inventory: "onap123"
-service_change_handler_image: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.platform.servicechange-handler:latest"
-inventory_image: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.platform.inventory-api:latest"
+service_change_handler_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.servicechange-handler:latest"
+inventory_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.inventory-api:latest"
