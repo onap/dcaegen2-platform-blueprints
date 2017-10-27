@@ -2,17 +2,17 @@ application_config:
   policy_handler :
     # parallelize the getConfig queries to policy-engine on each policy-update notification
     thread_pool_size : 4
- 
+
     # parallelize requests to policy-engine and keep them alive
     pool_connections : 20
- 
+
     # list of policyName prefixes (filters) that DCAE-Controller handles (=ignores any other policyName values)
     scope_prefixes : ["DCAE.Config_"]
- 
+
     # retry to getConfig from policy-engine on policy-update notification
     policy_retry_count : 5
     policy_retry_sleep : 5
- 
+
     # policy-engine config
     # These are the url of and the auth for the external system, namely the policy-engine (PDP).
     # We obtain that info manually from PDP folks at the moment.
@@ -25,7 +25,7 @@ application_config:
         headers :
             Accept : "application/json"
             "Content-Type" : "application/json"
-            ClientAuth : "Basic bTAzOTQ5OnBvbGljeVIwY2sk"
+            ClientAuth : "cHl0aG9uOnRlc3Q="
             Authorization : "Basic dGVzdHBkcDphbHBoYTEyMw=="
             Environment : "TEST"
         target_entity : "policy_engine"
