@@ -1,0 +1,57 @@
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dcaepolicyplugin/1/dcaepolicyplugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
+inputs:
+  ves_fault_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+  docker_host_override:
+    type: string
+    default: "component_dockerhost"
+  dh_location_id:
+    type: string
+    default: "zone1"
+  msb_hostname:
+    type: string
+    default: ""
+node_templates:
+  docker_holmes_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+      docker_host_override:
+        get_input: docker_host_override
+      location_id:
+        get_input: dh_location_id
+  holmesrules:
+    type: dcae.nodes.DockerContainerForComponentsUsingDmaap
+    properties:
+      application_config:
+        holmes.default.rule.volte.scenario1: "package org.onap.holmes.droolsRule;\n\nimport org.onap.holmes.common.dmaap.DmaapService;\nimport org.onap.holmes.common.api.stat.VesAlarm;\nimport org.onap.holmes.common.aai.CorrelationUtil;\nimport org.onap.holmes.common.dmaap.entity.PolicyMsg;\nimport org.onap.holmes.common.dropwizard.ioc.utils.ServiceLocatorHolder;\nimport org.onap.holmes.common.utils.DroolsLog;\n \n\nrule \"Relation_analysis_Rule\"\nsalience 200\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 0,\n            $sourceId: sourceId, sourceId != null && !sourceId.equals(\"\"),\n\t\t\t$sourceName: sourceName, sourceName != null && !sourceName.equals(\"\"),\n\t\t\t$startEpochMicrosec: startEpochMicrosec,\n            specificProblem in (\"The guest OS has indicated a failure, requiring VM restart\"),\n            $eventId: eventId)\n        $child : VesAlarm( eventId != $eventId, parentId == null,\n            CorrelationUtil.getInstance().isTopologicallyRelated(sourceId, $sourceId, $sourceName),\n            specificProblem in (\"EPC S/P-GW The slave MPU board is offline or abnormal\"),\n            startEpochMicrosec < $startEpochMicrosec + 60000 && startEpochMicrosec > $startEpochMicrosec - 60000 )\n    then\n\t\t$child.setParentId($root.getEventId());\n\t\tupdate($child);\n\t\t\nend\n\nrule \"root_has_child_handle_Rule\"\nsalience 150\nno-loop true\n\twhen\n\t\t$root : VesAlarm(alarmIsCleared == 0, rootFlag == 0, $eventId: eventId)\n\t\t$child : VesAlarm(eventId != $eventId, parentId == $eventId)\n\tthen\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, $child, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\t$root.setRootFlag(1);\n\t\tupdate($root);\nend\n\nrule \"root_no_child_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 0, rootFlag == 0,\n            sourceId != null && !sourceId.equals(\"\"),\n\t\t\tsourceName != null && !sourceName.equals(\"\"),\n            specificProblem in (\"The guest OS has indicated a failure, requiring VM restart\"))\n    then\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, null, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\t$root.setRootFlag(1);\n\t\tupdate($root);\nend\n\nrule \"root_cleared_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 1, rootFlag == 1)\n    then\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, null, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\tretract($root);\nend\n\nrule \"child_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $child : VesAlarm(alarmIsCleared == 1, rootFlag == 0)\n    then\n\t\tretract($child);\nend"
+        msb.hostname: 
+         get_input: msb_hostname        
+        msb.uri: /api/microservices/v1/services
+        services_calls: {}
+        streams_publishes: {}
+        streams_subscribes:
+          ves_fault:
+           dmaap_info:
+            topic_url:
+              get_input: ves_fault_publish_url
+            type: message_router
+      docker_config:
+        healthcheck:
+          endpoint: api/holmes-rule-mgmt/v1/healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
+        ports:
+        - 9101:9101
+      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:latest"
+      location_id:
+        get_input: dh_location_id
+      service_component_type: dcae-analytics-holmes-rule-management
+    relationships:
+    - target: docker_holmes_host
+      type: dcae.relationships.component_contained_in
