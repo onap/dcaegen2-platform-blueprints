@@ -48,6 +48,14 @@ inputs:
     description: SDC password
   asdc_environment_name:
     description: SDC environment name
+  asdc_use_secure_https:
+    description: Boolean to toggle whether to do certificate validation for https calls to SDC API
+    type: boolean
+    default: false
+  asdc_use_https_dmaap:
+    description: Boolean to toggle whether to use https for calls to message router API
+    type: boolean
+    default: false
 
   postgres_user_inventory:
     description: Postgres user for inventory
@@ -79,7 +87,8 @@ node_templates:
           environmentName: { get_input: asdc_environment_name }
           keyStorePath:
           keyStorePassword:
-          activateServerTLSAuth: false
+          activateServerTLSAuth: { get_input: asdc_use_secure_https }
+          useHttpsWithDmaap: { get_input: asdc_use_https_dmaap }
           isFilterInEmptyResources: false
         dcaeInventoryClient:
           uri: http://inventory:8080
