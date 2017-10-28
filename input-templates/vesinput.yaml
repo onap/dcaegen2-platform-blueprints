@@ -1,0 +1,7 @@
+vesinput.yaml
+{
+  "dh_location_id": "{{ dcae_zone }}",
+  "dh_override": "component_dockerhost",
+  "ves_fault_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_FAULT_OUTPUT/",
+  "ves_measurement_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT/"
+}
