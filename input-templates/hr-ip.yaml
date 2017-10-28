@@ -1,0 +1,7 @@
+{
+  "dh_location_id": "loc1",
+  "docker_host_override": "component_dockerhost",
+  "msb_hostname": "{{ openo_ip_addr }}",
+  "ves_fault_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+}
+
