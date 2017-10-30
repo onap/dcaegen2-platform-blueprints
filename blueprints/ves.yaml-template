@@ -29,10 +29,10 @@ imports:
 inputs:
   ves_fault_publish_url:
     type: string
-    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
   ves_measurement_publish_url:
     type: string
-    default: "http://10.12.25.96:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
   dh_override:
     type: string
     default: "component_dockerhost"
