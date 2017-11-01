@@ -13,6 +13,6 @@ openstack:
 keypair: '{{ key_name }}'
 key_filename: '/opt/dcae/key'
 location_prefix: 'dcae'
-location_domain: '{{ dcae_zone }}.dcaeg2.simpledemo.onap.org'
+location_domain: '{{ dcae_zone }}.{{ dcae_domain }}'
 codesource_url: 'https://nexus.onap.org/service/local/repositories/raw/content'
 codesource_version: 'org.onap.dcaegen2.deployments/releases'
