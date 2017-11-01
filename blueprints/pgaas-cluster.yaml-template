@@ -116,7 +116,7 @@ inputs:
         *00 ) WRITE=-write ;;
         *01 ) WRITE= ;;
       esac
-      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d '{"name" : "${CLUSTER_NAME}${WRITE}", "Address" : "${LOCAL_IP}", "Port" : 5432}"
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d '{"name" : "${CLUSTER_NAME}${WRITE}", "Address" : "${LOCAL_IP}", "Port" : 5432}"'
 
       echo ALL DONE
 
