@@ -9,13 +9,16 @@ inputs:
   connected_broker_dns_name:
     type: string
     default: cdap_broker
-  dcae_service_location:
+  aaiEnrichmentHost:
+    type: string
+  enableAAIEnrichment:
+    type: string
+    default: false
+  subscriberHostName:
+    type: string
+  publisherHostName:
     type: string
 node_templates:
-  policy_0:
-    type: dcae.nodes.policy
-    properties:
-      policy_id: something_filled_by_CLAMP
   tca_tca:
     type: dcae.nodes.MicroService.cdap
     properties:
@@ -31,46 +34,45 @@ node_templates:
         tcaVESMessageStatusTableTTLSeconds: '86400'
         thresholdCalculatorFlowletInstances: '2'
       app_preferences:
-        aaiEnrichmentHost: 123.123.123.123
+        aaiEnrichmentHost:
+          get_input: aaiEnrichmentHost
         aaiEnrichmentIgnoreSSLCertificateErrors: 'true'
         aaiEnrichmentPortNumber: '8443'
         aaiEnrichmentProtocol: https
-        aaiEnrichmentProxyURL: http://username:password@proxyhost.com:8080
         aaiEnrichmentUserName: DCAE
         aaiEnrichmentUserPassword: DCAE
         aaiVMEnrichmentAPIPath: /aai/v11/search/nodes-query
         aaiVNFEnrichmentAPIPath: /aai/v11/network/generic-vnfs/generic-vnf
-        enableAAIEnrichment: 'true'
+        enableAAIEnrichment: 
+          get_input: enableAAIEnrichment
         enableAlertCEFFormat: 'false'
         publisherContentType: application/json
-        publisherHostName: zldcmtc1njmsrt00.homer.att.com
-        publisherHostPort: '3905'
+        publisherHostName:
+          get_input: publisherHostName
+        publisherHostPort: '3904'
         publisherMaxBatchSize: '1'
         publisherMaxRecoveryQueueSize: '100000'
         publisherPollingInterval: '20000'
-        publisherProtocol: https
-        publisherTopicName: com.att.dcae.dmaap.mtnje2.DcaeTestVESPub
-        publisherUserName: m00502@tca.af.dcae.att.com
-        publisherUserPassword: Te5021abc
+        publisherProtocol: http
+        publisherTopicName: unauthenticated.DCAE_CL_OUTPUT
         subscriberConsumerGroup: OpenDCAE-c12
         subscriberConsumerId: c12
         subscriberContentType: application/json
-        subscriberHostName: zldcmtc1njmsrt00.homer.att.com
-        subscriberHostPort: '3905'
+        subscriberHostName:
+          get_input: subscriberHostName
+        subscriberHostPort: '3904'
         subscriberMessageLimit: '-1'
         subscriberPollingInterval: '30000'
-        subscriberProtocol: https
+        subscriberProtocol: http
         subscriberTimeoutMS: '-1'
-        subscriberTopicName: com.att.dcae.dmaap.mtnje2.DcaeTestVESSub
-        subscriberUserName: m00502@tca.af.dcae.att.com
-        subscriberUserPassword: Te5021abc
+        subscriberTopicName: unauthenticated.SEC_MEASUREMENT_OUTPUT
         tca_policy: '{"domain":"measurementsForVfScaling","metricsPerEventName":[{"eventName":"vFirewallBroadcastPackets","controlLoopSchemaType":"VNF","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"LESS_OR_EQUAL","severity":"MAJOR","closedLoopEventStatus":"ONSET"},{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":700,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"vLoadBalancer","controlLoopSchemaType":"VM","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vDNS-6f37f56d-a87d-4b85-b6a9-cc953cf779b3","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"Measurement_vGMUX","controlLoopSchemaType":"VNF","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"EQUAL","severity":"MAJOR","closedLoopEventStatus":"ABATED"},{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"GREATER","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]}]}'
       artifact_name: dcae-analytics-cdap-tca
       artifact_version: 2.0.0
       connections:
         streams_publishes: []
         streams_subscribes: []
-      jar_url: {{ ONAPTEMPLATE_MVN_org_onap_dcaegen2_analytics_tca_releases }}/dcae-analytics-cdap-tca/2.0.0/dcae-analytics-cdap-tca-2.0.0.jar
+      jar_url: https://nexus.onap.org/service/local/repositories/staging/content/org/onap/dcaegen2/analytics/tca/dcae-analytics-cdap-tca/2.0.0/dcae-analytics-cdap-tca-2.0.0.jar
       namespace: cdap_tca_hi_lo
       programs:
       - program_id: TCAVESCollectorFlow
@@ -81,9 +83,6 @@ node_templates:
         program_type: workers
       service_component_type: cdap_app_tca
       streamname: TCASubscriberOutputStream
-    relationships:
-    - target: policy_0
-      type: cloudify.relationships.depends_on
     interfaces:
       cloudify.interfaces.lifecycle:
         create:
