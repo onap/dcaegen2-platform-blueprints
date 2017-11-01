@@ -1,3 +1,4 @@
-{
-  "name": "TCA"
-}
+aaiEnrichmentHost: '{{ aai1_ip_addr }}'
+enableAAIEnrichment: true
+subscriberHostName: '{{ mr_ip_addr }}'
+publisherHostName: '{{ mr_ip_addr }}'
