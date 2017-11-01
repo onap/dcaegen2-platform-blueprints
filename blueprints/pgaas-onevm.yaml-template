@@ -118,8 +118,8 @@ inputs:
           dpkg --install $OUT
       done
 
-      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d '{"name" : "${CLUSTER_NAME}-write", "Address" : "${LOCAL_IP}", "Port" : 5432}"'
-      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d '{"name" : "${CLUSTER_NAME}", "Address" : "${LOCAL_IP}", "Port" : 5432}"'
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d "{\"name\" : \"${CLUSTER_NAME}-write\", \"Address\" : \"${LOCAL_IP}\", \"Port\" : 5432}\""
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d "{\"name\" : \"${CLUSTER_NAME}\", \"Address\" : \"${LOCAL_IP}\", \"Port\" : 5432}"
 
       echo ALL DONE
 
@@ -229,7 +229,7 @@ node_templates:
                   - { get_property: [ dns_pgrs00, fqdn ] }
                   - "'\n"
                   - "LOCAL_IP='"
-                  - { get_attribute: [ host_pgrs00, ip ] }
+                  - { get_attribute: [ floatingip_pgrs00, floating_ip_address ] }
                   - "'\n"
                   - "PG_NODES='"
                   - { get_property: [ dns_pgrs00, fqdn ] }
