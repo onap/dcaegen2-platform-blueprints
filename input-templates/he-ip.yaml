@@ -1,6 +1,10 @@
 {
-  "dh_location_id": "loc1",
+  "dh_location_id": "{{ dcae_zone }}",
   "docker_host_override": "component_dockerhost",
   "msb_hostname": "{{ openo_ip_addr }}",
-  "dcae_CL_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.DCAE_CL_OUTPUT"
+  "dcae_CL_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.DCAE_CL_OUTPUT",
+  "location_domain" : "{{ dcae_zone }}.dcaeg2.simpledemo.onap.org",
+  "location_prefix" : "dcae",
+  "pgaas_cluster_name" : "pgvm",
+  "database_name":"holmes"
 }
