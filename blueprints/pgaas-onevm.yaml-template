@@ -57,7 +57,20 @@ inputs:
       then
         echo WARNING WARNING WARNING
         echo The DNS DHCP settings did not work properly.
-        exit 1
+        for i in $(seq 20) 
+        do 
+          echo Sleeping... 
+          sleep 10 
+          if [ "$(dnsdomainname 2>/dev/null)" != "" ] 
+          then break 
+          fi 
+          echo The DNS DHCP settings still did not work properly. 
+        done 
+        if [ "$(dnsdomainname 2>/dev/null)" = "" ] 
+        then 
+          echo Exiting 
+          exit 1 
+        fi
       fi
 
       CONFDIR=/var/config/DCAE/chef/
