@@ -72,7 +72,7 @@ node_templates:
         streams_subscribes: {}
       docker_config:
         healthcheck:
-          endpoint: api/holmes-engine-mgmt/v1/healthcheck
+          endpoint: /api/holmes-engine-mgmt/v1/healthcheck
           interval: 15s
           timeout: 1s
           type: http

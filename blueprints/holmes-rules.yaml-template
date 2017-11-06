@@ -72,7 +72,7 @@ node_templates:
             type: message_router
       docker_config:
         healthcheck:
-          endpoint: api/holmes-rule-mgmt/v1/healthcheck
+          endpoint: /api/holmes-rule-mgmt/v1/healthcheck
           interval: 15s
           timeout: 1s
           type: http
