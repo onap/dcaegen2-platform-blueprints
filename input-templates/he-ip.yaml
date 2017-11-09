@@ -3,6 +3,7 @@
   "docker_host_override": "component_dockerhost",
   "msb_hostname": "{{ openo_ip_addr }}",
   "dcae_CL_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.DCAE_CL_OUTPUT",
+  "ves_fault_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_FAULT_OUTPUT",
   "location_domain" : "{{ dcae_zone }}.{{ dcae_domain }}",
   "location_prefix" : "dcae",
   "pgaas_cluster_name" : "pgvm",
