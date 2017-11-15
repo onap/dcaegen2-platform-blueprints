@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Alex Shatov <alexs@att.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Code-Review+1: Michael Hwang <mhwang@research.att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Wed, 15 Nov 2017 17:40:30 +0000
+Reviewed-on: http://gerrit.onap.org/r/23537
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
