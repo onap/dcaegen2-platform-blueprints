@@ -44,7 +44,7 @@ node_templates:
         name: 'config_binding_service'
         host_port: 10000
         container_port: 10000
-        image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:1.2-latest"
+        image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:v1.2.0"
         docker_config:
             healthcheck:
                 type: "http"

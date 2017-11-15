@@ -70,7 +70,7 @@ node_templates:
                     endpoint: "/"
                     interval: "120s"
                     timeout: "60s"
-            image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.cdapbroker:4.0-latest"
+            image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.cdapbroker:v4.0.0"
         interfaces:
           cloudify.interfaces.lifecycle:
             start:

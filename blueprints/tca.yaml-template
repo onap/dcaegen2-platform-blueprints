@@ -72,7 +72,7 @@ node_templates:
       connections:
         streams_publishes: []
         streams_subscribes: []
-      jar_url: https://nexus.onap.org/service/local/repositories/staging/content/org/onap/dcaegen2/analytics/tca/dcae-analytics-cdap-tca/2.0.0/dcae-analytics-cdap-tca-2.0.0.jar
+      jar_url: https://nexus.onap.org/service/local/repositories/releases/content/org/onap/dcaegen2/analytics/tca/dcae-analytics-cdap-tca/2.0.0/dcae-analytics-cdap-tca-2.0.0.jar
       namespace: cdap_tca_hi_lo
       programs:
       - program_id: TCAVESCollectorFlow

@@ -6,5 +6,5 @@ asdc_password: !!str Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U
 asdc_environment_name: "AUTO"
 postgres_user_inventory: "postgres"
 postgres_password_inventory: "onap123"
-service_change_handler_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.servicechange-handler:latest"
-inventory_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.inventory-api:latest"
+service_change_handler_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.servicechange-handler:v1.0.0"
+inventory_image: "{{ nexus_docker_repo }}/onap/org.onap.dcaegen2.platform.inventory-api:v1.2.0"
