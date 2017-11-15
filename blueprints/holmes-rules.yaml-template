@@ -70,7 +70,7 @@ node_templates:
           type: http
         ports:
         - 9101:9101
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:latest"      
+      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:v1.0.0"
       location_id:
         get_input: dh_location_id
       service_component_type: dcae-analytics-holmes-rule-management

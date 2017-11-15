@@ -86,7 +86,7 @@ node_templates:
           type: http
         ports:
         - 9102:9102
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/engine-management:latest"      
+      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/engine-management:v1.0.0"
       location_id:
         get_input: dh_location_id
       service_component_type: dcae-analytics-holmes-engine-management
