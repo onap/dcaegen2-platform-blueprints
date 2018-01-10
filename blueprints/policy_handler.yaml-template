@@ -41,7 +41,7 @@ inputs:
 
   policy_handler_image:
     description: Docker image for policy_handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v1.1.0'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v2.0.0'
 
   application_config:
     description: policy handler application configuration - requires info on policy-engine
@@ -54,6 +54,12 @@ node_templates:
         name: 'policy_handler'
         image: { get_input: policy_handler_image }
         application_config: { get_input: application_config }
+        docker_config:
+          healthcheck:
+            type: 'http'
+            interval: '300s'
+            timeout: '25s'
+            endpoint: '/healthcheck'
     relationships:
       - type: dcae.relationships.component_contained_in
         target: docker_host
