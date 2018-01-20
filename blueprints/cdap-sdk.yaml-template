@@ -1,0 +1,71 @@
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml
+
+inputs:
+  dh_override:
+    type: string
+    default: "component_dockerhost"
+  dh_location_id:
+    type: string
+    default: "dcaeams"    
+  cdap_cluster_name:
+    type: string
+    default: "cdap"    
+node_templates:
+  docker_cdap_host:
+    properties:
+      docker_host_override:
+        get_input: dh_override
+      location_id:
+        get_input: dh_location_id
+    type: dcae.nodes.SelectedDockerHost 
+  cdapdocker:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        stop:
+          inputs:
+            cleanup_image: true
+        start:
+          inputs:
+            ports:
+             - '11011:11011'                    
+            envs:
+              SERVICE_11015_NAME: { get_input: cdap_cluster_name }
+              SERVICE_11011_IGNORE: 'true'
+    properties:
+          host_port:      11015
+          container_port: 11015
+          docker_config:
+            healthcheck:
+              endpoint: "/status"
+              interval: "15s"
+              timeout: "15s"
+              type: "http"
+          name: 'cdap_docker'       
+          image: "caskdata/cdap-standalone:4.1.2"
+    relationships:
+      - type: dcae.relationships.component_contained_in
+        target: docker_cdap_host
+    type: dcae.nodes.DockerContainerForPlatforms
+

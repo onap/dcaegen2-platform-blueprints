@@ -1,0 +1,5 @@
+{
+  "dh_location_id": "{{ dcae_zone }}",
+  "dh_override": "component_dockerhost",
+  "cdap_cluster_name": "cdap"
+}
