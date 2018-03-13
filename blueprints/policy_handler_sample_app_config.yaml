@@ -1,9 +1,7 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
 # ============LICENSE_START=======================================================
-# org.onap.dcae
-# ================================================================================
-# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,6 +34,21 @@ application_config:
     # retry to getConfig from policy-engine on policy-update notification
     policy_retry_count : 5
     policy_retry_sleep : 5
+
+    # config of automatic catch_up for resiliency
+    catch_up :
+        # interval in seconds on how often to call automatic catch_up
+        # example: 1200 is 20*60 seconds that is 20 minutes
+        interval : 1200
+        # max_skips is the maximal number of times the auto catch_up can be skipped
+        # to reduce sending of identically the same messages to the deployment-handler
+        # example: if nothing changes in policy-engine
+        #          the policy-handler will still send the identicall cathc_up message
+        #          to deployment handler roughly every (max_skips + 1) * interval seconds
+        #          instead of sending the changed message every interval seconds
+        # in this case of max_skips = 5 the catch_up message will be sent
+        #          roughly every 2 hours = (5+1) * 1200 = 6 * 20 * 60 seconds = 2 * 60 * 60
+        max_skips : 5
 
     # policy-engine config
     # These are the url of and the auth for the external system, namely the policy-engine (PDP).

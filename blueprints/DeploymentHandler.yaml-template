@@ -18,7 +18,7 @@
 # limitations under the License.
 # ============LICENSE_END============================================
 #
-# ECOMP and OpenECOMP are trademarks 
+# ECOMP and OpenECOMP are trademarks
 # and service marks of AT&T Intellectual Property.
 #
 
@@ -37,19 +37,19 @@ inputs:
 
   location_id:
     description: Deployment location
-    
+
   docker_host_override:
     description: Target docker host
     default: 'platform_dockerhost'
-    
+
   deployment_handler_image:
     description: Docker image for deployment handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:v1.1.0'
-    
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:v2.0.2'
+
   application_config:
     description: deployment handler application configuration (to override defaults)
     default: {}
-    
+
   host_log_root:
     description: root directory for logs in the Docker host file system
     default: '/opt/onap/log'
@@ -91,7 +91,7 @@ node_templates:
                 #container:
                   #bind: /opt/app/dh/log
                   #mode: rw
-  
+
   # Docker host
   docker_host:
     type: dcae.nodes.SelectedDockerHost

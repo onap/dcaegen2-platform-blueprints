@@ -1,9 +1,7 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
 # ============LICENSE_START=======================================================
-# org.onap.dcae
-# ================================================================================
-# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +25,7 @@ description: >
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/3/dockerplugin_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml
 
 inputs:
@@ -41,7 +39,7 @@ inputs:
 
   policy_handler_image:
     description: Docker image for policy_handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v2.1.0'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v2.3.0'
 
   application_config:
     description: policy handler application configuration - requires info on policy-engine
