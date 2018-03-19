@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ================================================================================
-# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
-#
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 set -ex
 
@@ -69,6 +67,7 @@ fi
 MVN_PHASE="$2"
 
 
+echo "MVN_RELEASE_TAG is                 [$MVN_RELEASE_TAG]"
 echo "MVN_PROJECT_MODULEID is            [$MVN_PROJECT_MODULEID]"
 echo "MVN_PHASE is                       [$MVN_PHASE]"
 echo "MVN_PROJECT_GROUPID is             [$MVN_PROJECT_GROUPID]"
@@ -86,7 +85,15 @@ echo "MVN_DOCKERREGISTRY_PUBLIC is       [$MVN_DOCKERREGISTRY_PUBLIC]"
 echo "HOME is                            [$HOME]"
 echo "PROJECT_ROOT is                    [$PROJECT_ROOT]"
 
-source "${PROJECT_ROOT}"/mvn-phase-lib.sh 
+MVN_RELEASE_TAG="${MVN_RELEASE_TAG:-R2}"
+
+
+if ! wget -O ${PROJECT_ROOT}/mvn-phase-lib.sh \
+  "$MVN_RAWREPO_BASEURL_DOWNLOAD"/org.onap.dcaegen2.utils/${MVN_RELEASE_TAG}/scripts/mvn-phase-lib.sh; then
+  echo "Fail to download mvn-phase-lib.sh"
+  exit 1
+fi
+source "${PROJECT_ROOT}"/mvn-phase-lib.sh
 
 
 # Customize the section below for each project
