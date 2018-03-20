@@ -66,5 +66,12 @@ application_config:
             Authorization : "Basic {{ YOUR_POLICY_ENGINE_AUTHORIZATION }}"
             Environment : "{{ YOUR_POLICY_ENGINE_ENVIRONMENT }}"
         target_entity : "policy_engine"
-    # name of deployment-handler service in consul for policy-handler to direct the policy-updates to
-    deploy_handler : "deployment_handler"
+
+    # deploy_handler config
+    #    changed from string "deployment_handler" in 2.3.1 to structure in 2.4.0
+    deploy_handler :
+        # name of deployment-handler service used by policy-handler for logging
+        target_entity : "deployment_handler"
+        # url of the deployment-handler service for policy-handler to direct the policy-updates to
+        #   - expecting dns to resolve the name deployment_handler to ip address
+        url : "http://deployment_handler:8188"
