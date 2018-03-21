@@ -1,0 +1,56 @@
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
+inputs:
+  dcae_CL_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.DCAE_CL_OUTPUT"
+  ves_heartbeat_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
+  docker_host_override:
+    type: string
+    default: "component_dockerhost"
+  dh_location_id:
+    type: string
+    default: "zone1"
+node_templates:
+  docker_service_host:
+    type: dcae.nodes.SelectedDockerHost
+    properties:
+      docker_host_override:
+        get_input: docker_host_override
+      location_id:
+        get_input: dh_location_id
+  heartbeatService:
+    type: dcae.nodes.DockerContainerForComponentsUsingDmaap
+    properties:
+      application_config:
+        heartbeat_config: '{"vnfs":[{"heartbeatcountmissed":3, "heartbeatinterval": 60, "closedLoopControlName":"ControlLoopEvent1"},{"heartbeatcountmissed":3, "heartbeatinterval": 60, "closedLoopControlName":"ControlLoopEvent1"},{"heartbeatcountmissed":3, "heartbeatinterval": 60, "closedLoopControlName":"ControlLoopEvent1"}]}'
+        streams_publishes:
+          dcae_cl_out:
+            dmaap_info:
+             topic_url:
+                  get_input: dcae_CL_publish_url
+            type: message_router
+        streams_subscribes:
+          heartbeat_input:
+            dmaap_info:
+             topic_url:
+                  get_input: ves_heartbeat_url
+            type: message_router
+      docker_config:
+        healthcheck:
+          script: /app/bin/check_health.py
+          interval: 18s
+          timeout: 30s
+          type: docker
+      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.heartbeat:2.0"
+      location_id:
+        get_input: dh_location_id
+      service_component_type: dcaegen2-services-heartbeat
+    relationships:
+    - target: docker_service_host
+      type: dcae.relationships.component_contained_in
+
