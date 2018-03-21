@@ -27,6 +27,12 @@ imports:
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
 
 inputs:
+  ves_other_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
+  ves_heartbeat_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
   ves_fault_publish_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"

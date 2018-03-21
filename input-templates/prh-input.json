@@ -1,0 +1,6 @@
+{
+  "dh_location_id": "{{ dcae_zone }}",
+  "docker_host_override": "component_dockerhost",
+  "prh_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.unauthenticated.PNF_READY/",
+  "prh_subscribe_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_OTHER_OUTPUT/"
+}

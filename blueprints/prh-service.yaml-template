@@ -6,7 +6,7 @@ inputs:
   prh_publish_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SO_OUTPUT"
-  prh_subcribe_url:
+  prh_subscribe_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
   docker_host_override:
