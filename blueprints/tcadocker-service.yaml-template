@@ -45,6 +45,11 @@ inputs:
   dh_location_id:
     type: string
     default: "zone1"        
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/tca-cdap-container:1.0"
+
+
 node_templates:
   docker_service_host:
     properties:
@@ -128,6 +133,8 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.analytics:v1.1.0"
+      image: 
+        get_input: tag_version
+
       
 

@@ -27,6 +27,12 @@ imports:
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
 
 inputs:
+  ves_other_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
+  ves_heartbeat_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
   ves_fault_publish_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
@@ -39,6 +45,12 @@ inputs:
   dh_location_id:
     type: string
     default: "zone1"
+  dh_location_id:
+    type: string
+    default: "zone1"
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1-latest"
 
 node_templates:
   docker_collector_host:
@@ -91,7 +103,8 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.ves.vescollector:v1.1.0"
+      image: 
+        get_input: tag_version
       service_component_type: dcaegen2-collectors-ves
     relationships:
       - type: dcae.relationships.component_contained_in

@@ -1,0 +1,7 @@
+
+{
+  "dh_location_id": "{{ dcae_zone }}",
+  "docker_host_override": "component_dockerhost",
+  "snmp_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.ONAP-COLLECTOR-SNMPTRAP/",
+  "tag_version": "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:1.3"
+}
