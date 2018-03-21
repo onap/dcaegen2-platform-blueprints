@@ -1,0 +1,6 @@
+{
+  "dh_location_id": "{{ dcae_zone }}",
+  "docker_host_override": "component_dockerhost",
+  "dcae_CL_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.DCAE_CL_OUTPUT/",
+  "ves_heartbeat_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT/"
+}
