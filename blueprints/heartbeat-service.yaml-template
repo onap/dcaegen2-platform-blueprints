@@ -15,6 +15,10 @@ inputs:
   dh_location_id:
     type: string
     default: "zone1"
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.platform.heartbeat:2.0"
+
 node_templates:
   docker_service_host:
     type: dcae.nodes.SelectedDockerHost
@@ -46,7 +50,8 @@ node_templates:
           interval: 18s
           timeout: 30s
           type: docker
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.heartbeat:2.0"
+      image: 
+        get_input: tag_version
       location_id:
         get_input: dh_location_id
       service_component_type: dcaegen2-services-heartbeat

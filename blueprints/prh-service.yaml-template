@@ -6,7 +6,7 @@ inputs:
   prh_publish_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SO_OUTPUT"
-  prh_subcribe_url:
+  prh_subscribe_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
   docker_host_override:
@@ -15,6 +15,11 @@ inputs:
   dh_location_id:
     type: string
     default: "zone1"
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh:1.0"
+
+
 node_templates:
   docker_service_host:
     type: dcae.nodes.SelectedDockerHost
@@ -45,7 +50,8 @@ node_templates:
           interval: 18s
           timeout: 30s
           type: docker
-      image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh:1.0"
+      image: 
+        get_input: tag_version
       location_id:
         get_input: dh_location_id
       service_component_type: dcaegen2-services-prh

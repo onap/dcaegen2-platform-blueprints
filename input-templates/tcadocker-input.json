@@ -1,0 +1,11 @@
+{
+	"aaiEnrichmentHost": "{{ aai1_ip_addr }}",
+	"enableAAIEnrichment": true,
+	"subscriberHostName": "{{ mr_ip_addr }}",
+	"publisherHostName": "{{ mr_ip_addr }}",
+	"dh_location_id": "{{ dcae_zone }}",
+	"dh_override": "component_dockerhost",
+	"redisHosts": "{{ redis_ip_port_addr }}",
+	"enableRedisCaching": true,
+  	"tag_version": "nexus3.onap.org:10001/onap/tca-cdap-container:1.0"
+}
