@@ -1,0 +1,72 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
+# ============LICENSE_START==========================================
+# org.onap.dcae
+# ===================================================================
+# Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
+# ===================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END============================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint deploys/manages the DCAE deployment handler as a Docker container
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.0/k8splugin_types.yaml
+
+inputs:
+
+  deployment_handler_image:
+    description: Docker image for deployment handler
+    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:2.0
+  application_config:
+    description: deployment handler application configuration (to override defaults)
+    default: {}
+  host_port:
+    description: port on Kubernetes host where DH API will be exposed
+    default: 0
+  host_log_root:
+    description: root directory for logs in the Docker host file system
+    default: '/opt/onap/log'
+
+node_templates:
+
+  # Deployment Handler
+  deployment-handler:
+    type: dcae.nodes.ContainerizedPlatformComponent
+    properties:
+        name:
+            'deployment-handler'
+        image:
+            { get_input: deployment_handler_image }
+        application_config:
+            { get_input: application_config }
+        host_port:
+            { get_input: host_port }
+        container_port:
+          8443
+        docker_config:
+          healthcheck:
+            type: 'http'
+            interval: '300s'
+            timeout: '5s'
+            endpoint: '/'
+        msb_registration:
+          port: '8443'
+          url_path: '/'
+          version: 'v4'
+        log_info:
+          log_directory: '/opt/app/dh/log'
