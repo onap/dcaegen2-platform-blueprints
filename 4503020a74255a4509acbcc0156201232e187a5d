@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_ef2b7c31",
+        "filename": "blueprints/k8s-deployment_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-26T15:39:53Z",
+      "side": 1,
+      "message": "do we need to put this and port in policy-handler sample ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_af25745d",
+        "filename": "blueprints/k8s-deployment_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-26T15:39:53Z",
+      "side": 1,
+      "message": "do we need to put this and dh name in policy-handler sample ?",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 14
+      },
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_54a9e979",
         "filename": "blueprints/k8s-inventory.yaml-template",
         "patchSetId": 1
@@ -85,6 +131,75 @@
       "side": 1,
       "message": "Great! Thanks",
       "parentUuid": "5a93c517_144fe193",
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_cf13200c",
+        "filename": "blueprints/k8s-policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-26T15:39:53Z",
+      "side": 1,
+      "message": "remove this line in license",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 15
+      },
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_af0ed4e3",
+        "filename": "blueprints/k8s-policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-26T15:39:53Z",
+      "side": 1,
+      "message": "2017-2018",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6f1f6c0a",
+        "filename": "blueprints/k8s-policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-03-26T15:39:53Z",
+      "side": 1,
+      "message": "do we need to change the dcaepolicyplugin to use this dns_name to discover policy-handler ?\nwhich port ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 34
+      },
       "revId": "4503020a74255a4509acbcc0156201232e187a5d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
