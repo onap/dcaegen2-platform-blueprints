@@ -52,6 +52,24 @@
       "revId": "4503020a74255a4509acbcc0156201232e187a5d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_144fe193",
+        "filename": "blueprints/k8s-inventory.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-03-26T15:01:43Z",
+      "side": 1,
+      "message": "It\u0027s the \"name\" property, but it can be overridden with an optional \"dns_name\" property.",
+      "parentUuid": "5a93c517_54a6c954",
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
