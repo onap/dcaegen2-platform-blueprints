@@ -1,0 +1,100 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=====================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.0/k8splugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.1.0/dcaepolicyplugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
+inputs:
+  dcae_CL_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.DCAE_CL_OUTPUT"
+  ves_fault_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+  msb_hostname:
+    type: string
+    default: ""  
+  pgaas_cluster_name:
+    type: string
+    # use the single-VM PG instance
+    default: pgvm
+  database_name:
+    type: string
+    default: holmes
+  he_image:
+    type: string
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/engine-management:v1.0.0"    
+
+node_templates:
+  pgaasvm:
+    type: dcae.nodes.pgaas.database
+    properties:
+      writerfqdn: { concat: [ { get_input: pgaas_cluster_name }, '-write.' ] }
+      name: { get_input: database_name }
+      use_existing: true      
+
+  holmesengine:
+    type:  dcae.nodes.ContainerizedServiceComponentUsingDmaap
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+           envs:
+            URL_JDBC:
+                { get_attribute: [ pgaasvm, admin, host ] }
+            JDBC_PASSWORD:
+                { get_attribute: [ pgaasvm, admin, password ] }
+            JDBC_USERNAME:
+                { get_attribute: [ pgaasvm, admin, user ] }
+            MSB_ADDR:
+                get_input: msb_hostname    
+    properties:
+      application_config:
+        msb.hostname: 
+         get_input: msb_hostname
+        msb.uri: /api/microservices/v1/services
+        services_calls: {}
+        streams_publishes:
+          dcae_cl_out:
+            dmaap_info: 
+             topic_url:
+                  get_input: dcae_CL_publish_url
+            type: message_router
+        streams_subscribes: 
+          ves_fault:
+            dmaap_info:
+             topic_url:
+                  get_input: ves_fault_publish_url
+            type: message_router
+      docker_config:
+        healthcheck:
+          endpoint: /api/holmes-engine-mgmt/v1/healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
+        ports:
+        - 9102:0
+      image: { get_input: he_image }
+      service_component_type: dcae-analytics-holmes-engine-management
+    relationships:
+    - type: cloudify.relationships.depends_on
+      target: pgaasvm

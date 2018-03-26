@@ -1,0 +1,80 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
+# ============LICENSE_START==========================================
+# org.onap.dcae
+# ===================================================================
+# Copyright © 2018 AT&T Intellectual Property. All rights reserved.
+# ===================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END============================================
+#
+# ECOMP and OpenECOMP are trademarks 
+# and service marks of AT&T Intellectual Property.
+#
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint deploys/manages the TCA module as a Docker container
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.0/k8splugin_types.yaml
+
+inputs:
+  tca_image:
+    type: string
+    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container.tca-cdap-container:1.0.0
+  dmaap_host:
+    type: string
+    default: dmaap.onap-message-router
+  consul_host:
+    type: string
+    default: consul-server.onap-consul
+  consul_port:
+    type: string
+    default: "8500"
+  cbs_host:
+    type: string
+    default: "config-binding-service.dcae"
+  cbs_port:
+    type: string
+    default: "10000"
+
+node_templates:
+
+  # TCA
+  tca:
+    type: dcae.nodes.ContainerizedServiceComponent
+    properties:
+        service_component_type: 'tca'
+        image: 'dcae.onap.org/dcae/tca:latest'
+        application_config: {}
+        docker_config: {}
+        log_info:
+          log_directory: "/opt/app/TCAAnalytics/logs"
+
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              DMAAPHOST: { get_input: dmaap_host }
+              CONSUL_HOST: { get_input: consul_host }
+              CONSUL_PORT: { get_input: consul_port }
+              CBS_HOST: { get_input: cbs_host }
+              CBS_PORT: { get_input: cbs_port }
+              SERVICE_NAME: "tca"
+              CONFIG_BINDING_SERVICE: "config_binding_service"
+            ports:
+              - "11011:0"
