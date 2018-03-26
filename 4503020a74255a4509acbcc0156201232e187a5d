@@ -34,6 +34,24 @@
       "revId": "4503020a74255a4509acbcc0156201232e187a5d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_54a6c954",
+        "filename": "blueprints/k8s-inventory.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-03-26T14:54:22Z",
+      "side": 1,
+      "message": "\u003e the plugin creates a k8s Service, which in turn causes an entry to created in the k8s DNS\n\nIs the name that is used to register with k8s DNS the properties \"name\" value in the blueprint?",
+      "parentUuid": "5a93c517_d4ec1992",
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
