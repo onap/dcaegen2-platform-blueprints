@@ -16,6 +16,24 @@
       "revId": "4503020a74255a4509acbcc0156201232e187a5d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d4ec1992",
+        "filename": "blueprints/k8s-inventory.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-03-26T14:48:49Z",
+      "side": 1,
+      "message": "There is some plugin/k8s/DNS magic.  When a component exposes one or more ports, the plugin creates a k8s Service, which in turn causes an entry to created in the k8s DNS.   All containers are configured automatically to use the k8s DNS and to have a search path that lets it resolve services in its k8s namespace.",
+      "parentUuid": "5a93c517_54a9e979",
+      "revId": "4503020a74255a4509acbcc0156201232e187a5d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
