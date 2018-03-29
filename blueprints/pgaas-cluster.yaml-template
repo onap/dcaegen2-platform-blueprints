@@ -39,12 +39,12 @@ imports:
 
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/pgaas_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 
 inputs:
   blueprint_version:
     type: string
-    default: 'VERSION-STAMP-GOES-HERE'
+    default: '2018-03-29T14:28:59+0000'
 
   # pgaas-specific info
   pgaas_cluster_name:

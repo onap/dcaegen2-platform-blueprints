@@ -1,0 +1,73 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
+# ============LICENSE_START====================================================
+# org.onap.dcae
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: |-
+  This blueprint is used to take control of a postgres server instance for use by cloudify-managed applications.
+  This blueprint depends upon the deployment of the pgaas_plugin and an existing postgres server instance.
+  This blueprint is part of a suite of three blueprints:
+  k8s-pgaas-initdb takes control of the postgres server instance.
+  k8s-pgaas-database creates a database, roles and credentials associated with the database.
+  k8s-pgaas-getdbinfo shows how an application can access a database (including its roles and credentials) that was already created with k8s-pgaas-database.
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+
+  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R2/relationshipplugin/1.0.0/relationshipplugin_types.yaml"
+  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/sshkeyshare/sshkey_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
+
+inputs:
+  blueprint_version:
+    type: string
+    default: '2018-03-29T14:28:59+0000'
+
+  pgaas_cluster_name:
+    type: string
+    default: pghelm
+
+  k8s_pgaas_instance_fqdn:
+    type: string
+
+  k8s_initial_password:
+    type: string
+    default: ''
+
+node_templates:
+
+  # tie to pgaas_plugin database
+  pgaas_cluster:
+    type: dcae.nodes.pgaas.cluster
+    properties:
+      writerfqdn: { get_input: k8s_pgaas_instance_fqdn }
+      readerfqdn: { get_input: k8s_pgaas_instance_fqdn }
+      initialpassword: { get_input: k8s_initial_password }
+    relationships:
+      - type: dcae.relationships.pgaas_cluster_uses_sshkeypair
+        target: sharedsshkey_pgrs
+
+  sharedsshkey_pgrs:
+    type: ccsdk.nodes.ssh.keypair
+
+
+outputs:
+  blueprint_version:
+    value: { get_input: blueprint_version }

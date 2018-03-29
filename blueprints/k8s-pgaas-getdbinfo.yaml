@@ -32,28 +32,26 @@ description: |-
   The various attributes will return the appropriate information
   that can be used with that role: host fqdn, role name and password.
 
+  This blueprint is part of a suite of three blueprints:
+  k8s-pgaas-initdb takes control of the postgres server instance.
+  k8s-pgaas-database creates a database, roles and credentials associated with the database.
+  k8s-pgaas-getdbinfo shows how an application can access a database (including its roles and credentials) that was already created with k8s-pgaas-database.
+
 imports: 
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 
 inputs: 
-  location_domain: 
-    type: string 
-  location_prefix: 
+  k8s_pgaas_instance_fqdn:
     type: string
-  pgaas_cluster_name:
-    type: string
-    default: pgcl
   database_name:
     type: string
-    default: sample
   
 node_templates: 
   pgclustername_dbname: 
     type: dcae.nodes.pgaas.database 
     properties: 
-      writerfqdn: { concat: [ { get_input: location_prefix }, '-', { get_input: pgaas_cluster_name }, '-write.', { get_input: location_domain } ] } 
+      writerfqdn: { get_input: k8s_pgaas_instance_fqdn }
       name: { get_input: database_name }
       use_existing: true
 
@@ -62,6 +60,9 @@ outputs:
   pgclustername_dbname_admin_host:
     description: Hostname for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, admin, host ] }
+  pgclustername_dbname_admin_port:
+    description: Portname for PGCLUSTERNAME dbname database
+    value: { get_attribute: [ pgclustername_dbname, admin, port ] }
   pgclustername_dbname_admin_user:
     description: Admin Username for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, admin, user ] }
@@ -73,6 +74,9 @@ outputs:
   pgclustername_dbname_user_host:
     description: Hostname for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, user, host ] }
+  pgclustername_dbname_user_port:
+    description: Portname for PGCLUSTERNAME dbname database
+    value: { get_attribute: [ pgclustername_dbname, user, port ] }
   pgclustername_dbname_user_user:
     description: User Username for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, user, user ] }
@@ -84,6 +88,9 @@ outputs:
   pgclustername_dbname_viewer_host:
     description: Hostname for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, viewer, host ] }
+  pgclustername_dbname_viewer_port:
+    description: Portname for PGCLUSTERNAME dbname database
+    value: { get_attribute: [ pgclustername_dbname, viewer, port ] }
   pgclustername_dbname_viewer_user:
     description: Viewer Username for PGCLUSTERNAME dbname database
     value: { get_attribute: [ pgclustername_dbname, viewer, user ] }
