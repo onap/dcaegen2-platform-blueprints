@@ -1,26 +1,22 @@
-# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
-# ============LICENSE_START==========================================
+# ============LICENSE_START====================================================
 # org.onap.dcae
-# ===================================================================
-# Copyright © 2018 AT&T Intellectual Property. All rights reserved.
-# ===================================================================
+# =============================================================================
+# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#        http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ============LICENSE_END============================================
-#
-# ECOMP and OpenECOMP are trademarks 
-# and service marks of AT&T Intellectual Property.
-#
+# ============LICENSE_END======================================================
+
 
 tosca_definitions_version: cloudify_dsl_1_3
 
@@ -29,15 +25,25 @@ description: >
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.0/k8splugin_types.yaml
-
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.0/k8splugin_types.yaml 
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.2.1/dcaepolicyplugin_types.yaml 
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/relationshipplugin/1.0.0/relationshipplugin_types.yaml   
 inputs:
-  tca_image:
+  aaiEnrichmentHost:
     type: string
-    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container.tca-cdap-container:1.0.0
+  enableAAIEnrichment:
+    type: string
+    default: false
   dmaap_host:
     type: string
-    default: dmaap.onap-message-router
+    default: dmaap.onap-message-router      
+  enableRedisCaching:
+    type: string
+  redisHosts:
+    type: string      
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.0.0"
   consul_host:
     type: string
     default: consul-server.onap-consul
@@ -50,20 +56,75 @@ inputs:
   cbs_port:
     type: string
     default: "10000"
+  policy_id:
+    type: string
+    default: "none"
 
 node_templates:
-
-  # TCA
-  tca:
-    type: dcae.nodes.ContainerizedServiceComponent
+  tca_k8s:
+    type: dcae.nodes.ContainerizedServiceComponent    
+    relationships:
+      - target: tca_policy
+        type: cloudify.relationships.depends_on
     properties:
         service_component_type: 'tca'
-        image: 'dcae.onap.org/dcae/tca:latest'
         application_config: {}
         docker_config: {}
+        image: 
+          get_input: tag_version
         log_info:
           log_directory: "/opt/app/TCAAnalytics/logs"
-
+        application_config:
+            app_config:
+                appDescription: DCAE Analytics Threshold Crossing Alert Application
+                appName: dcae-tca
+                tcaAlertsAbatementTableName: TCAAlertsAbatementTable
+                tcaAlertsAbatementTableTTLSeconds: '1728000'
+                tcaSubscriberOutputStreamName: TCASubscriberOutputStream
+                tcaVESAlertsTableName: TCAVESAlertsTable
+                tcaVESAlertsTableTTLSeconds: '1728000'
+                tcaVESMessageStatusTableName: TCAVESMessageStatusTable
+                tcaVESMessageStatusTableTTLSeconds: '86400'
+                thresholdCalculatorFlowletInstances: '2'
+            app_preferences:
+                aaiEnrichmentHost: 
+                    get_input: aaiEnrichmentHost
+                aaiEnrichmentIgnoreSSLCertificateErrors: 'true'
+                aaiEnrichmentPortNumber: '8443'
+                aaiEnrichmentProtocol: https
+                aaiEnrichmentUserName: DCAE
+                aaiEnrichmentUserPassword: DCAE
+                aaiVMEnrichmentAPIPath: /aai/v11/search/nodes-query
+                aaiVNFEnrichmentAPIPath: /aai/v11/network/generic-vnfs/generic-vnf
+                enableAAIEnrichment: 
+                    get_input: enableAAIEnrichment
+                enableRedisCaching: 
+                    get_input: enableRedisCaching
+                redisHosts: 
+                    get_input: redisHosts
+                enableAlertCEFFormat: 'false'
+                publisherContentType: application/json
+                publisherHostName: 
+                    get_input: dmaap_host
+                publisherHostPort: '3904'
+                publisherMaxBatchSize: '1'
+                publisherMaxRecoveryQueueSize: '100000'
+                publisherPollingInterval: '20000'
+                publisherProtocol: http
+                publisherTopicName: unauthenticated.DCAE_CL_OUTPUT
+                subscriberConsumerGroup: OpenDCAE-c12
+                subscriberConsumerId: c12
+                subscriberContentType: application/json
+                subscriberHostName: 
+                    get_input: dmaap_host
+                subscriberHostPort: '3904'
+                subscriberMessageLimit: '-1'
+                subscriberPollingInterval: '30000'
+                subscriberProtocol: http
+                subscriberTimeoutMS: '-1'
+                subscriberTopicName: unauthenticated.SEC_MEASUREMENT_OUTPUT
+                tca_policy_property: '{"domain":"measurementsForVfScaling","metricsPerEventName":[{"eventName":"vFirewallBroadcastPackets","controlLoopSchemaType":"VNF","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"LESS_OR_EQUAL","severity":"MAJOR","closedLoopEventStatus":"ONSET"},{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":700,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"vLoadBalancer","controlLoopSchemaType":"VM","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vDNS-6f37f56d-a87d-4b85-b6a9-cc953cf779b3","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicUsageArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"Measurement_vGMUX","controlLoopSchemaType":"VNF","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"EQUAL","severity":"MAJOR","closedLoopEventStatus":"ABATED"},{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"GREATER","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]}]}'
+        service_component_type: dcaegen2-analytics_tca
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
@@ -78,3 +139,9 @@ node_templates:
               CONFIG_BINDING_SERVICE: "config_binding_service"
             ports:
               - "11011:0"
+  tca_policy:
+    type: dcae.nodes.policy
+    properties:
+      policy_id:
+           get_input: policy_id
+
