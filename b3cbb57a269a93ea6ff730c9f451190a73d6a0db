@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_732ac47f",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-04T00:03:19Z",
+      "side": 1,
+      "message": "I see you are adding the relationships plugin, but I do not see any added relationships that need it.  (There is a generic cloudify.relationships.depends_on, but that doesn\u0027t require the relationships plugin.",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d33ab8cc",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-04T00:03:19Z",
+      "side": 1,
+      "message": "Is it OK to hard-code the registry URL?  Why the change from the template placeholder?",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f33574db",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-04T00:03:19Z",
+      "side": 1,
+      "message": "You can put this here, but it has no effect.  There\u0027s no mapping direct mapping for this in Kubernetes.   The alternative is to tell Kubernetes to always pull the image.  You can add the property \"always_pull_image\" to the node and set it to \"True\"",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b32fec87",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-04T00:03:19Z",
+      "side": 1,
+      "message": "Are you sure 32080 is always going to be available?",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
