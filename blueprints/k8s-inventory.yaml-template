@@ -121,13 +121,6 @@ node_templates:
           checkConnectionWhileIdle: false
           evictionInterval: 10s
           minIdleTime: 1 minute
-        dcaeControllerConnection:
-          host: dcae-controller-hostname
-          port: 9998
-          basePath: resources
-          user: 
-          password: 
-          required: false
         databusControllerConnection:
           host: databus-controller-hostname
           port: 8443
