@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_b344ccb7",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-04-04T02:54:18Z",
+      "side": 1,
+      "message": "2018",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_732ac47f",
         "filename": "blueprints/k8s-tca.yaml-template",
         "patchSetId": 1
@@ -64,6 +81,24 @@
       "writtenOn": "2018-04-04T00:03:19Z",
       "side": 1,
       "message": "Are you sure 32080 is always going to be available?",
+      "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d3263816",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-04-04T02:54:18Z",
+      "side": 1,
+      "message": "SInce VNFs may not be in K8s cluster, VES event port needs to be exposed as nodeport on the cluster.  OOM has a way of managing nodeports, usually through Helm values.yaml file.  Since VES will be exposed by CM not Helm, we need to have a way to manage, probably within a sub port space that OOM allocates?  Anyways, I agree 32080 is not likely to stay, it will need to be parameterized some how.",
+      "parentUuid": "5a93c517_b32fec87",
       "revId": "b3cbb57a269a93ea6ff730c9f451190a73d6a0db",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
