@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_ac4b022a",
+        "filename": "blueprints/k8s-deployment_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1071
+      },
+      "writtenOn": "2018-04-05T17:57:12Z",
+      "side": 1,
+      "message": "Can any blueprint deployment use this `get_secret` call without any authentication?",
+      "revId": "354c0932e910f6e12eb8274ec243fef6a2e36133",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
