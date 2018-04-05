@@ -16,6 +16,24 @@
       "revId": "354c0932e910f6e12eb8274ec243fef6a2e36133",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6cc41a40",
+        "filename": "blueprints/k8s-deployment_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-05T19:13:01Z",
+      "side": 1,
+      "message": "You can include \"get_secret\" in any blueprint.  You can\u0027t upload a blueprint or create a deployment without authenticating to CM.  (In Cloudify 3.x, authentication was optional.  In Cloudify 4.x, it\u0027s required.)",
+      "parentUuid": "5a93c517_ac4b022a",
+      "revId": "354c0932e910f6e12eb8274ec243fef6a2e36133",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
