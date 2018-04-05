@@ -72,3 +72,13 @@ node_templates:
           version: 'v4'
         log_info:
           log_directory: '/opt/app/dh/log'
+    # Inject CM password through environment variable
+    # so that it does not appear in Consul
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              CLOUDIFY_PASSWORD: { get_secret: cmpass }
+              CLOUDIFY_USER: admin
+
