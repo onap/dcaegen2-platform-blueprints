@@ -38,21 +38,23 @@ inputs:
 
   docker_host_override:
     description: Target docker host to deploy applications to
-  asdc_address:
+  sdc_address:
     description: SDC host
-  asdc_uri:
+  sdc_uri:
     description: SDC url
-  asdc_user:
+  sdc_msg_bus_address:
+    description: Message router hostname that SDC will send distribution events through
+  sdc_user:
     description: SDC username
-  asdc_password:
+  sdc_password:
     description: SDC password
-  asdc_environment_name:
+  sdc_environment_name:
     description: SDC environment name
-  asdc_use_secure_https:
+  sdc_use_secure_https:
     description: Boolean to toggle whether to do certificate validation for https calls to SDC API
     type: boolean
     default: false
-  asdc_use_https_dmaap:
+  sdc_use_https_dmaap:
     description: Boolean to toggle whether to use https for calls to message router API
     type: boolean
     default: false
@@ -76,19 +78,20 @@ node_templates:
         "service-change-handler"
       application_config:
         asdcDistributionClient:
-          asdcAddress: { get_input: asdc_address }
-          asdcUri: { get_input: asdc_uri }
-          user: { get_input: asdc_user }
-          password: { get_input: asdc_password }
+          asdcAddress: { get_input: sdc_address }
+          asdcUri: { get_input: sdc_uri }
+          msgBusAddress: { get_input: sdc_msg_bus_address }
+          user: { get_input: sdc_user }
+          password: { get_input: sdc_password }
           pollingInterval: 20
           pollingTimeout: 20
           consumerGroup: dcae
           consumerId: dcae-sch
-          environmentName: { get_input: asdc_environment_name }
+          environmentName: { get_input: sdc_environment_name }
           keyStorePath:
           keyStorePassword:
-          activateServerTLSAuth: { get_input: asdc_use_secure_https }
-          useHttpsWithDmaap: { get_input: asdc_use_https_dmaap }
+          activateServerTLSAuth: { get_input: sdc_use_secure_https }
+          useHttpsWithDmaap: { get_input: sdc_use_https_dmaap }
           isFilterInEmptyResources: false
         dcaeInventoryClient:
           uri: http://inventory:8080
