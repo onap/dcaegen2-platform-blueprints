@@ -43,7 +43,7 @@ inputs:
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
-    default: "0"
+    default: "32001"
 node_templates:
   ves:
     interfaces:
@@ -78,6 +78,16 @@ node_templates:
                 topic_url:
                   get_input: ves_measurement_publish_url
               type: message_router
+            ves_heartbeat:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_heartbeat_publish_url
+              type: message_router
+            ves_other:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_other_publish_url
+              type: message_router              
         tomcat.maxthreads: "200"
       docker_config:
         healthcheck:
@@ -91,3 +101,4 @@ node_templates:
       log_info:
         log_directory: "/opt/app/VESCollector/logs/ecomp"
     type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
+
