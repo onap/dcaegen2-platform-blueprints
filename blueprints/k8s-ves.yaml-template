@@ -1,6 +1,6 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
-# ============LICENSE_START====================================================s
+# ============LICENSE_START====================================================
 # =============================================================================
 # Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
@@ -18,7 +18,6 @@
 # ============LICENSE_END======================================================
 
 tosca_definitions_version: cloudify_dsl_1_3
-
 
 imports:
   - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
@@ -43,7 +42,11 @@ inputs:
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
-    default: "32001"
+    default: "30235"
+  replicas:
+    type: integer
+    description: number of instances
+    default: 1   
 node_templates:
   ves:
     interfaces:
@@ -97,8 +100,11 @@ node_templates:
           type: http
       image:
         get_input: tag_version
-      service_component_type: dcaegen2-collectors-ves
+      replicas: {get_input: replicas}
+      name: 'dcae-ves-collector'
+      dns_name: 'dcae-ves-collector'
       log_info:
         log_directory: "/opt/app/VESCollector/logs/ecomp"
-    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
+    type: dcae.nodes.ContainerizedPlatformComponent
+    
 
