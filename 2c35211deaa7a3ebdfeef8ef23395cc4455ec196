@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_753cd1bf",
+        "filename": "blueprints/config_binding_service.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-10T16:11:26Z",
+      "side": 1,
+      "message": "Somewhere along the way, the naming convention changed.  It\u0027s \"2.1.5\", not v2.1.5.  (I\u0027m looking here: https://nexus3.onap.org/#browse/browse:docker.snapshot.  I don\u0027t see the v1.2.0 there anymore either.)",
+      "revId": "2c35211deaa7a3ebdfeef8ef23395cc4455ec196",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_95571d02",
         "filename": "blueprints/k8s-config_binding_service.yaml-template",
         "patchSetId": 1
