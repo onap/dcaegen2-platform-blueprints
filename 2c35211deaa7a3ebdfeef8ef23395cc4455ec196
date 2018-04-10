@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_352f298a",
+        "filename": "blueprints/config_binding_service.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-04-10T16:09:49Z",
+      "side": 1,
+      "message": "remove org.onap.dcae",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 15
+      },
+      "revId": "2c35211deaa7a3ebdfeef8ef23395cc4455ec196",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d54da573",
+        "filename": "blueprints/config_binding_service.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-04-10T16:09:49Z",
+      "side": 1,
+      "message": "2017-2018",
+      "range": {
+        "startLine": 6,
+        "startChar": 16,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "2c35211deaa7a3ebdfeef8ef23395cc4455ec196",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_95571d02",
+        "filename": "blueprints/k8s-config_binding_service.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-04-10T16:09:49Z",
+      "side": 1,
+      "message": "remove org.onap.dcae",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 15
+      },
+      "revId": "2c35211deaa7a3ebdfeef8ef23395cc4455ec196",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
