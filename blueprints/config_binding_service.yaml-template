@@ -1,16 +1,15 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
 # ============LICENSE_START====================================================
-# org.onap.dcae
 # =============================================================================
-# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +34,7 @@ inputs:
   docker_host_override:
     description: Target docker host to deploy applications to
     default: 'platform_dockerhost'
- 
+
 node_templates:
   # Config binding service
   service-config-binding:
@@ -44,7 +43,7 @@ node_templates:
         name: 'config_binding_service'
         host_port: 10000
         container_port: 10000
-        image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:v1.2.0"
+        image: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:2.1.5"
         docker_config:
             healthcheck:
                 type: "http"
