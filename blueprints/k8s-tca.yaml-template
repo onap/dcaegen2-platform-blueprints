@@ -16,7 +16,6 @@
 # limitations under the License.
 # ============LICENSE_END======================================================
 
-
 tosca_definitions_version: cloudify_dsl_1_3
 
 description: >
@@ -29,15 +28,19 @@ imports:
 inputs:
   aaiEnrichmentHost:
     type: string
+    default: "none"
+  aaiEnrichmentPort:
+    type: string    
+    default: 8443
   enableAAIEnrichment:
     type: string
     default: false
   dmaap_host:
     type: string
-    default: dmaap.onap-message-router      
+    default: dmaap.onap-message-router   
   dmaap_port:
     type: string
-    default: 3904
+    default: 3904    
   enableRedisCaching:
     type: string
   redisHosts:
@@ -64,7 +67,7 @@ inputs:
     type: string
     description: Kubernetes node port on which CDAPgui is exposed
     default: "32010"
-
+    
 node_templates:
   tca_k8s:
     type: dcae.nodes.ContainerizedServiceComponent    
@@ -137,12 +140,25 @@ node_templates:
         start:
           inputs:
             envs:
-              DMAAPHOST: { get_input: dmaap_host }
-              CONSUL_HOST: { get_input: consul_host }
-              CONSUL_PORT: { get_input: consul_port }
-              CBS_HOST: { get_input: cbs_host }
-              CBS_PORT: { get_input: cbs_port }
-              CONFIG_BINDING_SERVICE: "config_binding_service"
+                DMAAPHOST: 
+                    { get_input: dmaap_host }
+                DMAAPPORT:
+                    { get_input: dmaap_port }
+                DMAAPPUBTOPIC: "unauthenticated.DCAE_CL_OUTPUT"
+                DMAAPSUBTOPIC: "unauthenticated.SEC_MEASUREMENT_OUTPUT"
+                AAIHOST: 
+                    { get_input: aaiEnrichmentHost }
+                AAIPORT: 
+                    { get_input: aaiEnrichmentPort }
+                CONSUL_HOST: 
+                    { get_input: consul_host }
+                CONSUL_PORT: 
+                    { get_input: consul_port }
+                CBS_HOST: 
+                    { get_input: cbs_host }
+                CBS_PORT: 
+                    { get_input: cbs_port }
+                CONFIG_BINDING_SERVICE: "config_binding_service"                
             ports:
               - concat: ["11011:", { get_input: external_port }]                           
   tca_policy:
