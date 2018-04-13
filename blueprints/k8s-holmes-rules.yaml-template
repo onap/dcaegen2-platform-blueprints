@@ -1,16 +1,15 @@
 # -*- indent-tabs-mode: nil -*- # vi: set expandtab:
 #
 # ============LICENSE_START====================================================
-# org.onap.dcae
 # =============================================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +20,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.0.1/k8splugin_types.yaml"
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.2.1/dcaepolicyplugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.3.0/dcaepolicyplugin_types.yaml"
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 inputs:
   msb_hostname:
@@ -36,7 +35,7 @@ inputs:
     default: holmes
   hr_image:
     type: string
-    default: ""{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:v1.0.0"    
+    default: ""{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:v1.0.0"
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
@@ -61,8 +60,8 @@ node_templates:
     properties:
       application_config:
         holmes.default.rule.volte.scenario1: "ControlLoop-VOLTE-2179b738-fd36-4843-a71a-a8c24c70c55b$$$package org.onap.holmes.droolsRule;\n\nimport org.onap.holmes.common.dmaap.DmaapService;\nimport org.onap.holmes.common.api.stat.VesAlarm;\nimport org.onap.holmes.common.aai.CorrelationUtil;\nimport org.onap.holmes.common.dmaap.entity.PolicyMsg;\nimport org.onap.holmes.common.dropwizard.ioc.utils.ServiceLocatorHolder;\nimport org.onap.holmes.common.utils.DroolsLog;\n \n\nrule \"Relation_analysis_Rule\"\nsalience 200\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 0,\n            $sourceId: sourceId, sourceId != null && !sourceId.equals(\"\"),\n\t\t\t$sourceName: sourceName, sourceName != null && !sourceName.equals(\"\"),\n\t\t\t$startEpochMicrosec: startEpochMicrosec,\n            eventName in (\"Fault_MultiCloud_VMFailure\"),\n            $eventId: eventId)\n        $child : VesAlarm( eventId != $eventId, parentId == null,\n            CorrelationUtil.getInstance().isTopologicallyRelated(sourceId, $sourceId, $sourceName),\n            eventName in (\"Fault_MME_eNodeB out of service alarm\"),\n            startEpochMicrosec < $startEpochMicrosec + 60000 && startEpochMicrosec > $startEpochMicrosec - 60000 )\n    then\n\t\tDroolsLog.printInfo(\"===========================================================\");\n\t\tDroolsLog.printInfo(\"Relation_analysis_Rule: rootId=\" + $root.getEventId() + \", childId=\" + $child.getEventId());\n\t\t$child.setParentId($root.getEventId());\n\t\tupdate($child);\n\t\t\nend\n\nrule \"root_has_child_handle_Rule\"\nsalience 150\nno-loop true\n\twhen\n\t\t$root : VesAlarm(alarmIsCleared == 0, rootFlag == 0, $eventId: eventId)\n\t\t$child : VesAlarm(eventId != $eventId, parentId == $eventId)\n\tthen\n\t\tDroolsLog.printInfo(\"===========================================================\");\n\t\tDroolsLog.printInfo(\"root_has_child_handle_Rule: rootId=\" + $root.getEventId() + \", childId=\" + $child.getEventId());\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, $child, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\t$root.setRootFlag(1);\n\t\tupdate($root);\nend\n\nrule \"root_no_child_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 0, rootFlag == 0,\n            sourceId != null && !sourceId.equals(\"\"),\n\t\t\tsourceName != null && !sourceName.equals(\"\"),\n            eventName in (\"Fault_MultiCloud_VMFailure\"))\n    then\n\t\tDroolsLog.printInfo(\"===========================================================\");\n\t\tDroolsLog.printInfo(\"root_no_child_handle_Rule: rootId=\" + $root.getEventId());\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, null, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\t$root.setRootFlag(1);\n\t\tupdate($root);\nend\n\nrule \"root_cleared_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $root : VesAlarm(alarmIsCleared == 1, rootFlag == 1)\n    then\n\t\tDroolsLog.printInfo(\"===========================================================\");\n\t\tDroolsLog.printInfo(\"root_cleared_handle_Rule: rootId=\" + $root.getEventId());\n\t\tDmaapService dmaapService = ServiceLocatorHolder.getLocator().getService(DmaapService.class);\n\t\tPolicyMsg policyMsg = dmaapService.getPolicyMsg($root, null, \"org.onap.holmes.droolsRule\");\n        dmaapService.publishPolicyMsg(policyMsg, \"unauthenticated.DCAE_CL_OUTPUT\");\n\t\tretract($root);\nend\n\nrule \"child_handle_Rule\"\nsalience 100\nno-loop true\n    when\n        $child : VesAlarm(alarmIsCleared == 1, rootFlag == 0)\n    then\n\t\tDroolsLog.printInfo(\"===========================================================\");\n\t\tDroolsLog.printInfo(\"child_handle_Rule: childId=\" + $child.getEventId());\n\t\tretract($child);\nend"
-        msb.hostname: 
-         get_input: msb_hostname                
+        msb.hostname:
+         get_input: msb_hostname
         msb.uri: /api/microservices/v1/services
         services_calls: {}
         streams_publishes: {}
@@ -79,4 +78,4 @@ node_templates:
       service_component_type: dcae-analytics-holmes-rule-management
     relationships:
     - type: cloudify.relationships.depends_on
-      target: pgaasvm     
+      target: pgaasvm
