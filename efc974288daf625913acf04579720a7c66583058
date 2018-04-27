@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_d247bb4a",
+        "filename": "blueprints/DeploymentHandler.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-27T01:12:07Z",
+      "side": 1,
+      "message": "Should we be changing this file, which isn\u0027t used in the OOM deployments, but might be used in the HEAT deployments and might be working as is?  The specific change that I need is in k8s-pgaas-initdb.yaml.\n\nAlso, the path looks wrong to me.   In the Nexus raw repo, I see two possible paths for the relationship plugin:\n\nhttps://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R2/relationshipplugin/1.0.0/relationshipplugin_types.yaml\n\nwhich is the R2 version, and\n\nhttps://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/releases/type_files/relationshipplugin/1/relationshipplugin_types.yaml\n\nwhich is left over from R1.",
+      "revId": "efc974288daf625913acf04579720a7c66583058",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_9275b399",
+        "filename": "blueprints/k8s-pgaas-initdb.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-27T01:12:07Z",
+      "side": 1,
+      "message": "Did the ccsdk repo change its naming convention?  The existing import worked earlier today when I tested it.",
+      "revId": "efc974288daf625913acf04579720a7c66583058",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
