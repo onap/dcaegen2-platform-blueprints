@@ -26,13 +26,13 @@ description: >
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.1.0/k8splugin_types.yaml
- 
+
 
 inputs:
 
   policy_handler_image:
     description: Docker image for policy_handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v2.4.1'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:v2.4.2'
 
   application_config:
     description: policy handler application configuration - requires info on policy-engine
