@@ -3,7 +3,7 @@ imports:
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/2/dockerplugin_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/cdapcloudify/14/cdapcloudify_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dcaepolicyplugin/1/dcaepolicyplugin_types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/relationshipplugin/1.0.0/relationshipplugin_types.yaml
 
 inputs:
   connected_broker_dns_name:

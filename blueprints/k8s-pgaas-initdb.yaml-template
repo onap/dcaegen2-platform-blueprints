@@ -30,14 +30,14 @@ description: |-
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/relationshipplugin/1/relationshipplugin_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/relationshipplugin/1.0.0/relationshipplugin_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 
 inputs:
   blueprint_version:
     type: string
-    default: '2018-03-29T14:28:59+0000'
+    default: '2018-04-27T00:31:38+0000'
 
   pgaas_cluster_name:
     type: string
