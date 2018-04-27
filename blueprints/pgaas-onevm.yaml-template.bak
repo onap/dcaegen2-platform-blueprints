@@ -21,7 +21,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 description: |-
-  This blueprint is used to install and to uninstall a two-VM central postgres as a platform service.
+  This blueprint is used to install and to uninstall a single-VM central postgres as a platform service.
   This blueprint depends upon the deployment of the pgaas_plugin and Consul.
 
 imports:
@@ -37,12 +37,12 @@ imports:
 inputs:
   blueprint_version:
     type: string
-    default: '2018-04-27T00:31:38+0000'
+    default: '2018-03-29T14:28:59+0000'
 
   # pgaas-specific info
   pgaas_cluster_name:
     type: string
-    default: pstg
+    default: pgvm
 
 {{ ONAPTEMPLATE_STANDARD_INPUTS_TYPES }}
 
@@ -118,11 +118,8 @@ inputs:
           dpkg --install $OUT
       done
 
-      case $(hostname) in
-        *00 ) WRITE=-write ;;
-        *01 ) WRITE= ;;
-      esac
-      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d "{\"name\" : \"${CLUSTER_NAME}${WRITE}\", \"Address\" : \"${LOCAL_IP}\", \"Port\" : 5432}"
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d "{\"name\" : \"${CLUSTER_NAME}-write\", \"Address\" : \"${LOCAL_IP}\", \"Port\" : 5432}\""
+      curl -v -X PUT -H "Content-Type: application/json" "http://${LOCATION_PREFIX}cnsl00.${LOCATION_DOMAIN}:8500/v1/agent/service/register" -d "{\"name\" : \"${CLUSTER_NAME}\", \"Address\" : \"${LOCAL_IP}\", \"Port\" : 5432}"
 
       echo ALL DONE
 
@@ -236,8 +233,6 @@ node_templates:
                   - "'\n"
                   - "PG_NODES='"
                   - { get_property: [ dns_pgrs00, fqdn ] }
-                  - '|'
-                  - { get_property: [ dns_pgrs01, fqdn ] }
                   - "'\n"
                   - { get_input: vm_init_pgrs }
     relationships:
@@ -253,109 +248,6 @@ node_templates:
         target: dns_pgrs00
       - type: cloudify.relationships.depends_on
         target: sharedsshkey_pgrs
-  fixedip_pgrs01:
-    type: cloudify.openstack.nodes.Port
-    properties:
-      port:
-        extra_dhcp_opts:
-          - opt_name: 'domain-name'
-            opt_value: { get_input: location_domain }
-      openstack_config: *open_conf
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: private_net
-  floatingip_pgrs01:
-    type: cloudify.openstack.nodes.FloatingIP
-    properties:
-      openstack_config: *open_conf
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        create:
-          inputs:
-            args:
-              floating_network_name: { get_input: public_net }
-  dns_pgrs01:
-    type: ccsdk.nodes.dns.arecord
-    properties:
-      fqdn: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01.', { get_input: location_domain } ] }
-      openstack: *open_conf
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        create:
-          inputs:
-            args:
-              ip_addresses:
-                - { get_attribute: [ floatingip_pgrs01, floating_ip_address ] }
-    relationships:
-      - type: cloudify.relationships.depends_on
-        target: floatingip_pgrs01
-  host_pgrs01:
-    type: cloudify.openstack.nodes.Server
-    properties:
-      install_agent: false
-      image: { get_input: ubuntu1604image_id }
-      flavor: { get_input: flavor_id }
-      management_network_name: { get_input: private_net }
-      openstack_config: *open_conf
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        create:
-          inputs:
-            args:
-              name: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01' ] }
-              userdata:
-                concat:
-                  - |-
-                    #!/bin/sh
-                    mkdir /root/.sshkey
-                    echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, public ] }
-                  - |-
-                    ' >/root/.sshkey/id_rsa.pub
-                    echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, base64private ] }
-                  - |-
-                    ' | base64 -d >/root/.sshkey/id_rsa
-                    chmod 700 /root/.sshkey
-                    chmod 600 /root/.sshkey/*
-                    ( umask 077; echo -n postgres | cat - /root/.sshkey/id_rsa | md5sum | awk '{ print $1 }' > /root/.pgrspw )
-                    set -x
-                  - "\n"
-                  - "CLUSTER_NAME='"
-                  - { get_input: pgaas_cluster_name }
-                  - "'\n"
-                  - "LOCATION_PREFIX='"
-                  - { get_input: location_prefix }
-                  - "'\n"
-                  - "LOCATION_DOMAIN='"
-                  - { get_input: location_domain }
-                  - "'\n"
-                  - "MASTER='"
-                  - { get_property: [ dns_pgrs00, fqdn ] }
-                  - "'\n"
-                  - "LOCAL_IP='"
-                  - { get_attribute: [ floatingip_pgrs01, floating_ip_address ] }
-                  - "'\n"
-                  - "PG_NODES='"
-                  - { get_property: [ dns_pgrs00, fqdn ] }
-                  - '|'
-                  - { get_property: [ dns_pgrs01, fqdn ] }
-                  - "'\n"
-                  - { get_input: vm_init_pgrs }
-    relationships:
-      - type: cloudify.openstack.server_connected_to_port
-        target: fixedip_pgrs01
-      - type: cloudify.openstack.server_connected_to_security_group
-        target: security_group
-      - type: cloudify.openstack.server_connected_to_floating_ip
-        target: floatingip_pgrs01
-      - type: cloudify.openstack.server_connected_to_keypair
-        target: key_pair
-      - type: cloudify.relationships.depends_on
-        target: dns_pgrs01
-      - type: cloudify.relationships.depends_on
-        target: sharedsshkey_pgrs
-
   # CNAME records
   dns_pgrs_rw:
     type: ccsdk.nodes.dns.cnamerecord
@@ -398,15 +290,11 @@ node_templates:
 outputs:
   public_ip00:
     value: { get_attribute: [host_pgrs00, ip] }
-  public_ip01:
-    value: { get_attribute: [host_pgrs01, ip] }
   writerfqdn:
     value: { get_property: [ dns_pgrs_rw, fqdn ] }
   readerfqdn:
     value: { get_property: [ dns_pgrs_ro, fqdn ] }
   dns_pgrs00:
     value: { get_property: [ dns_pgrs00, fqdn ] }
-  dns_pgrs01:
-    value: { get_property: [ dns_pgrs01, fqdn ] }
   blueprint_version:
     value: { get_input: blueprint_version }

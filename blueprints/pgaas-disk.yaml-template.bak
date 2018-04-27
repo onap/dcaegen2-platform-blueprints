@@ -46,7 +46,7 @@ imports:
 inputs:
   blueprint_version:
     type: string
-    default: '2018-04-27T00:31:38+0000'
+    default: '2018-03-29T14:28:59+0000'
 
   # pgaas-specific info
   pgaas_cluster_name:

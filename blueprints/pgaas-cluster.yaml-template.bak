@@ -21,8 +21,16 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 description: |-
-  This blueprint is used to install and to uninstall a two-VM central postgres as a platform service.
-  This blueprint depends upon the deployment of the pgaas_plugin and Consul.
+  This blueprint is used to install and to uninstall a central postgres as a platform service.
+  This blueprint depends upon the deployment of the pgaas_plugin, the PGaaS Cinder volume, and Consul.
+  This blueprint is part of a suite of three blueprints that allow a PGaaS
+  cluster to be created that has persistent databases stored in Cinder.
+  pgaas-disk allocates the cinder volumes. It must be run first.
+  pgaas-cluster creates the PG service and attaches the cinder volumes. It must be run second.
+  pgaas-database creates a database. It must be run third, for each persistent database.
+  If the cluster is uninstalled, the persistent databases are unaffected.
+  If a database blueprint is uninstalled, the persistent database goes away.
+  If the disk blueprint is uninstalled, all persistent databases go away, along with the server instance.
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
@@ -30,19 +38,18 @@ imports:
   - http://www.getcloudify.org/spec/fabric-plugin/1.4.1/plugin.yaml
 
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dnsdesig/dns_types.yaml"
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/sshkeyshare/sshkey_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/relationshipplugin/1/relationshipplugin_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 
 inputs:
   blueprint_version:
     type: string
-    default: '2018-04-27T00:31:38+0000'
+    default: '2018-03-29T14:28:59+0000'
 
   # pgaas-specific info
   pgaas_cluster_name:
     type: string
-    default: pstg
+    default: pgcl
 
 {{ ONAPTEMPLATE_STANDARD_INPUTS_TYPES }}
 
@@ -148,9 +155,6 @@ node_templates:
       resource_id: { get_input: security_group }
       openstack_config: *open_conf
 
-  sharedsshkey_pgrs:
-    type: ccsdk.nodes.ssh.keypair
-
   fixedip_pgrs00:
     type: cloudify.openstack.nodes.Port
     properties:
@@ -207,11 +211,11 @@ node_templates:
                     #!/bin/sh
                     mkdir /root/.sshkey
                     echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, public ] }
+                  - { get_attribute: [ pgaas_cluster, public ] }
                   - |-
                     ' >/root/.sshkey/id_rsa.pub
                     echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, base64private ] }
+                  - { get_attribute: [ pgaas_cluster, base64private ] }
                   - |-
                     ' | base64 -d >/root/.sshkey/id_rsa
                     chmod 700 /root/.sshkey
@@ -252,7 +256,7 @@ node_templates:
       - type: cloudify.relationships.depends_on
         target: dns_pgrs00
       - type: cloudify.relationships.depends_on
-        target: sharedsshkey_pgrs
+        target: pgaas_cluster
   fixedip_pgrs01:
     type: cloudify.openstack.nodes.Port
     properties:
@@ -309,11 +313,11 @@ node_templates:
                     #!/bin/sh
                     mkdir /root/.sshkey
                     echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, public ] }
+                  - { get_attribute: [ pgaas_cluster, public ] }
                   - |-
                     ' >/root/.sshkey/id_rsa.pub
                     echo '
-                  - { get_attribute: [ sharedsshkey_pgrs, base64private ] }
+                  - { get_attribute: [ pgaas_cluster, base64private ] }
                   - |-
                     ' | base64 -d >/root/.sshkey/id_rsa
                     chmod 700 /root/.sshkey
@@ -354,7 +358,28 @@ node_templates:
       - type: cloudify.relationships.depends_on
         target: dns_pgrs01
       - type: cloudify.relationships.depends_on
-        target: sharedsshkey_pgrs
+        target: pgaas_cluster
+
+  # cinder connections
+  volume_pgrs00:
+    type: cloudify.openstack.nodes.Volume
+    properties:
+      resource_id: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '00' ] }
+      openstack_config: *open_conf
+      use_external_resource: True
+    relationships:
+      - type: cloudify.openstack.volume_attached_to_server
+        target: host_pgrs00
+
+  volume_pgrs01:
+    type: cloudify.openstack.nodes.Volume
+    properties:
+      resource_id: { concat: [ { get_input: location_prefix }, { get_input: pgaas_cluster_name }, '01' ] }
+      openstack_config: *open_conf
+      use_external_resource: True
+    relationships:
+      - type: cloudify.openstack.volume_attached_to_server
+        target: host_pgrs01
 
   # CNAME records
   dns_pgrs_rw:
@@ -386,10 +411,8 @@ node_templates:
     type: dcae.nodes.pgaas.cluster
     properties:
       writerfqdn: { get_property: [ dns_pgrs_rw, fqdn ] }
-      readerfqdn: { get_property: [ dns_pgrs_ro, fqdn ] }
+      use_existing: true
     relationships:
-      - type: dcae.relationships.pgaas_cluster_uses_sshkeypair
-        target: sharedsshkey_pgrs
       - type: cloudify.relationships.depends_on
         target: dns_pgrs_rw
       - type: cloudify.relationships.depends_on
