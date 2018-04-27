@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_281eab70",
+        "filename": "blueprints/tcadocker-service.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-04-27T21:39:06Z",
+      "side": 1,
+      "message": "The \"R2\", release tag, is added by the template expansion process.  You do not need to add here.",
+      "revId": "6bb1c7a3c7a7ad077cb988f509836e32e9440ce6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
