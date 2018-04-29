@@ -28,35 +28,37 @@ imports:
 inputs:
   aaiEnrichmentHost:
     type: string
-    default: "none"
+    default: "aai.onap.svc.cluster.local"
   aaiEnrichmentPort:
     type: string
-    default: 8443
+    default: "8443"
   enableAAIEnrichment:
     type: string
-    default: false
+    default: true
   dmaap_host:
     type: string
-    default: dmaap.onap-message-router
+    default: message-router.onap.svc.cluster.local
   dmaap_port:
     type: string
-    default: 3904
+    default: "3904"
   enableRedisCaching:
     type: string
+    default: false
   redisHosts:
     type: string
+    default: dcae-redis.onap.svc.cluster.local:6379
   tag_version:
     type: string
     default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.0.0"
   consul_host:
     type: string
-    default: consul-server.onap-consul
+    default: consul-server.onap.svc.cluster.local
   consul_port:
     type: string
     default: "8500"
   cbs_host:
     type: string
-    default: "config-binding-service.dcae"
+    default: "config-binding-service.dcae.svc.cluster.local"
   cbs_port:
     type: string
     default: "10000"

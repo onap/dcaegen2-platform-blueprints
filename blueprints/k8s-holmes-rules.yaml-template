@@ -25,22 +25,24 @@ imports:
 inputs:
   msb_hostname:
     type: string
-    default: ""
+    default: "msb-discovery.onap.svc.cluster.local"
   pgaas_cluster_name:
     type: string
+    default: "dcae-postgres.onap.svc.cluster.local"
     # use the single-VM PG instance
-    default: pgvm
+    #default: pgvm
   database_name:
     type: string
     default: holmes
   hr_image:
     type: string
-    default: ""{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:v1.0.0"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/rule-management:v1.0.0"
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
     properties:
-      writerfqdn: { concat: [ { get_input: pgaas_cluster_name }, '-write.' ] }
+      #writerfqdn: { concat: [ { get_input: pgaas_cluster_name }, '-write.' ] }
+      writerfqdn: { get_input: pgaas_cluster_name }
       name: { get_input: database_name }
   holmesrules:
     type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
