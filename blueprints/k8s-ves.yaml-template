@@ -26,16 +26,20 @@ imports:
 inputs:
   ves_other_publish_url:
     type: string
-    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
+    #default: "http://10.0.11.1:3904/events/unauthenticated.SEC_OTHER_OUTPUT"
   ves_heartbeat_publish_url:
     type: string
-    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
+    #default: "http://10.0.11.1:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
   ves_fault_publish_url:
     type: string
-    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+    #default: "http://10.0.11.1:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
   ves_measurement_publish_url:
     type: string
-    default: "http://10.0.11.1:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
+    #default: "http://10.0.11.1:3904/events/unauthenticated.SEC_MEASUREMENT_OUTPUT"
   tag_version:
     type: string
     default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.2.0"
