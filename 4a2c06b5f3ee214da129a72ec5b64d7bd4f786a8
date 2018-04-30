@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_1929c389",
+        "filename": "blueprints/k8s-holmes-engine.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-30T03:58:08Z",
+      "side": 1,
+      "message": "Due to the k8s rules for naming deployments and services (following the very old DNS RFC), the plugin has to truncate the service component name that it generates in order to use it in a k8s object name.   Unfortunately, in one case, the truncation leaves a \"-\" at the end of the truncated name, which turns out to be a violation of the rule that the plugin isn\u0027t smart enough to detect and fix. The workaround is: At line 96 of this file, we currently have:\nservice_component_type: dcae-analytics-holmes-engine-management\n\nThis can be changed to:\nservice_component_type: dcae-analytics-holmes-engin-management\n\n(Yes, drop the trailing \"e\" from \"engine\".)\n\nPlease make this additional change.  Otherwise the holmes engine deployment will fail.\n\nThe plugin fixes most naming rule violations, but it missed this one.",
+      "revId": "4a2c06b5f3ee214da129a72ec5b64d7bd4f786a8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
