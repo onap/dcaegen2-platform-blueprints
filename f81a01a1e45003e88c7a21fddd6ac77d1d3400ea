@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a93c517_2e379300",
+        "filename": "blueprints/k8s-holmes-rules.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-30T00:27:54Z",
+      "side": 1,
+      "message": "There is an extra quote mark here at the beginning of the line.  (I ran into this problem trying to deploy holmes-rules.)",
+      "revId": "f81a01a1e45003e88c7a21fddd6ac77d1d3400ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_ae5ba352",
         "filename": "blueprints/k8s-holmes-rules.yaml-template",
         "patchSetId": 1
@@ -19,6 +36,40 @@
         "endLine": 45,
         "endChar": 51
       },
+      "revId": "f81a01a1e45003e88c7a21fddd6ac77d1d3400ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_6e511b2f",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-30T00:27:54Z",
+      "side": 1,
+      "message": "This value needs to be quoted.  (\"8443\")\nI ran into a problem with this--it doesn\u0027t show up until the k8s plugin makes the API call to k8s, and then it fails.",
+      "revId": "f81a01a1e45003e88c7a21fddd6ac77d1d3400ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_0e3417fa",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-30T00:27:54Z",
+      "side": 1,
+      "message": "Also needs to be quoted.  (\"3904\")",
       "revId": "f81a01a1e45003e88c7a21fddd6ac77d1d3400ea",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
