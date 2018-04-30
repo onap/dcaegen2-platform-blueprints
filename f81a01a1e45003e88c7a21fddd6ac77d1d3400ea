@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_4e2d3fa7",
+        "filename": "blueprints/k8s-holmes-rules.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-04-30T01:01:04Z",
+      "side": 1,
+      "message": "\"pstg-write\" is the private postgres used by inventory.  It\u0027s not the one we want.   We definitely do not want the blueprint to add \"-write\".",
+      "parentUuid": "5a93c517_ae5ba352",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "f81a01a1e45003e88c7a21fddd6ac77d1d3400ea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_6e511b2f",
         "filename": "blueprints/k8s-tca.yaml-template",
         "patchSetId": 1
