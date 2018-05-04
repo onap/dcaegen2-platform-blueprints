@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Andrew Gauld <ag1282@att.com>
+Code-Review+2: Lusheng Ji <lji@research.att.com>
+Submitted-by: Lusheng Ji <lji@research.att.com>
+Submitted-at: Fri, 04 May 2018 18:48:15 +0000
+Reviewed-on: https://gerrit.onap.org/r/46263
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
