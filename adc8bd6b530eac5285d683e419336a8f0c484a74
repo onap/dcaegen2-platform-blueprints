@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_bd765ba2",
+        "filename": "blueprints/k8s-inventory.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-05-09T14:10:39Z",
+      "side": 1,
+      "message": "Typo here.. Need to remove r",
+      "range": {
+        "startLine": 66,
+        "startChar": 119,
+        "endLine": 66,
+        "endChar": 120
+      },
+      "revId": "adc8bd6b530eac5285d683e419336a8f0c484a74",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
