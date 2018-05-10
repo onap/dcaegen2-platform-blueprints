@@ -48,6 +48,40 @@
     },
     {
       "key": {
+        "uuid": "5a93c517_35657fe0",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:27:11Z",
+      "side": 1,
+      "message": "why not the newest plugin 1.1.0?",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_d55f7b0d",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:27:11Z",
+      "side": 1,
+      "message": "this is not correct. the original value is correct.",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a93c517_3537bfe4",
         "filename": "blueprints/k8s-tca.yaml-template",
         "patchSetId": 1
@@ -82,6 +116,23 @@
       "writtenOn": "2018-05-10T16:23:46Z",
       "side": 1,
       "message": "this is not correct.  the hostname of message router is message-router.onap.svc.cluster.local.    dmaap.onap-message-router is something used by R1 OOM, where each project has a name space (for message-router it is onap-message-router).  Now all components using the same name space onap.",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f55ab71c",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:27:11Z",
+      "side": 1,
+      "message": "why remove the default value?",
       "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
