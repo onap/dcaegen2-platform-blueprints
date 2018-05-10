@@ -68,6 +68,57 @@
       "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b5798f94",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:23:46Z",
+      "side": 1,
+      "message": "this is not correct.  the hostname of message router is message-router.onap.svc.cluster.local.    dmaap.onap-message-router is something used by R1 OOM, where each project has a name space (for message-router it is onap-message-router).  Now all components using the same name space onap.",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_556ccbcf",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:23:46Z",
+      "side": 1,
+      "message": "this is not correct. the original value is correct.",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_756f87c4",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-10T16:23:46Z",
+      "side": 1,
+      "message": "this is not correct. the original value is correct.",
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
