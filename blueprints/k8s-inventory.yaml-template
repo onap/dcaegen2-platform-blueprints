@@ -71,7 +71,7 @@ node_templates:
     type: dcae.nodes.ContainerizedPlatformComponent
     properties:
       name:
-        "service-change-handler"
+        "dcae-service-change-handler"
       application_config:
         asdcDistributionClient:
           asdcAddress: { get_input: sdc_address }
@@ -107,7 +107,7 @@ node_templates:
     type: dcae.nodes.ContainerizedPlatformComponent
     properties:
       name:
-        "inventory"
+        "dcae-inventory"
       application_config:
         database:
           driverClass: org.postgresql.Driver

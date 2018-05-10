@@ -42,8 +42,8 @@ node_templates:
   policy_handler:
     type: dcae.nodes.ContainerizedPlatformComponent
     properties:
-        name: 'policy_handler'
-        dns_name: 'policy-handler'
+        name: 'dcae-policy-handler'
+        dns_name: 'dcae-policy-handler'
         image: { get_input: policy_handler_image }
         application_config: { get_input: application_config }
         docker_config:

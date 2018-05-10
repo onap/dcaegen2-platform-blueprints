@@ -49,9 +49,9 @@ node_templates:
     type: dcae.nodes.ContainerizedPlatformComponent
     properties:
         name:
-            'deployment_handler'
+            'dcae-deployment-handler'
         dns_name:
-            'deployment-handler'
+            'dcae-deployment-handler'
         image:
             { get_input: deployment_handler_image }
         application_config:

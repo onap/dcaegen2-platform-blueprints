@@ -41,7 +41,7 @@ node_templates:
   service-config-binding:
     type: dcae.nodes.ContainerizedPlatformComponent
     properties:
-        name: 'config-binding-service'
+        name: 'dcae-config-binding-service'
         container_port: 10000
         image: { get_input: cbs_image }
         docker_config:
