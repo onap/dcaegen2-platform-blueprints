@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_7558e730",
+        "filename": "blueprints/k8s-deployment_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-05-10T16:10:26Z",
+      "side": 1,
+      "message": "this might break the discovery of the deployment-handler from policy-handler since this will be the new key for the consul-service record of the deployment-handler",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 36
+      },
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_f52cf794",
+        "filename": "blueprints/k8s-policy_handler.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-05-10T16:10:26Z",
+      "side": 1,
+      "message": "this might break the discovery of the policy-handler from dcaepolicyplugin since this will be the new key for the consul-service record of the policy-handler",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_3537bfe4",
+        "filename": "blueprints/k8s-tca.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1949
+      },
+      "writtenOn": "2018-05-10T16:10:26Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "424179fdc28c7ae4e5bb0fdf90e5a733aa596226",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
