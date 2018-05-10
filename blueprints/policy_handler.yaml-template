@@ -28,6 +28,7 @@ imports:
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/type_files/dockerplugin/3/dockerplugin_types.yaml
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/relationshipplugin/1.0.0/relationshipplugin_types.yaml
 
+
 inputs:
 
   location_id:
