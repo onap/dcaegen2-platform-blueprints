@@ -152,6 +152,11 @@ node_templates:
     relationships:
       - type: cloudify.relationships.depends_on
         target: postgres
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            max_wait: 900
 
   postgres:
     type: dcae.nodes.ContainerizedApplication
