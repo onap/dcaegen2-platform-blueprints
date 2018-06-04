@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_fe77b406",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-06-04T06:53:03Z",
+      "side": 1,
+      "message": "Let\u0027s Assume that this variable is constant. Can we store this in one constant and reuse it in every next occurrences?",
+      "range": {
+        "startLine": 68,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 66
+      },
+      "revId": "e75e6954c9e14342be3f2fe0449307ef0d64d505",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
