@@ -28,7 +28,7 @@ description: >
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.1.0/k8splugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.0/k8splugin_types.yaml
 
 inputs:
 
