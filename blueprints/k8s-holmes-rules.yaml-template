@@ -19,7 +19,7 @@
 
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.0/k8splugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.1/k8splugin_types.yaml"
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.3.0/dcaepolicyplugin_types.yaml"
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 inputs:
