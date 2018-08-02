@@ -39,6 +39,12 @@ inputs:
   ves_measurement_publish_url:
     type: string
     default: "http://10.0.11.1:3904/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
+  ves_notification_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.VES_NOTIFICATION_OUTPUT"
+  ves_pnfRegistration_publish_url:
+    type: string
+    default: "http://10.0.11.1:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
   dh_override:
     type: string
     default: "component_dockerhost"
@@ -47,7 +53,7 @@ inputs:
     default: "zone1"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.1-latest"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.3.1"
 
 node_templates:
   docker_collector_host:
@@ -69,13 +75,13 @@ node_templates:
              - '8080:8080'
     properties:
       application_config:
-        collector.dmaap.streamid: fault=ves_fault|syslog=ves_syslog|heartbeat=ves_heartbeat|measurementsForVfScaling=ves_measurement|mobileFlow=ves_mobileflow|other=ves_other|stateChange=ves_statechange|thresholdCrossingAlert=ves_thresholdCrossingAlert|voiceQuality=ves_voicequality|sipSignaling=ves_sipsignaling
+        collector.dmaap.streamid: fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration
         collector.inputQueue.maxPending: "8096"
         collector.keystore.alias: "dynamically generated"
         collector.keystore.file.location: /opt/app/VESCollector/etc/keystore
         collector.keystore.passwordfile: /opt/app/VESCollector/etc/passwordfile
         collector.schema.checkflag: "1"
-        collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.json\"}"
+        collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.json\",\"v7\":\"./etc/CommonEventFormat_30.0.1.json\"}
         collector.service.port: "8080"
         collector.service.secure.port: "8443"
         event.transform.flag: "0"
@@ -83,17 +89,37 @@ node_templates:
         header.authlist: "userid1,base64encodepwd1|userid2,base64encodepwd2"
         services_calls: []
         streams_publishes:
-            ves_fault:
+            ves-fault:
               dmaap_info:
                 topic_url:
                   get_input: ves_fault_publish_url
               type: message_router
-            ves_measurement:
+            ves-measurement:
               dmaap_info:
                 topic_url:
                   get_input: ves_measurement_publish_url
               type: message_router
-        tomcat.maxthreads: "200"
+            ves-notification:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_notification_publish_url
+              type: message_router
+            ves-pnfRegistration:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_pnfRegistration_publish_url
+              type: message_router
+            ves-heartbeat:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_heartbeat_publish_url
+              type: message_router
+            ves-other:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_other_publish_url
+              type: message_router
+        collector.dynamic.config.update.frequency: "5"
       docker_config:
         healthcheck:
           endpoint: /healthcheck
