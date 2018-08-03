@@ -24,9 +24,6 @@ application_config:
     # parallelize requests to policy-engine and keep them alive
     pool_connections : 20
 
-    # list of policyName prefixes (filters) that DCAE-Controller handles (=ignores any other policyName values)
-    scope_prefixes : ["DCAE.Config_", "CLAMP"]
-
     # retry to getConfig from policy-engine on policy-update notification
     policy_retry_count : 5
     policy_retry_sleep : 5
@@ -70,3 +67,6 @@ application_config:
         # url of the deployment-handler service for policy-handler to direct the policy-updates to
         #   - expecting dns to resolve the hostname deployment-handler to ip address
         url : "http://deployment-handler:8188"
+        # limit the size of a single data segment for policy-update messages
+        #       from policy-handler to deployment-handler in megabytes
+        max_msg_length_mb : 5
