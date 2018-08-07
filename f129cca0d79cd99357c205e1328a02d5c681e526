@@ -16,6 +16,24 @@
       "revId": "f129cca0d79cd99357c205e1328a02d5c681e526",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f1e291d4",
+        "filename": "input-templates/vesinput.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-08-07T13:32:21Z",
+      "side": 1,
+      "message": "yes Jack, that was coming next (was getting too late to submit new change last night; will do it today)",
+      "parentUuid": "1a76adc5_7148c12d",
+      "revId": "f129cca0d79cd99357c205e1328a02d5c681e526",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
