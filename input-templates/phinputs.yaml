@@ -24,9 +24,6 @@ application_config:
     # parallelize requests to policy-engine and keep them alive
     pool_connections : 20
 
-    # list of policyName prefixes (filters) that DCAE-Controller handles (=ignores any other policyName values)
-    scope_prefixes : ["DCAE.Config_", "CLAMP"]
-
     # retry to getConfig from policy-engine on policy-update notification
     policy_retry_count : 5
     policy_retry_sleep : 5
@@ -36,15 +33,6 @@ application_config:
         # interval in seconds on how often to call automatic catch_up
         # example: 1200 is 20*60 seconds that is 20 minutes
         interval : 1200
-        # max_skips is the maximal number of times the auto catch_up can be skipped
-        # to reduce sending of identically the same messages to the deployment-handler
-        # example: if nothing changes in policy-engine
-        #          the policy-handler will still send the identicall cathc_up message
-        #          to deployment handler roughly every (max_skips + 1) * interval seconds
-        #          instead of sending the changed message every interval seconds
-        # in this case of max_skips = 5 the catch_up message will be sent
-        #          roughly every 2 hours = (5+1) * 1200 = 6 * 20 * 60 seconds = 2 * 60 * 60
-        max_skips : 5
 
     # policy-engine config
     # These are the url of and the auth for the external system, namely the policy-engine (PDP).
@@ -70,3 +58,6 @@ application_config:
         # url of the deployment-handler service for policy-handler to direct the policy-updates to
         #   - expecting dns to resolve the hostname deployment-handler to ip address
         url : "http://deployment-handler:8188"
+        # limit the size of a single data segment for policy-update messages
+        #       from policy-handler to deployment-handler in megabytes
+        max_msg_length_mb : 5
