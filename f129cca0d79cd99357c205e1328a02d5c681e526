@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7148c12d",
+        "filename": "input-templates/vesinput.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-08-07T12:59:21Z",
+      "side": 1,
+      "message": "Need similar changes to the inputs template for OOM/Kubernetes.  (oom/kubernetes/dcaegen2/charts/dcae-bootstrap/resources/inputs/k8s-ves-inputs.yaml; https://gerrit.onap.org/r/gitweb?p\u003doom.git;a\u003dblob_plain;f\u003dkubernetes/dcaegen2/charts/dcae-bootstrap/resources/inputs/k8s-ves-inputs.yaml;hb\u003dHEAD)",
+      "revId": "f129cca0d79cd99357c205e1328a02d5c681e526",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
