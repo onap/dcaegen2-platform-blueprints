@@ -31,7 +31,7 @@ inputs:
 
   deployment_handler_image:
     description: Docker image for deployment handler
-    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:2.2.0
+    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:3.0.0
   application_config:
     description: deployment handler application configuration (to override defaults)
     default: {}
