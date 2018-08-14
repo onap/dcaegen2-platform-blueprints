@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7ec4ef3f",
+        "filename": "input-templates/phinputs.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-08-14T18:52:53Z",
+      "side": 1,
+      "message": "Need to propagate these changes to the k8s input templates in the OOM tree.  (I updated DCAEGEN2-694 to track this.)",
+      "revId": "55ef8b152db9900db7242a3e22288769cac1d4d5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
