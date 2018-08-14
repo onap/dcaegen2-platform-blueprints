@@ -61,3 +61,7 @@ application_config:
         # limit the size of a single data segment for policy-update messages
         #       from policy-handler to deployment-handler in megabytes
         max_msg_length_mb : 5
+        query :
+            # optionally specify the tenant name for the cloudify under deployment-handler
+            #    if not specified the "default_tenant" is used by the deployment-handler
+            cfy_tenant_name : "default_tenant"
