@@ -60,7 +60,7 @@ inputs:
 
   service_change_handler_image:
     description: Full uri to service change handler Docker image
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.servicechange-handler:1.1.4"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.servicechange-handler:1.1.5"
   inventory_image:
     description: Full uri to inventory Docker image
     default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.inventory-api:3.0.1"
