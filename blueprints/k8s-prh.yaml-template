@@ -33,11 +33,11 @@ inputs:
   aaiEnrichmentUser:
     type: string
     description: aai user name
-    default: "admin"
-   aaiEnrichmentPasswd:
+    default: "AAI"
+  aaiEnrichmentPasswd:
     type: string
     description: aai password
-    default: "admin"
+    default: "AAI"
   dmaap_host:
     type: string
     description: dmaap host
@@ -50,13 +50,13 @@ inputs:
     type: string
     description: dmap user name
     default: "admin"
-   dmaap_passwd:
+  dmaap_passwd:
     type: string
     description: dmap password
     default: "admin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/g.onap.dcaegen2.services.prh.prh-app-server:latest"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:latest"
   replicas:
     type: integer
     description: number of instances
@@ -104,4 +104,4 @@ node_templates:
       dns_name: 'dcae-prh'
       log_info:
         log_directory: "/opt/app/prh/logs"
-    type: dcae.nodes.ContainerizedServiceComponent
+    type: dcae.nodes.ContainerizedPlatformComponent
