@@ -34,6 +34,12 @@ application_config:
         # example: 1200 is 20*60 seconds that is 20 minutes
         interval : 1200
 
+    # config of periodic reconfigure-rediscover for adaptability
+    reconfigure:
+        # interval in seconds on how often to call automatic reconfigure
+        # example: 600 is 10*60 seconds that is 10 minutes
+        interval : 600
+
     # policy-engine config
     # These are the url of and the auth for the external system, namely the policy-engine (PDP).
     # We obtain that info manually from PDP folks at the moment.
