@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_bd7d6c70",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-08-28T08:31:12Z",
+      "side": 1,
+      "message": "please provide correction for this parameter. The newest name is dmaap.dmaapConsumerConfiguration.timeoutMs now.",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 54
+      },
+      "revId": "7d6819f30aea9744c8243a6038c2bb459fd1fd91",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
