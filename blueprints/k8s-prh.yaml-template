@@ -60,9 +60,12 @@ inputs:
   replicas:
     type: integer
     description: number of instances
-    default: 1 
+    default: 1
+  host_port:
+    description: port on Kubernetes host where PRH API will be exposed
+    default: 0
 node_templates:
-  prh:             
+  prh:
     properties:
       application_config:
         dmaap.dmaapConsumerConfiguration.dmaapHostName: { get_input: dmaap_host }
@@ -84,13 +87,17 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/json"
         aai.aaiClientConfiguration.aaiHost: { get_input: aaiEnrichmentHost }
-        aai.aaiClientConfigurationaaiHostPortNumber: { get_input: aaiEnrichmentPort }
-        aai.aaiClientConfigurationaaiProtocol: "https"
-        aai.aaiClientConfigurationaaiUserName: { get_input: aaiEnrichmentUser }
-        aai.aaiClientConfigurationaaiUserPassword: { get_input: aaiEnrichmentPasswd }
-        aai.aaiClientConfigurationaaiIgnoreSSLCertificateErrors: true
-        aai.aaiClientConfigurationaaiBasePath: "/aai/v12"
-        aai.aaiClientConfigurationaaiPnfPath: "/network/pnfs/pnf"    
+        aai.aaiClientConfiguration.aaiHostPortNumber: { get_input: aaiEnrichmentPort }
+        aai.aaiClientConfiguration.aaiProtocol: "https"
+        aai.aaiClientConfiguration.aaiUserName: { get_input: aaiEnrichmentUser }
+        aai.aaiClientConfiguration.aaiUserPassword: { get_input: aaiEnrichmentPasswd }
+        aai.aaiClientConfiguration.aaiIgnoreSslCertificateErrors: true
+        aai.aaiClientConfiguration.aaiBasePath: "/aai/v12"
+        aai.aaiClientConfiguration.aaiPnfPath: "/network/pnfs/pnf"
+      host_port:
+          { get_input: host_port }
+      container_port:
+        8100
       docker_config:
         healthcheck:
           endpoint: /heartbeat
