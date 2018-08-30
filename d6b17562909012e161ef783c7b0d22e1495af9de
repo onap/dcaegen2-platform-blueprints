@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Przemyslaw Wasala <przemyslaw.wasala@nokia.com>
+Code-Review+1: Damian Nowak <damain.nowak@nokia.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Thu, 30 Aug 2018 16:50:48 +0000
+Reviewed-on: https://gerrit.onap.org/r/63199
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
