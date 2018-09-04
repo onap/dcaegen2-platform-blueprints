@@ -70,7 +70,7 @@ node_templates:
       application_config:
         dmaap.dmaapConsumerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapConsumerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
-        dmaap.dmaapConsumerConfiguration.dmaapTopicName: "/events/unauthenticated.SEC_OTHER_OUTPUT"
+        dmaap.dmaapConsumerConfiguration.dmaapTopicName: "/events/unauthenticated.VES_PNFREG_OUTPUT"
         dmaap.dmaapConsumerConfiguration.dmaapProtocol: "http"
         dmaap.dmaapConsumerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapConsumerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
