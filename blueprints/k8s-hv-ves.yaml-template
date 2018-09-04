@@ -31,8 +31,19 @@ inputs:
     type: integer
     description: number of instances
     default: 1 
+  host_port:
+    description: port on Kubernetes host where HV VES will be exposed
+    default: 30079
+
 node_templates:
   hv-ves:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              VESHV_CONFIG_URL: ${CONSUL_HOST}
+              VESHV_LISTEN_PORT: { get_input: host_port }
     properties:
       docker_config:
         healthcheck:
@@ -47,4 +58,9 @@ node_templates:
       dns_name: 'dcae-hv-ves-collector'
       log_info:
         log_directory: "/opt/app/HvVesCollector/logs"
-    type: dcae.nodes.ContainerizedPlatformComponent
+      host_port:
+        { get_input: host_port }
+      container_port:
+        30079
+    type: dcae.nodes.Containerize
+dPlatformComponent
