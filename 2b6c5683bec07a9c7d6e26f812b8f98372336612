@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_81efcfe8",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2018-09-04T14:14:30Z",
+      "side": 1,
+      "message": "Unless the previous copyright was wrong, it cannot be removed.\n\nIf it was NOT wrong, then you can add a NEW copyright statement for NOKIA, but you cannot replace the previous one.",
+      "revId": "2b6c5683bec07a9c7d6e26f812b8f98372336612",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
