@@ -20,31 +20,75 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
-  - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
+  - 'http://www.getcloudify.org/spec/cloudify/3.4/types.yaml'
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.2/k8splugin_types.yaml
 
 inputs:
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:latest"
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:latest'
+  hv_ves_name:
+    type: string
+    default: 'dcae-hv-ves-collector'
   replicas:
     type: integer
     description: number of instances
-    default: 1 
+    default: 1
+  host_port:
+    type: integer
+    description: Network port that the platform service is expecting to expose on the host
+    default: 30222
+  container_port:
+    type: integer
+    description: Network port that the platform service exposes in the container
+    default: 6061
+  consul_host:
+    type: string
+    description: Consul endpoint address
+    default: 'consul-server.onap-consul'
+  consul_port:
+    type: integer
+    description: Consul endpoint port
+    default: 8500
+  kafka_bootstrap_servers:
+    type: string
+    description: ss
+    default: 'message-router-kafka:9092'
+  hv_meas_domain:
+    type: string
+    default: 'HVMEAS'
+  hv_meas_kafka_topic:
+    type: string
+    default: 'HV_VES_MEASUREMENTS'
 node_templates:
   hv-ves:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              VESHV_CONFIG_URL:
+                { concat: [ 'http://', { get_input: consul_host }, ':', { get_input: consul_port }, '/v1/kv/', { get_input: hv_ves_name} ] }
+              VESHV_LISTEN_PORT:
+                { concat: [ { get_input: container_port }, '' ] }
     properties:
+      application_config:
+        dmaap.kafkaBootstrapServers: { get_input: kafka_bootstrap_servers }
+        collector.routing:
+            fromDomain: { get_input: hv_meas_domain }
+            toTopic: { get_input: hv_meas_kafka_topic }
       docker_config:
         healthcheck:
           endpoint: /health/ready
           interval: 15s
           timeout: 1s
           type: http
-      image:
-        get_input: tag_version
-      replicas: {get_input: replicas}
-      name: 'dcae-hv-ves-collector'
+      image: { get_input: tag_version }
+      replicas: { get_input: replicas }
+      name: { get_input: hv_ves_name }
       dns_name: 'dcae-hv-ves-collector'
+      container_port: { get_input: container_port }
+      host_port: { get_input: host_port }
       log_info:
-        log_directory: "/opt/app/HvVesCollector/logs"
+        log_directory: '/opt/app/HvVesCollector/logs'
     type: dcae.nodes.ContainerizedPlatformComponent
