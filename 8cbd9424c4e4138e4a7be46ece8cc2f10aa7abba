@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_5ea9928f",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3987
+      },
+      "writtenOn": "2018-09-04T13:00:45Z",
+      "side": 1,
+      "message": "Is this the topic name defined by VES in VES config?",
+      "revId": "8cbd9424c4e4138e4a7be46ece8cc2f10aa7abba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
