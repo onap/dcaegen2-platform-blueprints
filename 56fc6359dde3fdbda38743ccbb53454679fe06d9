@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_dea28298",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-09-04T13:11:00Z",
+      "side": 1,
+      "message": "Ask PTL how can we assign a node port to our component.",
+      "revId": "56fc6359dde3fdbda38743ccbb53454679fe06d9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7ef00e91",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2018-09-04T13:11:00Z",
+      "side": 1,
+      "message": "listen port is a container port (a port inside docker where our app listens to connections)",
+      "revId": "56fc6359dde3fdbda38743ccbb53454679fe06d9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
