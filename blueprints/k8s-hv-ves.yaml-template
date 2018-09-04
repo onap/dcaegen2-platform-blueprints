@@ -31,8 +31,21 @@ inputs:
     type: integer
     description: number of instances
     default: 1 
+  host_port:
+    description: Network port that the platform service is expecting to expose on the host
+    default: 30079
+  container_port:
+    description: Network port that the platform service exposes in the container
+    default: 6061
 node_templates:
   hv-ves:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              VESHV_CONFIG_URL: ${CONSUL_HOST}
+              VESHV_LISTEN_PORT: { get_input: container_port }
     properties:
       docker_config:
         healthcheck:
@@ -47,4 +60,8 @@ node_templates:
       dns_name: 'dcae-hv-ves-collector'
       log_info:
         log_directory: "/opt/app/HvVesCollector/logs"
+      host_port:
+        { get_input: host_port }
+      container_port:
+        { get_input: container_port }
     type: dcae.nodes.ContainerizedPlatformComponent
