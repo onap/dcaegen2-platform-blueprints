@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_3f3347ac",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2018-09-12T12:22:21Z",
+      "side": 1,
+      "message": "typo in description",
+      "revId": "55a33a2e8a944c14ad6226ea91905f4059b76738",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
