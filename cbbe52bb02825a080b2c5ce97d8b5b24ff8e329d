@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_b444594a",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-09-12T19:28:20Z",
+      "side": 1,
+      "message": "Do you think that this parameter should be defined as input? \nCan it be defined as dmaapTopic and set a default value as u have done it in this place? This is only proposal from my point of view.",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 100
+      },
+      "revId": "cbbe52bb02825a080b2c5ce97d8b5b24ff8e329d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
