@@ -32,7 +32,7 @@ inputs:
 
   policy_handler_image:
     description: Docker image for policy_handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:4.2.0'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:4.3.0'
 
   application_config:
     description: policy handler application configuration - requires info on policy-engine
@@ -55,3 +55,6 @@ node_templates:
         log_info:
             log_directory: '/opt/app/policy_handler/logs'
         container_port: 25577
+        tls_info:
+          cert_directory: '/opt/app/policy_handler/etc/tls/certs/'
+          use_tls: true

@@ -56,6 +56,18 @@ application_config:
             Authorization : "Basic dGVzdHBkcDphbHBoYTEyMw=="
             Environment : "TEST"
         target_entity : "policy_engine"
+        # optional tls_ca_mode specifies where to find the cacert.pem for tls
+        #   can be one of these:
+        #       "cert_directory" - use the cacert.pem stored locally in cert_directory.
+        #                          this is the default if cacert.pem file is found
+        #
+        #       "os_ca_bundle"     - use the public ca_bundle provided by linux system.
+        #                          this is the default if cacert.pem file not found
+        #
+        #       "do_not_verify"  - special hack to turn off the verification by cacert and hostname
+        tls_ca_mode : "cert_directory"
+        # optional tls_wss_ca_mode specifies the same for the tls based web-socket
+        tls_wss_ca_mode : "cert_directory"
     # deploy_handler config
     #    changed from string "deployment_handler" in 2.3.1 to structure in 2.4.0
     deploy_handler :
@@ -71,3 +83,13 @@ application_config:
             # optionally specify the tenant name for the cloudify under deployment-handler
             #    if not specified the "default_tenant" is used by the deployment-handler
             cfy_tenant_name : "default_tenant"
+        # optional tls_ca_mode specifies where to find the cacert.pem or skip tls verification
+        #   can be one of these:
+        #       "cert_directory" - use the cacert.pem stored locally in cert_directory.
+        #                          this is the default if cacert.pem file is found
+        #
+        #       "os_ca_bundle"     - use the public ca_bundle provided by linux system.
+        #                          this is the default if cacert.pem file not found
+        #
+        #       "do_not_verify"  - special hack to turn off the verification by cacert and hostname
+        tls_ca_mode : "cert_directory"
