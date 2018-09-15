@@ -70,6 +70,8 @@ node_templates:
                 { get_attribute: [ pgaasvm, admin, user ] }
             MSB_ADDR:
                 get_input: msb_hostname
+           ports:
+             - '9102:0'
     properties:
       name: 'holmes-engine-mgmt'
       dns_name: 'holmes-engine-mgmt'
@@ -96,8 +98,6 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
-        ports:
-        - 9102:0
       image: { get_input: he_image }
       # need to use truncated name!!
       #service_component_type: dcae-analytics-holmes-engin-management
