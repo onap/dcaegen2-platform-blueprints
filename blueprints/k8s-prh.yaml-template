@@ -56,7 +56,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:latest"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.0.0"
   replicas:
     type: integer
     description: number of instances

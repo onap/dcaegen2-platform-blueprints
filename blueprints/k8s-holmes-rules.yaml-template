@@ -59,6 +59,9 @@ node_templates:
                 { get_attribute: [ pgaasvm, admin, user ] }
             MSB_ADDR:
                 get_input: msb_hostname
+           ports:
+             - '9101:0'
+             - '9104:0'
     properties:
       name: 'holmes-rule-mgmt'
       dns_name: 'holmes-rule-mgmt'
@@ -76,8 +79,6 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
-        ports:
-        - 9101:0
       image: { get_input: hr_image }
       #service_component_type: dcae-analytics-holmes-rule-management
     relationships:

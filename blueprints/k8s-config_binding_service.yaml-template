@@ -30,7 +30,7 @@ inputs:
 
   cbs_image:
     description: Docker image for config binding service
-    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding:2.1.5
+    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.configbinding.app-app:2.2.3
   replicas:
     description: Number of instances to launch
     type: integer
