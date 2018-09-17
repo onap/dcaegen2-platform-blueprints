@@ -70,6 +70,7 @@ node_templates:
                 { concat: [ 'http://', { get_input: consul_host }, ':', { get_input: consul_port }, '/v1/kv/', { get_input: hv_ves_name} ] }
               VESHV_LISTEN_PORT:
                 { concat: [ { get_input: container_port }, '' ] }
+              VESHV_SSL_DISABLE: ''
     properties:
       application_config:
         dmaap.kafkaBootstrapServers: { get_input: kafka_bootstrap_servers }
