@@ -31,7 +31,7 @@ inputs:
 
   deployment_handler_image:
     description: Docker image for deployment handler
-    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:3.0.1
+    default: {{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.deployment-handler:3.0.2
   application_config:
     description: deployment handler application configuration (to override defaults)
     default: {}
@@ -72,6 +72,9 @@ node_templates:
           version: 'v4'
         log_info:
           log_directory: '/opt/app/dh/log'
+        tls_info:
+          cert_directory: '/opt/app/dh/etc/cert/'
+          use_tls: true
     # Inject CM password through environment variable
     # so that it does not appear in Consul
     interfaces:
