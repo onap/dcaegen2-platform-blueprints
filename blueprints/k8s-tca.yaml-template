@@ -97,8 +97,8 @@ node_templates:
                 aaiEnrichmentIgnoreSSLCertificateErrors: 'true'
                 aaiEnrichmentPortNumber: '8443'
                 aaiEnrichmentProtocol: https
-                aaiEnrichmentUserName: DCAE
-                aaiEnrichmentUserPassword: DCAE
+                aaiEnrichmentUserName: dcae@dcae.onap.org
+                aaiEnrichmentUserPassword: demo123456!
                 aaiVMEnrichmentAPIPath: /aai/v11/search/nodes-query
                 aaiVNFEnrichmentAPIPath: /aai/v11/network/generic-vnfs/generic-vnf
                 enableAAIEnrichment:

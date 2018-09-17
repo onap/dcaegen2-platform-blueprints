@@ -21,19 +21,19 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.3/k8splugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.3/k8splugin_types.yaml  
 inputs:
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.snmptrap:1.4.0"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.snmptrap:1.4.0"    
   cache:
     type: string
     default:
-      dns_cache_ttl_seconds: '60'
+      dns_cache_ttl_seconds: 60
   files:
     type: string
     default:
-    - arriving_traps_log: snmptrapd_arriving_traps.log
+      arriving_traps_log: snmptrapd_arriving_traps.log
       data_dir: data
       eelf_audit: audit.log
       eelf_base_dir: /opt/app/snmptrap/logs
@@ -41,7 +41,7 @@ inputs:
       eelf_error: error.log
       eelf_metrics: metrics.log
       log_dir: logs
-      minimum_severity_to_log: '2'
+      minimum_severity_to_log: 2
       perm_status_file: snmptrapd_status.log
       pid_dir: tmp
       roll_frequency: day
@@ -51,27 +51,27 @@ inputs:
   protocols:
     type: string
     default:
-    - ipv4_interface: 0.0.0.0
-      ipv4_port: '6162'
+      ipv4_interface: 0.0.0.0
+      ipv4_port: 6162
       ipv6_interface: ::1
-      ipv6_port: '6162'
+      ipv6_port: 6162
   publisher:
     type: string
     default:
-    - http_milliseconds_between_retries: '750'
-      http_milliseconds_timeout: '1500'
+      http_milliseconds_between_retries: 750
+      http_milliseconds_timeout: 1500
       http_peer_publisher: unavailable
       http_primary_publisher: 'true'
-      http_retries: '3'
-      max_milliseconds_between_publishes: '10000'
-      max_traps_between_publishes: '10'
+      http_retries: 3
+      max_milliseconds_between_publishes: 10000
+      max_traps_between_publishes: 10
   sec_fault_unsecure_topic:
     type: string
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.ONAP-COLLECTOR-SNMPTRAP"
   snmptrapd:
     type: string
     default:
-    - title: Collector for receiving SNMP traps and publishing to DMAAP/MR
+      title: Collector for receiving SNMP traps and publishing to DMAAP/MR
       version: 1.4.0
   replicas:
     type: integer
@@ -100,13 +100,14 @@ node_templates:
         services_calls: {}
         snmptrapd:
           get_input: snmptrapd
-        sw_interval_in_seconds: '60'
+        sw_interval_in_seconds: 60
         streams_publishes:
-            ves-fault:
+            sec_fault_unsecure:
               dmaap_info:
                 topic_url:
                   get_input: sec_fault_unsecure_topic
               type: message_router
+
       docker_config:
         healthcheck:
           interval: 300s
@@ -121,4 +122,3 @@ node_templates:
       name: 'dcae-snmptrap-collector'
       dns_name: 'dcae-snmptrap-collector'
     type: dcae.nodes.ContainerizedPlatformComponent
-
