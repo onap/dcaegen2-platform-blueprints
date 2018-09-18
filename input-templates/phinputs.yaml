@@ -46,8 +46,8 @@ application_config:
     # In long run we should figure out a way of bringing that info into consul record
     #    related to policy-engine itself.
     policy_engine :
-        url : "http://{{ policy_ip_addr }}:8081"
-        path_pdp : "/pdp/"
+        url : "https://{{ policy_ip_addr }}:8081"
+        path_notifications : "/pdp/notifications"
         path_api : "/pdp/api/"
         headers :
             Accept : "application/json"
