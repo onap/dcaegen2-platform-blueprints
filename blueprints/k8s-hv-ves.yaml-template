@@ -76,12 +76,13 @@ node_templates:
         collector.routing:
             fromDomain: { get_input: hv_meas_domain }
             toTopic: { get_input: hv_meas_kafka_topic }
-      docker_config:
-        healthcheck:
-          endpoint: /health/ready
-          interval: 15s
-          timeout: 1s
-          type: http
+#      TODO: https://jira.onap.org/browse/DCAEGEN2-794
+#      docker_config:
+#        healthcheck:
+#          endpoint: /health/ready
+#          interval: 15s
+#          timeout: 1s
+#          type: http
       image: { get_input: tag_version }
       replicas: { get_input: replicas }
       name: { get_input: hv_ves_name }
