@@ -45,7 +45,7 @@ inputs:
   consul_host:
     type: string
     description: Consul endpoint address
-    default: 'consul-server.onap-consul'
+    default: 'consul-server.onap'
   consul_port:
     type: integer
     description: Consul endpoint port
@@ -75,8 +75,8 @@ node_templates:
       application_config:
         dmaap.kafkaBootstrapServers: { get_input: kafka_bootstrap_servers }
         collector.routing:
-            fromDomain: { get_input: hv_meas_domain }
-            toTopic: { get_input: hv_meas_kafka_topic }
+            - fromDomain: { get_input: hv_meas_domain }
+              toTopic: { get_input: hv_meas_kafka_topic }
       docker_config:
         healthcheck:
           endpoint: /health/ready
