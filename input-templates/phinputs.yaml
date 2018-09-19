@@ -45,11 +45,8 @@ application_config:
     # We obtain that info manually from PDP folks at the moment.
     # In long run we should figure out a way of bringing that info into consul record
     #    related to policy-engine itself.
-    # - k8s specific routing to policy-engine by hostname "pdp"
-    # - relying on dns to resolve hostname "pdp" to ip address
-    # - expecing to find "pdp" as the hostname in server cert from policy-engine
     policy_engine :
-        url : "https://pdp:8081"
+        url : "http://{{ policy_ip_addr }}:8081"
         path_notifications : "/pdp/notifications"
         path_api : "/pdp/api/"
         headers :
