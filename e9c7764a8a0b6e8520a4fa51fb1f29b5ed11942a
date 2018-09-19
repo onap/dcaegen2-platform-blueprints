@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c11b3071",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-09-19T14:59:23Z",
+      "side": 1,
+      "message": "Hi\nThese will not work with data router. We have a code review https://gerrit.onap.org/r/#/c/67401/ that have the correct vaules for data router",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 74,
+        "endChar": 85
+      },
+      "revId": "e9c7764a8a0b6e8520a4fa51fb1f29b5ed11942a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
