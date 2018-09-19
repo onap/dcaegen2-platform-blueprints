@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Andrew Gauld <ag1282@att.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Wed, 19 Sep 2018 15:56:51 +0000
+Reviewed-on: https://gerrit.onap.org/r/67751
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
