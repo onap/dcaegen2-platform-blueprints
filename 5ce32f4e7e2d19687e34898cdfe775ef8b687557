@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_fba5b1a1",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2813
+      },
+      "writtenOn": "2018-09-20T08:55:27Z",
+      "side": 1,
+      "message": "The newest version is 1.4.3. Take a look in prh, hv-ves",
+      "range": {
+        "startLine": 24,
+        "startChar": 86,
+        "endLine": 24,
+        "endChar": 91
+      },
+      "revId": "5ce32f4e7e2d19687e34898cdfe775ef8b687557",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
