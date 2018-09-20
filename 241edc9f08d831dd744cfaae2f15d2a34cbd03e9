@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_878b081e",
+        "filename": "blueprints/k8s-datafile.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3997
+      },
+      "writtenOn": "2018-09-20T08:03:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t here be upper case \"C12\"? need to confirm with Rajendra Jaiswal \u003crajendra.jaiswal@ericsson.com\u003e",
+      "range": {
+        "startLine": 90,
+        "startChar": 54,
+        "endLine": 90,
+        "endChar": 57
+      },
+      "revId": "241edc9f08d831dd744cfaae2f15d2a34cbd03e9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
