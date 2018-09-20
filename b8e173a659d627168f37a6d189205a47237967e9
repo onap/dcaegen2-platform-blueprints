@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_9b503d33",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-09-20T09:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_fbb29192",
+      "revId": "b8e173a659d627168f37a6d189205a47237967e9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_1bae6d2e",
         "filename": "blueprints/k8s-datafile-collector.yaml-template",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-20T09:43:27Z",
       "side": 1,
       "message": "Same like above.",
+      "revId": "b8e173a659d627168f37a6d189205a47237967e9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3b43296d",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-09-20T09:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_1bae6d2e",
       "revId": "b8e173a659d627168f37a6d189205a47237967e9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
