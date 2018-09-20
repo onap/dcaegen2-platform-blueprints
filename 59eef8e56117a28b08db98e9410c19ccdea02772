@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_aaab6473",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2018-09-20T13:21:05Z",
+      "side": 1,
+      "message": "For template type defined as: dcae.nodes.ContainerizedPlatformComponent, there is also manadatory container_port parameter. Check https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R3/k8splugin/1.4.2/k8splugin_types.yaml",
+      "revId": "59eef8e56117a28b08db98e9410c19ccdea02772",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
