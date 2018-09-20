@@ -39,7 +39,7 @@ inputs:
 
   policy_handler_image:
     description: Docker image for policy_handler
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:4.3.1'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.platform.policy-handler:4.4.0'
 
   application_config:
     description: policy handler application configuration - requires info on policy-engine
