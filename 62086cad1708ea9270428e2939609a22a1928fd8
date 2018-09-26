@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_a82a75e5",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2018-09-26T09:32:19Z",
+      "side": 1,
+      "message": "Should entry start with slash (/) as /events/unauthenticated.VES_NOTIFICATION_OUTPUT ?",
+      "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
