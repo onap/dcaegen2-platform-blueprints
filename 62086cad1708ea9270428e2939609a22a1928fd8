@@ -16,6 +16,24 @@
       "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_68821dca",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-09-26T09:43:49Z",
+      "side": 1,
+      "message": "This \"publish\" is acting what datafile_endpoints.json have in datafile repo. Henrik seems to agree with this. But let get him to code review it",
+      "parentUuid": "1a76adc5_a82a75e5",
+      "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
