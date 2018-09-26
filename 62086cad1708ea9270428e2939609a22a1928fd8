@@ -70,6 +70,24 @@
       "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8b80d347",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3763
+      },
+      "writtenOn": "2018-09-26T10:36:20Z",
+      "side": 1,
+      "message": "From the Data-Router documentation, https://onap.readthedocs.io/en/latest/submodules/dmaap/datarouter.git/docs/data-router/data-router.html\n\nPublish to Feed\n\nDescription: Publish a file to a created feed so that it can be shared to any subscribers of that feed\nRequest URL\n\nhttp[s]://{host}:{port}/publish/{feedId}/{fileName}\n\n    {feedId} is the id of the feed you are publishing to.\n    {fileId} is the id of the file you are publishing onto the feed.\n\nMaybe we shouldn\u0027t use the notion of a configurable topic at all, since \"publish\" is not actually configurable?",
+      "parentUuid": "1a76adc5_c867b124",
+      "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
