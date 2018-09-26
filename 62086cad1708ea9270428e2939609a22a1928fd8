@@ -88,6 +88,24 @@
       "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2b7bbf2a",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 8
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-09-26T11:46:53Z",
+      "side": 1,
+      "message": "@Henrik My understanding is for the datafile code you need \"publish\" to be there as it is not hard coded in. We can take this out no problem. Just let me know what you would like us to do.",
+      "parentUuid": "1a76adc5_8b80d347",
+      "revId": "62086cad1708ea9270428e2939609a22a1928fd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
