@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_761d4873",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2018-10-01T12:17:54Z",
+      "side": 1,
+      "message": "I guess we should name it `hv_performance_domain`/`hv_perf_domain`?",
+      "revId": "d30137764252b92d7a39d81a711d855ab400234d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_1612bc62",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 3701
+      },
+      "writtenOn": "2018-10-01T12:17:54Z",
+      "side": 1,
+      "message": "Similiar as above?",
+      "revId": "d30137764252b92d7a39d81a711d855ab400234d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
