@@ -55,10 +55,10 @@ inputs:
     default: 'message-router-kafka:9092'
   hv_meas_domain:
     type: string
-    default: 'HVMEAS'
+    default: 'PERF3GPP'
   hv_meas_kafka_topic:
     type: string
-    default: 'HV_VES_MEASUREMENTS'
+    default: 'HV_VES_PERF3GPP'
 node_templates:
   hv-ves:
     interfaces:
