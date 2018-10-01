@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_f9928b9e",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-10-01T13:45:05Z",
+      "side": 1,
+      "message": "new domain per Marge/Alok is \"perf3GPP\". Casing should be corrected for consistency",
+      "range": {
+        "startLine": 58,
+        "startChar": 14,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "9fb46b203fcbc8c8134c70baebd2afa2140bc91c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
