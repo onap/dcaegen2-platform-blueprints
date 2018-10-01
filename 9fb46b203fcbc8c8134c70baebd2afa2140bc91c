@@ -22,6 +22,30 @@
       "revId": "9fb46b203fcbc8c8134c70baebd2afa2140bc91c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_841756a3",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-10-01T20:01:52Z",
+      "side": 1,
+      "message": "Newer revision received from Marge/Alok; attached (ONAP_VES7.xPM_Proposals_v7) into https://jira.onap.org/browse/DCAEGEN2-847\n\nPls correct the domain names to - \"perf3gpp\" per new spec",
+      "parentUuid": "bada0100_f9928b9e",
+      "range": {
+        "startLine": 58,
+        "startChar": 14,
+        "endLine": 58,
+        "endChar": 22
+      },
+      "revId": "9fb46b203fcbc8c8134c70baebd2afa2140bc91c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
