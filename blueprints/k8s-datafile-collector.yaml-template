@@ -100,6 +100,10 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_dr_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_dr_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/octet-stream"
+        dmaap.ftp.ftpesConfiguration.keyCert: "/config/ftpKey.jks"
+        dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
+        dmaap.ftp.ftpesConfiguration.trustedCA: "/config/cacerts"
+        dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
       docker_config:
         healthcheck:
           endpoint: /heartbeat
