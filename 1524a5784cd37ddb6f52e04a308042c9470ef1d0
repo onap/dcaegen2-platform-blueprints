@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_0c9fe860",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4407
+      },
+      "writtenOn": "2018-10-11T14:49:02Z",
+      "side": 1,
+      "message": "please change this to 1.0.2",
+      "range": {
+        "startLine": 61,
+        "startChar": 136,
+        "endLine": 61,
+        "endChar": 142
+      },
+      "revId": "1524a5784cd37ddb6f52e04a308042c9470ef1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
