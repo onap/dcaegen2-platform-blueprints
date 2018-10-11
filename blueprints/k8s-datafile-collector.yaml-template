@@ -58,7 +58,7 @@ inputs:
     default: "dradmin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:latest"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.0.2"
   replicas:
     type: integer
     description: number of instances
@@ -100,6 +100,10 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_dr_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_dr_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/octet-stream"
+        dmaap.ftp.ftpesConfiguration.keyCert: "/config/ftpKey.jks"
+        dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
+        dmaap.ftp.ftpesConfiguration.trustedCA: "/config/cacerts"
+        dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
       docker_config:
         healthcheck:
           endpoint: /heartbeat
