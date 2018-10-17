@@ -92,12 +92,6 @@ node_templates:
              topic_url:
                   get_input: ves_fault_publish_url
             type: message_router
-      docker_config:
-        healthcheck:
-          endpoint: /api/holmes-engine-mgmt/v1/healthcheck
-          interval: 15s
-          timeout: 1s
-          type: http
       image: { get_input: he_image }
       # need to use truncated name!!
       #service_component_type: dcae-analytics-holmes-engin-management

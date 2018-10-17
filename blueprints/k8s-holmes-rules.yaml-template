@@ -73,12 +73,6 @@ node_templates:
         services_calls: {}
         streams_publishes: {}
         streams_subscribes: {}
-      docker_config:
-        healthcheck:
-          endpoint: /api/holmes-rule-mgmt/v1/healthcheck
-          interval: 15s
-          timeout: 1s
-          type: http
       image: { get_input: hr_image }
       #service_component_type: dcae-analytics-holmes-rule-management
     relationships:
