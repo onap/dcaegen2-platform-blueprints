@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bada0100_b41596e6",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-10-24T21:20:31Z",
+      "side": 1,
+      "message": "This is okay; this gets resolved to aai.onap.svc.cluster.local by k8s dns",
+      "parentUuid": "bada0100_c3bf46a9",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "b2e0f2a5b8ee4741ce8a85a4a8e953c9c06f74e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bada0100_63de9a13",
         "filename": "blueprints/k8s-prh.yaml-template",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-24T09:32:18Z",
       "side": 1,
       "message": "The same as above",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "b2e0f2a5b8ee4741ce8a85a4a8e953c9c06f74e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_d4ce1a83",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-10-24T21:20:31Z",
+      "side": 1,
+      "message": "same comment",
+      "parentUuid": "bada0100_63de9a13",
       "range": {
         "startLine": 44,
         "startChar": 4,
