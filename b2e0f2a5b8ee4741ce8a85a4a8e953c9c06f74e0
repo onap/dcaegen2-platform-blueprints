@@ -45,6 +45,40 @@
       "revId": "b2e0f2a5b8ee4741ce8a85a4a8e953c9c06f74e0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_54d46a1f",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-10-24T21:16:30Z",
+      "side": 1,
+      "message": "Are the key file, trust store, and key store files packaged in the Docker image?",
+      "revId": "b2e0f2a5b8ee4741ce8a85a4a8e953c9c06f74e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_34e1a6fe",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2018-10-24T21:16:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.  It will not assign the value of tag_version to the image property.",
+      "revId": "b2e0f2a5b8ee4741ce8a85a4a8e953c9c06f74e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
