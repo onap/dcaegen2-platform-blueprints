@@ -26,7 +26,7 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:latest'
+    default: '{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.1.0-SNAPSHOT'
   hv_ves_name:
     type: string
     default: 'dcae-hv-ves-collector'
