@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_aa49f08c",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-11-07T22:00:05Z",
+      "side": 1,
+      "message": "why did major version get bumped upto 4 (from 1)? I missed to notice https://gerrit.onap.org/r/#/c/71848/. Unless the new changes introduces breaking api changes (non backward compatible), the major version should be retained.",
+      "range": {
+        "startLine": 29,
+        "startChar": 132,
+        "endLine": 29,
+        "endChar": 146
+      },
+      "revId": "6185f13d6ddc0b66eacff8fab8783f9e95fd0523",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
