@@ -26,7 +26,7 @@ imports:
 inputs:
   aaiEnrichmentHost:
     type: string
-    default: "aai.onap.svc.cluster.local"
+    default: "aai"
   aaiEnrichmentPort:
     type: integer
     default: 8443
@@ -41,7 +41,7 @@ inputs:
   dmaap_host:
     type: string
     description: dmaap host
-    default: message-router.onap.svc.cluster.local
+    default: message-router
   dmaap_port:
     type: integer
     description: dmaap port
@@ -64,6 +64,10 @@ inputs:
   host_port:
     description: port on Kubernetes host where PRH API will be exposed
     default: 0
+  secureEnableCert:
+    type: boolean
+    description: enable certificate base connection with AAI and DMaap
+    default: false
 node_templates:
   prh:
     properties:
@@ -94,6 +98,13 @@ node_templates:
         aai.aaiClientConfiguration.aaiIgnoreSslCertificateErrors: true
         aai.aaiClientConfiguration.aaiBasePath: "/aai/v12"
         aai.aaiClientConfiguration.aaiPnfPath: "/network/pnfs/pnf"
+        secure.configuration.keyFile: "/opt/app/prh/local/org.onap.prh.keyfile"
+        secure.configuration.trustStore: "/opt/app/prh/local/org.onap.prh.trust.jks"
+        secure.configuration.trustStorePassword: "change it"
+        secure.configuration.keyStore: "/opt/app/prh/local/org.onap.prh.p12"
+        secure.configuration.keyStorePassword: "change it"
+        secure.configuration.enableAaiCertAuth: { get_input: secureEnableCert }
+        secure.configuration.enableDmaapCertAuth: { get_input: secureEnableCert }
       host_port:
           { get_input: host_port }
       container_port:
@@ -105,7 +116,7 @@ node_templates:
           timeout: 1s
           type: http
       image:
-        get_input: tag_version
+        get_input: { get_input: tag_version }
       replicas: {get_input: replicas}
       name: 'dcae-prh'
       dns_name: 'dcae-prh'
