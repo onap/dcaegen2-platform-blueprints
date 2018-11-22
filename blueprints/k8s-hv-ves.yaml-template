@@ -59,6 +59,10 @@ inputs:
   perf3gpp_kafka_topic:
     type: string
     default: 'HV_VES_PERF3GPP'
+  healthcheck_port:
+    type: integer
+    description: Network port that the HV-Ves HTTP service for performing healthcheck is running
+    default: 6060
 node_templates:
   hv-ves:
     interfaces:
@@ -70,6 +74,8 @@ node_templates:
                 { concat: [ 'http://', { get_input: consul_host }, ':', { get_input: consul_port }, '/v1/kv/', { get_input: hv_ves_name} ] }
               VESHV_LISTEN_PORT:
                 { concat: [ { get_input: container_port }, '' ] }
+              VESHV_HEALTH_CHECK_API_PORT:
+                { concat: [ { get_input: healthcheck_port }, '' ] }
               VESHV_SSL_DISABLE: ''
     properties:
       application_config:
@@ -77,13 +83,12 @@ node_templates:
         collector.routing:
             - fromDomain: { get_input: perf3gpp_domain }
               toTopic: { get_input: perf3gpp_kafka_topic }
-#      TODO: https://jira.onap.org/browse/DCAEGEN2-794
-#      docker_config:
-#        healthcheck:
-#          endpoint: /health/ready
-#          interval: 15s
-#          timeout: 1s
-#          type: http
+      docker_config:
+        healthcheck:
+          type: script
+          script: "/opt/ves-hv-collector/bin/healthcheck.sh"
+          interval: 15s
+          timeout: 2s
       image: { get_input: tag_version }
       replicas: { get_input: replicas }
       name: { get_input: hv_ves_name }
