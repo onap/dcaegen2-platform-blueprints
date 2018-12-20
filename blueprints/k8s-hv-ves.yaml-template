@@ -76,10 +76,11 @@ node_templates:
                 { concat: [ { get_input: container_port }, '' ] }
               VESHV_HEALTH_CHECK_API_PORT:
                 { concat: [ { get_input: healthcheck_port }, '' ] }
+              VESHV_KAFKA_BOOTSTRAP_SERVERS:
+                { get_input: kafka_bootstrap_servers }
               VESHV_SSL_DISABLE: ''
     properties:
       application_config:
-        dmaap.kafkaBootstrapServers: { get_input: kafka_bootstrap_servers }
         collector.routing:
             - fromDomain: { get_input: perf3gpp_domain }
               toTopic: { get_input: perf3gpp_kafka_topic }
