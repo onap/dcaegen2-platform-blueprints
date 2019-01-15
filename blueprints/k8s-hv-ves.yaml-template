@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (C) 2018 NOKIA
+# Copyright (C) 2018-2019 NOKIA
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,6 +70,7 @@ node_templates:
         start:
           inputs:
             envs:
+              JAVA_OPTS: '-Dlogback.configurationFile=/etc/ONAP/dcae-hv-ves-collector/logback.xml'
               VESHV_CONFIG_URL:
                 { concat: [ 'http://', { get_input: consul_host }, ':', { get_input: consul_port }, '/v1/kv/', { get_input: hv_ves_name}, '?raw=true' ] }
               VESHV_LISTEN_PORT:
@@ -87,15 +88,15 @@ node_templates:
       docker_config:
         healthcheck:
           type: script
-          script: "/opt/ves-hv-collector/bin/healthcheck.sh"
+          script: "/opt/ves-hv-collector/healthcheck.sh"
           interval: 15s
           timeout: 2s
       image: { get_input: tag_version }
       replicas: { get_input: replicas }
       name: { get_input: hv_ves_name }
-      dns_name: 'dcae-hv-ves-collector'
+      dns_name: { get_input: hv_ves_name }
       container_port: { get_input: container_port }
       host_port: { get_input: host_port }
       log_info:
-        log_directory: '/opt/app/HvVesCollector/logs'
+          log_directory: '/var/log/ONAP/dcae-hv-ves-collector'
     type: dcae.nodes.ContainerizedPlatformComponent
