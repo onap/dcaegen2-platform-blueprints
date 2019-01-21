@@ -98,11 +98,10 @@ node_templates:
         aai.aaiClientConfiguration.aaiIgnoreSslCertificateErrors: true
         aai.aaiClientConfiguration.aaiBasePath: "/aai/v12"
         aai.aaiClientConfiguration.aaiPnfPath: "/network/pnfs/pnf"
-        secure.configuration.keyFile: "/opt/app/prh/local/org.onap.prh.keyfile"
-        secure.configuration.trustStore: "/opt/app/prh/local/org.onap.prh.trust.jks"
-        secure.configuration.trustStorePassword: "change it"
-        secure.configuration.keyStore: "/opt/app/prh/local/org.onap.prh.p12"
-        secure.configuration.keyStorePassword: "change it"
+        secure.configuration.trustStore: "/opt/app/prh/etc/cert/trust.jks"
+        secure.configuration.trustStorePasswordPath: "/opt/app/prh/etc/cert/trust.pass"
+        secure.configuration.keyStore: "/opt/app/prh/etc/cert/key.p12"
+        secure.configuration.keyStorePasswordPath: "/opt/app/prh/etc/cert/key.pass"
         secure.configuration.enableAaiCertAuth: { get_input: secureEnableCert }
         secure.configuration.enableDmaapCertAuth: { get_input: secureEnableCert }
       host_port:
@@ -116,10 +115,13 @@ node_templates:
           timeout: 1s
           type: http
       image:
-        get_input: { get_input: tag_version }
+        { get_input: tag_version }
       replicas: {get_input: replicas}
       name: 'dcae-prh'
       dns_name: 'dcae-prh'
       log_info:
         log_directory: "/opt/app/prh/logs"
+      tls_info:
+        cert_directory: '/opt/app/prh/etc/cert/'
+        use_tls: true
     type: dcae.nodes.ContainerizedPlatformComponent
