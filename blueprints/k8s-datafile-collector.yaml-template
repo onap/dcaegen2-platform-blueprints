@@ -104,6 +104,11 @@ node_templates:
         dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
         dmaap.ftp.ftpesConfiguration.trustedCA: "/config/cacerts"
         dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
+        dmaap.security.trustStorePath: "/opt/app/dfc/etc/cert/trust.jks"
+        dmaap.security.trustStorePasswordPath: "/opt/app/dfc/etc/cert/trust.pass"
+        dmaap.security.keyStorePath: "/opt/app/dfc/etc/cert/key.p12"
+        dmaap.security.keyStorePasswordPath: "/opt/app/dfc/etc/cert/key.pass"
+        dmaap.security.enableDmaapCertAuth: { get_input: secureEnableCert }
       docker_config:
         healthcheck:
           endpoint: /heartbeat
@@ -117,4 +122,7 @@ node_templates:
       dns_name: 'dcae-datafile-collector'
       log_info:
         log_directory: "/opt/app/datafile/logs"
+      tls_info:
+        cert_directory: '/opt/app/dfc/etc/cert/'
+        use_tls: true
     type: dcae.nodes.ContainerizedPlatformComponent
