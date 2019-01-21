@@ -104,6 +104,11 @@ node_templates:
         dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
         dmaap.ftp.ftpesConfiguration.trustedCA: "/config/cacerts"
         dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
+        dmaap.security.trustStorePath: "trustStorePath"
+        dmaap.security.trustStorePasswordPath: "trustStorePasswordPath"
+        dmaap.security.keyStorePath: "keyStorePath"
+        dmaap.security.keyStorePasswordPath: "keyStorePasswordPath"
+        dmaap.security.enableDmaapCertAuth: "enableDmaapCertAuth"
       docker_config:
         healthcheck:
           endpoint: /heartbeat
