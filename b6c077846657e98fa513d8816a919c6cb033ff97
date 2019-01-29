@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_37bda102",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3009
+      },
+      "writtenOn": "2019-01-29T07:07:14Z",
+      "side": 1,
+      "message": "To get certificates there is needed section:\ntls_info:\n        cert_directory: \u0027/opt/app/prh/etc/cert/\u0027\n        use_tls: true\nAnd then real paths can be inserted",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 65
+      },
+      "revId": "b6c077846657e98fa513d8816a919c6cb033ff97",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
