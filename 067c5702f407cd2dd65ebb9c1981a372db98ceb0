@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_9946ff79",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3009
+      },
+      "writtenOn": "2019-01-30T07:05:02Z",
+      "side": 1,
+      "message": "Here is defined input \"secureEnableCert\" but you forgot definition of the input. Check the example file: k8s-prh.yaml-template",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 75
+      },
+      "revId": "067c5702f407cd2dd65ebb9c1981a372db98ceb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
