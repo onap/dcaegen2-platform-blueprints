@@ -22,6 +22,30 @@
       "revId": "067c5702f407cd2dd65ebb9c1981a372db98ceb0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adb75153_d925127c",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 5
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 3997
+      },
+      "writtenOn": "2019-02-01T03:42:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_9946ff79",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 75
+      },
+      "revId": "067c5702f407cd2dd65ebb9c1981a372db98ceb0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
