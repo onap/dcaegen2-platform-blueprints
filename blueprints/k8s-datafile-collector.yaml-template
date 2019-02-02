@@ -91,7 +91,7 @@ node_templates:
         dmaap.dmaapConsumerConfiguration.dmaapContentType: "application/json"
         dmaap.dmaapConsumerConfiguration.consumerId: "C12"
         dmaap.dmaapConsumerConfiguration.consumerGroup: "OpenDCAE-c12"
-        dmaap.dmaapConsumerConfiguration.timeoutMS: -1
+        dmaap.dmaapConsumerConfiguration.timeoutMs: -1
         dmaap.dmaapConsumerConfiguration.messageLimit: -1
         dmaap.dmaapProducerConfiguration.dmaapHostName: { get_input: dmaap_dr_host }
         dmaap.dmaapProducerConfiguration.dmaapPortNumber: { get_input: dmaap_dr_port }
