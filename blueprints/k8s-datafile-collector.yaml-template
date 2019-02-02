@@ -71,6 +71,10 @@ inputs:
     type: integer
     description: secure port on Kubernetes host where datafile API will be exposed
     default: 30224
+  secureEnableCert:
+    type: boolean
+    description: enable certificate base connection with PNF and DMaap
+    default: false
 node_templates:
   datafile-collector:
     interfaces:
@@ -104,6 +108,11 @@ node_templates:
         dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
         dmaap.ftp.ftpesConfiguration.trustedCA: "/config/cacerts"
         dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
+        dmaap.security.trustStorePath: "/opt/app/datafile/etc/cert/trust.jks"
+        dmaap.security.trustStorePasswordPath: "/opt/app/datafile/etc/cert/trust.pass"
+        dmaap.security.keyStorePath: "/opt/app/datafile/etc/cert/key.p12"
+        dmaap.security.keyStorePasswordPath: "/opt/app/datafile/etc/cert/key.pass"
+        dmaap.security.enableDmaapCertAuth: { get_input: secureEnableCert }
       docker_config:
         healthcheck:
           endpoint: /heartbeat
@@ -117,4 +126,7 @@ node_templates:
       dns_name: 'dcae-datafile-collector'
       log_info:
         log_directory: "/opt/app/datafile/logs"
+      tls_info:
+        cert_directory: '/opt/app/datafile/etc/cert/'
+        use_tls: true
     type: dcae.nodes.ContainerizedPlatformComponent
