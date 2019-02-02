@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2a3be0f_929d8de8",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-02-02T06:15:44Z",
+      "side": 1,
+      "message": "This should be fixed to align with DMAAP configuration structure returned from CBS; refer https://jira.onap.org/browse/DCAEGEN2-1145",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 115,
+        "endChar": 75
+      },
+      "revId": "cae9ebccfdb64595f9b7ab7a50ef80f8d09accc3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
