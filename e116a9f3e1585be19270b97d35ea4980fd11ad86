@@ -1,0 +1,9 @@
+Code-Review+1: T M <tobias.mole@ericsson.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Verified+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Sat, 02 Feb 2019 06:09:51 +0000
+Reviewed-on: https://gerrit.onap.org/r/77703
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
