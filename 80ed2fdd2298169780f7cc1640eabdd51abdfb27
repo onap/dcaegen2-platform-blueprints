@@ -1,0 +1,9 @@
+Code-Review+1: Andrew Gauld <agauld@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Shadi Haidar <sh1986@att.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 05 Feb 2019 21:09:55 +0000
+Reviewed-on: https://gerrit.onap.org/r/77807
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
