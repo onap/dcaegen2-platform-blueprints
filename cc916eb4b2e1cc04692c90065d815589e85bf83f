@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ca5af8_d4244a1a",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "should be {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 104
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7384f8_cdadeab3",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 103
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14220718_3b6939aa",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 98
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a849564f_26d1539e",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "why does vesmapper require nodeport? This will be required only for services exposing api outside of k8s cluster",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49a6cda4_54ac114b",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "The MR host/port should not be provided as env; should align to DMAAP structure to be provided by platform. Created DCAEGEN2-1351 for tracking this update.",
+      "range": {
+        "startLine": 84,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eabb2ff3_94845613",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "This will be exposed during deployment automatically; not required to be exposed in blueprint.",
+      "range": {
+        "startLine": 88,
+        "startChar": 14,
+        "endLine": 90,
+        "endChar": 64
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc33f4e0_391cfc4b",
+        "filename": "blueprints/k8s-vesmapper.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-19T22:44:41Z",
+      "side": 1,
+      "message": "May not be required for VESmapper",
+      "range": {
+        "startLine": 91,
+        "startChar": 11,
+        "endLine": 92,
+        "endChar": 64
+      },
+      "revId": "cc916eb4b2e1cc04692c90065d815589e85bf83f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
