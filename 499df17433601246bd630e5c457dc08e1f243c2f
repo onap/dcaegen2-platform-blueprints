@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2be7c417_7e549754",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-28T03:00:18Z",
+      "side": 1,
+      "message": "Per discussion earlier this week, BC interface is not required to be supported directly by DFC",
+      "range": {
+        "startLine": 43,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "499df17433601246bd630e5c457dc08e1f243c2f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a80e7cca_f5e82b38",
+        "filename": "blueprints/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-03-28T03:00:18Z",
+      "side": 1,
+      "message": "same comment as above; these should be removed",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 90
+      },
+      "revId": "499df17433601246bd630e5c457dc08e1f243c2f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
