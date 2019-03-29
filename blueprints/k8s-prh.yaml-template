@@ -90,6 +90,13 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/json"
+        dmaap.dmaapUpdateProducerConfiguration.dmaapHostName: { get_input: dmaap_host }
+        dmaap.dmaapUpdateProducerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
+        dmaap.dmaapUpdateProducerConfiguration.dmaapTopicName: "/events/unauthenticated.PNF_UPDATE"
+        dmaap.dmaapUpdateProducerConfiguration.dmaapProtocol: "http"
+        dmaap.dmaapUpdateProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
+        dmaap.dmaapUpdateProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
+        dmaap.dmaapUpdateProducerConfiguration.dmaapContentType: "application/json"
         aai.aaiClientConfiguration.aaiHost: { get_input: aaiEnrichmentHost }
         aai.aaiClientConfiguration.aaiHostPortNumber: { get_input: aaiEnrichmentPort }
         aai.aaiClientConfiguration.aaiProtocol: "https"
@@ -98,6 +105,7 @@ node_templates:
         aai.aaiClientConfiguration.aaiIgnoreSslCertificateErrors: true
         aai.aaiClientConfiguration.aaiBasePath: "/aai/v12"
         aai.aaiClientConfiguration.aaiPnfPath: "/network/pnfs/pnf"
+        aai.aaiClientConfiguration.aaiServiceInstancePath: "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}"
         secure.configuration.trustStore: "/opt/app/prh/etc/cert/trust.jks"
         secure.configuration.trustStorePasswordPath: "/opt/app/prh/etc/cert/trust.pass"
         secure.configuration.keyStore: "/opt/app/prh/etc/cert/key.p12"
