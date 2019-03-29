@@ -53,6 +53,7 @@ application_config:
     #    related to policy-engine itself.
     policy_engine :
         url : "http://{{ policy_ip_addr }}:8081"
+        path_decision : "/decision/v1"
         path_notifications : "/pdp/notifications"
         path_api : "/pdp/api/"
         headers :
