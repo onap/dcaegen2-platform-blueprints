@@ -1,0 +1,9 @@
+Code-Review+1: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Kornel Janiak <kornel.janiak@nokia.com>
+Code-Review+2: Jack Lucas <jflucas@research.att.com>
+Submitted-by: Jack Lucas <jflucas@research.att.com>
+Submitted-at: Mon, 01 Apr 2019 22:59:53 +0000
+Reviewed-on: https://gerrit.onap.org/r/83853
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
