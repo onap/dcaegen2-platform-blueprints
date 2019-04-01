@@ -42,14 +42,6 @@ inputs:
     type: integer
     description: Network port that the platform service exposes in the container
     default: 6061
-  consul_host:
-    type: string
-    description: Consul endpoint address
-    default: 'consul-server.onap'
-  consul_port:
-    type: integer
-    description: Consul endpoint port
-    default: 8500
   kafka_bootstrap_servers:
     type: string
     default: 'message-router-kafka:9092'
@@ -59,10 +51,6 @@ inputs:
   perf3gpp_kafka_topic:
     type: string
     default: 'HV_VES_PERF3GPP'
-  healthcheck_port:
-    type: integer
-    description: Network port that the HV-Ves HTTP service for performing healthcheck is running
-    default: 6060
 node_templates:
   hv-ves:
     interfaces:
@@ -70,21 +58,16 @@ node_templates:
         start:
           inputs:
             envs:
-              JAVA_OPTS: '-Dlogback.configurationFile=/etc/ONAP/dcae-hv-ves-collector/logback.xml'
-              VESHV_CONFIG_URL:
-                { concat: [ 'http://', { get_input: consul_host }, ':', { get_input: consul_port }, '/v1/kv/', { get_input: hv_ves_name}, '?raw=true' ] }
-              VESHV_LISTEN_PORT:
-                { concat: [ { get_input: container_port }, '' ] }
-              VESHV_HEALTH_CHECK_API_PORT:
-                { concat: [ { get_input: healthcheck_port }, '' ] }
-              VESHV_KAFKA_BOOTSTRAP_SERVERS:
-                { get_input: kafka_bootstrap_servers }
-              VESHV_SSL_DISABLE: ''
+              JAVA_OPTS: { concat: [ '-Dlogback.configurationFile=/etc/ONAP/', { get_input: hv_ves_name }, '/logback.xml' ] }
     properties:
       application_config:
-        collector.routing:
-            - fromDomain: { get_input: perf3gpp_domain }
-              toTopic: { get_input: perf3gpp_kafka_topic }
+        collector:
+          streams_publishes:
+            { get_input: perf3gpp_domain }:
+              type: kafka
+              kafka_info:
+                bootstrap_servers: { get_input: kafka_bootstrap_servers }
+                topic_name: { get_input: perf3gpp_kafka_topic }
       docker_config:
         healthcheck:
           type: script
@@ -98,5 +81,5 @@ node_templates:
       container_port: { get_input: container_port }
       host_port: { get_input: host_port }
       log_info:
-          log_directory: '/var/log/ONAP/dcae-hv-ves-collector'
+        log_directory: { concat: [ '/var/log/ONAP/', { get_input: hv_ves_name } ] }
     type: dcae.nodes.ContainerizedPlatformComponent
