@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367f5ca4_89dbed65",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-03T16:54:53Z",
+      "side": 1,
+      "message": "These should be aligned later to be handled as standard structure (stream_publish/subscribes - DCAEGEN2-1147)",
+      "range": {
+        "startLine": 93,
+        "startChar": 2,
+        "endLine": 98,
+        "endChar": 91
+      },
+      "revId": "5d7d06fc7d784be93f5f1386c440ba514a5fc417",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
