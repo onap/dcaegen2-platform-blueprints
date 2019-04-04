@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2019 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -73,6 +73,10 @@ inputs:
     default:
       title: Collector for receiving SNMP traps and publishing to DMAAP/MR
       version: 1.4.0
+  external_port:
+    type: string
+    description: Kubernetes node port on which collector is exposed
+    default: "30470"  
   replicas:
     type: integer
     description: number of instances
@@ -85,7 +89,7 @@ node_templates:
         start:
           inputs:
            ports:
-             - '6162:0'
+             - concat: ["6162/udp:", { get_input: external_port }] 
     properties:
       application_config:
         StormWatchPolicy: ''
@@ -108,15 +112,6 @@ node_templates:
                   get_input: sec_fault_unsecure_topic
               type: message_router
 
-#   TBA under DCAEGEN2-796
-#      docker_config:
-#        healthcheck:
-#          interval: 300s
-#          script: /opt/app/snmptrap/bin/snmptrapd.sh status
-#          timeout: 120s
-#          type: docker
-#        ports:
-#        - 6162/udp:162
       image:
         get_input: tag_version
       replicas: {get_input: replicas}
