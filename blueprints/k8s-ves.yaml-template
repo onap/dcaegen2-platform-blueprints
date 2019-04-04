@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2019 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -49,6 +49,10 @@ inputs:
     type: string
     description: Kubernetes node port on which collector is exposed
     default: "30235"
+  external_tls_port:
+    type: string
+    description: Kubernetes node port on which collector is exposed for https
+    default: "30417"
   replicas:
     type: integer
     description: number of instances
@@ -61,6 +65,7 @@ node_templates:
           inputs:
            ports:
              - concat: ["8080:", { get_input: external_port }]             
+             - concat: ["8443:", { get_input: external_tls_port }]
     properties:
       application_config:
         collector.dmaap.streamid: fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration
