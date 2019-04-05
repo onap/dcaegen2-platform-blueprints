@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "27253ff1_170903c0",
+        "filename": "blueprints/k8s-helm-override.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-05T16:21:23Z",
+      "side": 1,
+      "message": "This template can be used to deploy any helm chart from the staging repo. For Dublin - no DCAEservices will be deployed using this plugin; but this will be useful feature for community to explore/test.",
+      "parentUuid": "7cba9996_496f5e25",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23c3d891_07f4f833",
         "filename": "blueprints/k8s-helm-override.yaml-template",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8dc5b69f_4d6c220e",
+        "filename": "blueprints/k8s-helm-override.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-05T16:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c3d891_07f4f833",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4a3b737_a985619b",
         "filename": "blueprints/k8s-helm.yaml-template",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2019-04-05T12:16:35Z",
       "side": 1,
       "message": "What does this blueprint deploy?",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be27121f_bca33f70",
+        "filename": "blueprints/k8s-helm.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-05T16:21:23Z",
+      "side": 1,
+      "message": "This template allows configuration to be overridden (value.yaml) part of deployment. The current default is set to ONAP chart with configuration to enable/disable.",
+      "parentUuid": "b4a3b737_a985619b",
       "revId": "8a87812291971a58810472301d7763c1d9db0a89",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
