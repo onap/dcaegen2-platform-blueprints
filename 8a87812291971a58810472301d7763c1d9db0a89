@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cba9996_496f5e25",
+        "filename": "blueprints/k8s-helm-override.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-04-05T12:16:35Z",
+      "side": 1,
+      "message": "What is blueprint deploying?",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c3d891_07f4f833",
+        "filename": "blueprints/k8s-helm-override.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-04-05T12:16:35Z",
+      "side": 1,
+      "message": "Is it reasonable to have a default for an IP address?",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4a3b737_a985619b",
+        "filename": "blueprints/k8s-helm.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-04-05T12:16:35Z",
+      "side": 1,
+      "message": "What does this blueprint deploy?",
+      "revId": "8a87812291971a58810472301d7763c1d9db0a89",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
