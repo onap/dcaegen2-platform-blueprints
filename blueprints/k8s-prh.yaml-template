@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018 AT&T, NOKIA
+# Copyright (c) 2018-2019 AT&T, NOKIA
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,9 @@ imports:
   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.5/k8splugin_types.yaml
 
 inputs:
+  pnfUrl:
+    type: string
+    default: "https://localhost:8443/aai/v12/network/pnfs/pnf"
   aaiEnrichmentHost:
     type: string
     default: "aai"
@@ -38,6 +41,15 @@ inputs:
     type: string
     description: aai password
     default: "AAI"
+  dmaap_pnfReady_url:
+    type: string
+    default: "http://localhost:8904/events/unauthenticated.PNF_READY"
+  dmaap_vesPnfRegOutput_url:
+    type: string
+    default: "http://localhost:8904/events/unauthenticated.VES_PNFREG_OUTPUT"
+  dmaap_pnfUpdate_url:
+    type: string
+    default: "http://localhost:8904/events/unauthenticated.PNF_UPDATE"
   dmaap_host:
     type: string
     description: dmaap host
@@ -56,7 +68,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.0.0"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.2.1"
   replicas:
     type: integer
     description: number of instances
@@ -72,6 +84,7 @@ node_templates:
   prh:
     properties:
       application_config:
+        dmaap.dmaapConsumerConfiguration.dmaapUrl: { getInput: dmaap_vesPnfRegOutput_url }
         dmaap.dmaapConsumerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapConsumerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
         dmaap.dmaapConsumerConfiguration.dmaapTopicName: "/events/unauthenticated.VES_PNFREG_OUTPUT"
@@ -83,6 +96,7 @@ node_templates:
         dmaap.dmaapConsumerConfiguration.consumerGroup: "OpenDCAE-c12"
         dmaap.dmaapConsumerConfiguration.timeoutMs: -1
         dmaap.dmaapConsumerConfiguration.messageLimit: -1
+        dmaap.dmaapProducerConfiguration.dmaapUrl: { getInput: dmaap_pnfReady_url }
         dmaap.dmaapProducerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapProducerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
         dmaap.dmaapProducerConfiguration.dmaapTopicName: "/events/unauthenticated.PNF_READY"
@@ -90,6 +104,7 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/json"
+        dmaap.dmaapUpdateProducerConfiguration.dmaapUrl: { getInput: dmaap_pnfUpdate_url }
         dmaap.dmaapUpdateProducerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapUpdateProducerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
         dmaap.dmaapUpdateProducerConfiguration.dmaapTopicName: "/events/unauthenticated.PNF_UPDATE"
@@ -97,6 +112,7 @@ node_templates:
         dmaap.dmaapUpdateProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapUpdateProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
         dmaap.dmaapUpdateProducerConfiguration.dmaapContentType: "application/json"
+        aai.aaiClientConfiguration.pnfUrl: { get_input: pnfUrl }
         aai.aaiClientConfiguration.aaiHost: { get_input: aaiEnrichmentHost }
         aai.aaiClientConfiguration.aaiHostPortNumber: { get_input: aaiEnrichmentPort }
         aai.aaiClientConfiguration.aaiProtocol: "https"
@@ -112,6 +128,24 @@ node_templates:
         security.keyStorePasswordPath: "/opt/app/prh/etc/cert/key.pass"
         security.enableAaiCertAuth: { get_input: secureEnableCert }
         security.enableDmaapCertAuth: { get_input: secureEnableCert }
+        streams_publishes:
+            pnf-update:
+              dmaap_info:
+                topic_url:
+                  get_input: dmaap_pnfUpdate_url
+              type: message_router
+            pnf-ready:
+              dmaap_info:
+                topic_url:
+                  get_input: dmaap_pnfReady_url
+              type: message_router
+        streams_subscribes:
+            ves-reg-output:
+              dmaap_info:
+                topic_url:
+                  get_input: dmaap_vesPnfRegOutput_url
+              type: message_router
+
       host_port:
           { get_input: host_port }
       container_port:
