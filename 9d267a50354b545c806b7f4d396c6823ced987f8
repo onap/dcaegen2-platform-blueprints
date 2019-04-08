@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f6557380_1be3ac4c",
+        "filename": "blueprints/k8s-helm.yaml-template",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-08T17:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88461565_1bd2ccd4",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "9d267a50354b545c806b7f4d396c6823ced987f8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27bd6ad4_91d4fa74",
         "filename": "blueprints/k8s-helm.yaml-template",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ac4319ee_35c9406e",
+        "filename": "blueprints/k8s-helm.yaml-template",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-08T17:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27bd6ad4_91d4fa74",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "9d267a50354b545c806b7f4d396c6823ced987f8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e47baa6a_54675a8c",
         "filename": "blueprints/k8s-helm.yaml-template",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-04-07T22:58:24Z",
       "side": 1,
       "message": "suggest not to have default value",
+      "range": {
+        "startLine": 46,
+        "startChar": 19,
+        "endLine": 46,
+        "endChar": 20
+      },
+      "revId": "9d267a50354b545c806b7f4d396c6823ced987f8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bb80115_ed207be1",
+        "filename": "blueprints/k8s-helm.yaml-template",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-08T17:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e47baa6a_54675a8c",
       "range": {
         "startLine": 46,
         "startChar": 19,
