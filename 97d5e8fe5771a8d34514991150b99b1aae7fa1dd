@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Filip Krzywka <filip.krzywka@nokia.com>
+Code-Review+1: Marcin Migdal <marcin.migdal@nokia.com>
+Code-Review+1: Piotr Jaszczyk <piotr.jaszczyk@nokia.com>
+Code-Review+2: Jack Lucas <jflucas@research.att.com>
+Submitted-by: Jack Lucas <jflucas@research.att.com>
+Submitted-at: Tue, 09 Apr 2019 11:34:54 +0000
+Reviewed-on: https://gerrit.onap.org/r/84506
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
