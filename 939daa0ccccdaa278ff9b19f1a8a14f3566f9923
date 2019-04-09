@@ -1,0 +1,8 @@
+Code-Review+1: Hong Guan <hong.guan@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Jack Lucas <jflucas@research.att.com>
+Submitted-by: Jack Lucas <jflucas@research.att.com>
+Submitted-at: Tue, 09 Apr 2019 15:20:55 +0000
+Reviewed-on: https://gerrit.onap.org/r/84282
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
