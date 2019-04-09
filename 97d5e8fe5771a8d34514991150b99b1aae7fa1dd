@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9e840a6_365854c9",
+        "filename": "input-templates/prh-input.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-04-09T11:34:47Z",
+      "side": 1,
+      "message": "In the OOM deployment, the input file comes from oom/kubernetes/dcaegen2/charts/dcae-bootstrap/resources/inputs/k8s-prh-inputs.yaml.\n\nI am currently working on a set of changes to the DCAE OOM charts and will include this.",
+      "revId": "97d5e8fe5771a8d34514991150b99b1aae7fa1dd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
