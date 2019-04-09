@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f68fa67_2c566791",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-09T08:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e1efd68_f8e0de5f",
+      "range": {
+        "startLine": 87,
+        "startChar": 53,
+        "endLine": 87,
+        "endChar": 61
+      },
+      "revId": "ca4942c36aa1a0ebe54f7c1631dae1f2f61a34fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "134fb3a0_30b82258",
         "filename": "blueprints/k8s-prh.yaml-template",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-09T08:34:40Z",
       "side": 1,
       "message": "There is also camel-cased getInput",
+      "range": {
+        "startLine": 99,
+        "startChar": 53,
+        "endLine": 99,
+        "endChar": 61
+      },
+      "revId": "ca4942c36aa1a0ebe54f7c1631dae1f2f61a34fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217c06bd_07f55df0",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-09T08:39:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134fb3a0_30b82258",
       "range": {
         "startLine": 99,
         "startChar": 53,
