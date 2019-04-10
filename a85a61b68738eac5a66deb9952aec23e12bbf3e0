@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48335311_140833e7",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-04-10T16:55:13Z",
+      "side": 1,
+      "message": "how are these cert loaded into container? I don\u0027t see use_tls property set in blueprint? \n\nhttps://wiki.onap.org/display/DW/Certificate+update+procedure+in+DCAE#CertificateupdateprocedureinDCAE-Blueprintupdates",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "a85a61b68738eac5a66deb9952aec23e12bbf3e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
