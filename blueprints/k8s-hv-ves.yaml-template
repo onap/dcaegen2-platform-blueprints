@@ -48,6 +48,30 @@ inputs:
   perf3gpp_kafka_topic:
     type: string
     default: 'HV_VES_PERF3GPP'
+  log_level:
+    type: string
+    default: 'INFO'
+  server_idle_timeout_sec:
+    type: integer
+    default: 300
+  cbs_request_interval_sec:
+    type: integer
+    default: 5
+  security_ssl_disable:
+    type: boolean
+    default: true
+  security_keys_key_store_file:
+    type: string
+    default: '/etc/ves-hv/ssl/cert.jks'
+  security_keys_key_store_password_file:
+    type: string
+    default: '/etc/ves-hv/ssl/jks.pass'
+  security_keys_trust_store_file:
+    type: string
+    default: '/etc/ves-hv/ssl/trust.jks'
+  security_keys_trust_store_password_file:
+    type: string
+    default: '/etc/ves-hv/ssl/trust.pass'
 node_templates:
   hv-ves:
     interfaces:
@@ -58,6 +82,15 @@ node_templates:
               JAVA_OPTS: { concat: [ '-Dlogback.configurationFile=/etc/ONAP/', { get_input: hv_ves_name }, '/logback.xml' ] }
     properties:
       application_config:
+        logLevel: { get_input: log_level }
+        server.idleTimeoutSec: { get_input: server_idle_timeout_sec }
+        server.listenPort: { get_input: container_port }
+        cbs.requestIntervalSec: { get_input: cbs_request_interval_sec}
+        security.sslDisable: { get_input: security_ssl_disable }
+        security.keys.keyStoreFile: { get_input: security_keys_trust_store_file }
+        security.keys.keyStorePasswordFile: { get_input: security_keys_key_store_password_file }
+        security.keys.trustStoreFile: { get_input: security_keys_trust_store_file }
+        security.keys.trustStorePasswordFile: { get_input: security_keys_trust_store_password_file }
         streams_publishes:
           perf3gpp:
             type: kafka
