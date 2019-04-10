@@ -21,11 +21,11 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.5/k8splugin_types.yaml  
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.12/k8splugin_types.yaml
 inputs:
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.snmptrap:1.4.0"    
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.snmptrap:1.4.0"
   cache:
     type: string
     default:
@@ -76,7 +76,7 @@ inputs:
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
-    default: "30470"  
+    default: "30470"
   replicas:
     type: integer
     description: number of instances
@@ -89,7 +89,7 @@ node_templates:
         start:
           inputs:
            ports:
-             - concat: ["6162/udp:", { get_input: external_port }] 
+             - concat: ["6162/udp:", { get_input: external_port }]
     properties:
       application_config:
         StormWatchPolicy: ''

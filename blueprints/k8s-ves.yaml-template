@@ -21,7 +21,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.5/k8splugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.12/k8splugin_types.yaml
 
 inputs:
   ves_other_publish_url:
@@ -56,7 +56,7 @@ inputs:
   replicas:
     type: integer
     description: number of instances
-    default: 1   
+    default: 1
 node_templates:
   ves:
     interfaces:
@@ -64,7 +64,7 @@ node_templates:
         start:
           inputs:
            ports:
-             - concat: ["8080:", { get_input: external_port }]             
+             - concat: ["8080:", { get_input: external_port }]
              - concat: ["8443:", { get_input: external_tls_port }]
     properties:
       application_config:
@@ -127,5 +127,5 @@ node_templates:
       log_info:
         log_directory: "/opt/app/VESCollector/logs/ecomp"
     type: dcae.nodes.ContainerizedPlatformComponent
-    
+
 

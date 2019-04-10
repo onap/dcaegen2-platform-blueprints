@@ -20,7 +20,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.5/k8splugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.12/k8splugin_types.yaml"
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
 inputs:
  database_cluster_name:
@@ -49,15 +49,15 @@ inputs:
     default: 'admin'
  consul_url:
     type: string
-    default: 'consul-server.onap.svc.cluster.local'  
+    default: 'consul-server.onap.svc.cluster.local'
  external_port:
     type: string
     description: Kubernetes node port for standard http
-    default: "30418"    
+    default: "30418"
  external_tls_port:
     type: string
     description: Kubernetes node port for standard https
-    default: "30419"  
+    default: "30419"
  replicas:
     type: integer
     description: number of instances
@@ -93,8 +93,8 @@ node_templates:
             inventory_url: http://inventory:8080
             dhandler_url: https://deployment-handler:8443
            ports:
-             - concat: ["8080:", { get_input: external_port }]           
-             - concat: ["8443:", { get_input: external_tls_port }]                        
+             - concat: ["8080:", { get_input: external_port }]
+             - concat: ["8443:", { get_input: external_tls_port }]
     properties:
       name:
         "dcae-dashboard"
@@ -107,7 +107,7 @@ node_templates:
           endpoint: /ccsdk-app/health
           interval: 15s
           timeout: 1s
-          type: http        
+          type: http
     relationships:
       - type: cloudify.relationships.depends_on
         target: pgaasdb
