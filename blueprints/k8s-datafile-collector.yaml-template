@@ -104,10 +104,10 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_dr_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_dr_passwd }
         dmaap.dmaapProducerConfiguration.dmaapContentType: "application/octet-stream"
-        dmaap.ftp.ftpesConfiguration.keyCert: "/opt/app/datafile/config/ftpKey.jks"
+        dmaap.ftp.ftpesConfiguration.keyCert: "/opt/app/datafile/config/dfc.jks"
         dmaap.ftp.ftpesConfiguration.keyPassword: "secret"
-        dmaap.ftp.ftpesConfiguration.trustedCA: "/opt/app/datafile/config/cacerts"
-        dmaap.ftp.ftpesConfiguration.trustedCAPassword: "secret"
+        dmaap.ftp.ftpesConfiguration.trustedCa: "/opt/app/datafile/config/ftp.jks"
+        dmaap.ftp.ftpesConfiguration.trustedCaPassword: "secret"
         dmaap.security.trustStorePath: "/opt/app/datafile/etc/cert/trust.jks"
         dmaap.security.trustStorePasswordPath: "/opt/app/datafile/etc/cert/trust.pass"
         dmaap.security.keyStorePath: "/opt/app/datafile/etc/cert/key.p12"
