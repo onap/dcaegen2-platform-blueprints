@@ -136,21 +136,19 @@ node_templates:
         security.enableDmaapCertAuth: { get_input: secureEnableCert }
         streams_publishes:
             pnf-update:
+              type: "message_router"
               dmaap_info:
-                topic_url:
-                  get_input: dmaap_pnfUpdate_url
-              type: message_router
+                topic_url: {get_input: dmaap_pnfUpdate_url }
             pnf-ready:
+              type: "message_router"
               dmaap_info:
-                topic_url:
-                  get_input: dmaap_pnfReady_url
+                topic_url: { get_input: dmaap_pnfReady_url }
               type: message_router
         streams_subscribes:
             ves-reg-output:
+              type: "message_router"
               dmaap_info:
-                topic_url:
-                  get_input: dmaap_vesPnfRegOutput_url
-              type: message_router
+                topic_url: { get_input: dmaap_vesPnfRegOutput_url }
 
       host_port:
           { get_input: host_port }
