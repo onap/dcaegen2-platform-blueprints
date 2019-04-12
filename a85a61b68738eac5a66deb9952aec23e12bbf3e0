@@ -22,6 +22,30 @@
       "revId": "a85a61b68738eac5a66deb9952aec23e12bbf3e0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65a92bb9_48386647",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-12T06:35:58Z",
+      "side": 1,
+      "message": "For now the default setting is still to have TLS disabled (as in Casablanca). When the security_ssl_disable is set to true (see above) these files are not read at all.",
+      "parentUuid": "48335311_140833e7",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 15
+      },
+      "revId": "a85a61b68738eac5a66deb9952aec23e12bbf3e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
