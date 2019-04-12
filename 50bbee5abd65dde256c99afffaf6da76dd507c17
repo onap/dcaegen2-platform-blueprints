@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bb4f6a17_51748e47",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-12T06:54:02Z",
+      "side": 1,
+      "message": "I mean after deployment type will be available in Consul?",
+      "parentUuid": "7e8e28cc_38fd97bb",
+      "range": {
+        "startLine": 143,
+        "startChar": 14,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "50bbee5abd65dde256c99afffaf6da76dd507c17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04c878b_662df6c1",
         "filename": "blueprints/k8s-prh.yaml-template",
         "patchSetId": 2
