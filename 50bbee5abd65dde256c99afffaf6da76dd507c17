@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7e8e28cc_38fd97bb",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-04-12T06:52:49Z",
+      "side": 1,
+      "message": "So does it mean that \"type\" is automatically added during deployment and it is forbidden to set it in blueprint?",
+      "parentUuid": "d579d3d1_c58bdf1a",
+      "range": {
+        "startLine": 143,
+        "startChar": 14,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "50bbee5abd65dde256c99afffaf6da76dd507c17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04c878b_662df6c1",
         "filename": "blueprints/k8s-prh.yaml-template",
         "patchSetId": 2
