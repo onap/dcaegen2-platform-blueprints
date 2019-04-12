@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3eeb8ee8_59054d80",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2683
+      },
+      "writtenOn": "2019-04-12T08:03:46Z",
+      "side": 1,
+      "message": "I believe it means that in context of static deployment the type should be hardcoded as \"message_router\" (no get_input call). The reason for this is that for data_router (or any other type) the required fields are different. Have a look at schemas in dcae-cli projects.",
+      "parentUuid": "bb4f6a17_51748e47",
+      "range": {
+        "startLine": 143,
+        "startChar": 14,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "50bbee5abd65dde256c99afffaf6da76dd507c17",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c04c878b_662df6c1",
         "filename": "blueprints/k8s-prh.yaml-template",
         "patchSetId": 2
