@@ -143,7 +143,6 @@ node_templates:
               type: "message_router"
               dmaap_info:
                 topic_url: { get_input: dmaap_pnfReady_url }
-              type: message_router
         streams_subscribes:
             ves-reg-output:
               type: "message_router"
