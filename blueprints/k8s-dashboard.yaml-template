@@ -1,4 +1,3 @@
-#
 # ============LICENSE_START====================================================
 # org.onap.dcae
 # =============================================================================
@@ -20,8 +19,9 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.12/k8splugin_types.yaml"
+- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml"
 - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
+
 inputs:
  database_cluster_name:
     type: string
@@ -49,7 +49,7 @@ inputs:
     default: 'admin'
  consul_url:
     type: string
-    default: 'consul-server.onap.svc.cluster.local'
+    default: 'consul-server-ui'
  external_port:
     type: string
     description: Kubernetes node port for standard http
@@ -86,10 +86,12 @@ node_templates:
             postgres_port: { get_input: postgres_port }
             cloudify_user: { get_input: cloudify_user }
             cloudify_password: { get_input: cloudify_password }
-            consul_url: http://consul-server.onap.svc.cluster.local
-            #consul_url: concat: ["http://", { get_input: consul_url }]
-            cfy_url: http://dcae-cloudify-manager:8080
-            #cfy_url: concat: ["http://", { get_input: cloudify_ip },":8080"]
+            #consul_url: http://consul-server.onap.svc.cluster.local
+            consul_url:
+               concat: ["http://", { get_input: consul_url },":8500"]
+            #cfy_url: http://dcae-cloudify-manager:8080
+            cfy_url:
+               concat: ["http://", { get_input: cloudify_ip },"/api/v3.1"]
             inventory_url: http://inventory:8080
             dhandler_url: https://deployment-handler:8443
            ports:
@@ -102,6 +104,9 @@ node_templates:
         { get_input: dashboard_docker_image }
       replicas: {get_input: replicas}
       dns_name: 'dcae-dashboard'
+      tls_info:
+        cert_directory: '/usr/local/share/ca-certificates/'
+        use_tls: true
       docker_config:
         healthcheck:
           endpoint: /ccsdk-app/health
