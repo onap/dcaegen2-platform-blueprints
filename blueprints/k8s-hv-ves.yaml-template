@@ -48,6 +48,12 @@ inputs:
   perf3gpp_kafka_topic:
     type: string
     default: 'HV_VES_PERF3GPP'
+  kafka_username:
+    type: string
+    default: 'admin'
+  kafka_password:
+    type: string
+    default: 'admin_secret'
   log_level:
     type: string
     default: 'INFO'
@@ -94,6 +100,9 @@ node_templates:
         streams_publishes:
           perf3gpp:
             type: kafka
+            aaf_credentials:
+              username: { get_input: kafka_username }
+              password: { get_input: kafka_password }
             kafka_info:
               bootstrap_servers: { get_input: kafka_bootstrap_servers }
               topic_name: { get_input: perf3gpp_kafka_topic }
