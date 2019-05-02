@@ -87,7 +87,7 @@ node_templates:
         dmaap.dmaapConsumerConfiguration.dmaapUrl: { get_input: dmaap_vesPnfRegOutput_url }
         dmaap.dmaapConsumerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapConsumerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
-        dmaap.dmaapConsumerConfiguration.dmaapTopicName: "/events/unauthenticated.VES_PNFREG_OUTPUT"
+        dmaap.dmaapConsumerConfiguration.dmaapTopicName: "events/unauthenticated.VES_PNFREG_OUTPUT"
         dmaap.dmaapConsumerConfiguration.dmaapProtocol: "http"
         dmaap.dmaapConsumerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapConsumerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
@@ -99,7 +99,7 @@ node_templates:
         dmaap.dmaapProducerConfiguration.dmaapUrl: { get_input: dmaap_pnfReady_url }
         dmaap.dmaapProducerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapProducerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
-        dmaap.dmaapProducerConfiguration.dmaapTopicName: "/events/unauthenticated.PNF_READY"
+        dmaap.dmaapProducerConfiguration.dmaapTopicName: "events/unauthenticated.PNF_READY"
         dmaap.dmaapProducerConfiguration.dmaapProtocol: "http"
         dmaap.dmaapProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
@@ -107,7 +107,7 @@ node_templates:
         dmaap.dmaapUpdateProducerConfiguration.dmaapUrl: { get_input: dmaap_pnfUpdate_url }
         dmaap.dmaapUpdateProducerConfiguration.dmaapHostName: { get_input: dmaap_host }
         dmaap.dmaapUpdateProducerConfiguration.dmaapPortNumber: { get_input: dmaap_port }
-        dmaap.dmaapUpdateProducerConfiguration.dmaapTopicName: "/events/unauthenticated.PNF_UPDATE"
+        dmaap.dmaapUpdateProducerConfiguration.dmaapTopicName: "events/unauthenticated.PNF_UPDATE"
         dmaap.dmaapUpdateProducerConfiguration.dmaapProtocol: "http"
         dmaap.dmaapUpdateProducerConfiguration.dmaapUserName: { get_input: dmaap_user }
         dmaap.dmaapUpdateProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
