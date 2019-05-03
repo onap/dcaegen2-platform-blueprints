@@ -58,7 +58,7 @@ inputs:
     default: "dradmin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.1.1"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.1.2"
   replicas:
     type: integer
     description: number of instances
