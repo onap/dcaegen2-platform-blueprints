@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20f13c01_aa99c89c",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-06T12:38:56Z",
+      "side": 1,
+      "message": "1.4.13",
+      "range": {
+        "startLine": 24,
+        "startChar": 113,
+        "endLine": 24,
+        "endChar": 118
+      },
+      "revId": "4462d9d7a19e058e5acc8116661511b335dbb99e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
