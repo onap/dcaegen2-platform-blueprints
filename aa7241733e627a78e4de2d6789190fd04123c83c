@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c834f99_f7117c06",
+        "filename": "blueprints/k8s-tca-clampnode.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-05-07T21:59:54Z",
+      "side": 1,
+      "message": "2018-2019",
+      "revId": "aa7241733e627a78e4de2d6789190fd04123c83c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
