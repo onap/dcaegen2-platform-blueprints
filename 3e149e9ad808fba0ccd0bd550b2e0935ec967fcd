@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c0b3758_b7fadda6",
+        "filename": "blueprints/test_dr_mr.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "include license headers",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7267cfb_dcd4eb0c",
+        "filename": "blueprints/test_dr_mr.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}",
+      "range": {
+        "startLine": 6,
+        "startChar": 6,
+        "endLine": 6,
+        "endChar": 100
+      },
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68e17477_2c96d193",
+        "filename": "blueprints/test_dr_pubsub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "missing license header",
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "510fb336_066134b9",
+        "filename": "blueprints/test_dr_pubsub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "can be template as noted earlier",
+      "range": {
+        "startLine": 6,
+        "startChar": 6,
+        "endLine": 6,
+        "endChar": 100
+      },
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f35b5b_b9d3be27",
+        "filename": "blueprints/test_mr_multipub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "same comments as earlier",
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63e3ea11_26e8bd51",
+        "filename": "blueprints/test_mr_multisub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "same comments as earlier",
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb18e1cb_aeb026d4",
+        "filename": "blueprints/test_mr_pubsub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "same comments as earlier",
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0d89ea1_a6dce2db",
+        "filename": "blueprints/test_mr_pubsub_extra.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T02:05:03Z",
+      "side": 1,
+      "message": "same comments as earlier",
+      "revId": "3e149e9ad808fba0ccd0bd550b2e0935ec967fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
