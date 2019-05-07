@@ -16,6 +16,24 @@
       "revId": "aa7241733e627a78e4de2d6789190fd04123c83c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6095e2ff_3399a1ef",
+        "filename": "blueprints/k8s-tca-clampnode.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-07T22:46:00Z",
+      "side": 1,
+      "message": "This is a new file added for dublin",
+      "parentUuid": "2c834f99_f7117c06",
+      "revId": "aa7241733e627a78e4de2d6789190fd04123c83c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
