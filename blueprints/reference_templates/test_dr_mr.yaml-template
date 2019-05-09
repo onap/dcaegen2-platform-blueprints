@@ -1,0 +1,98 @@
+# ================================================================================ 
+# Copyright (c) 2019 AT&T Intellectual Property. All rights reserved. 
+# ================================================================================ 
+# Licensed under the Apache License, Version 2.0 (the "License"); 
+# you may not use this file except in compliance with the License. 
+# You may obtain a copy of the License at 
+#  
+#      http://www.apache.org/licenses/LICENSE-2.0 
+#  
+# Unless required by applicable law or agreed to in writing, software 
+# distributed under the License is distributed on an "AS IS" BASIS, 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+# See the License for the specific language governing permissions and 
+# limitations under the License. 
+# ============LICENSE_END=========================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+    - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+    - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
+    - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dmaap/dmaap.yaml
+
+node_templates:
+
+    feed00:
+        type: ccsdk.nodes.Feed
+        properties:
+            feed_name: "feed00"
+            feed_description: "Test feed from orchestrator"
+            feed_version: 7.0.19
+            aspr_classification: "unclassified"
+
+    topic00:
+        type: ccsdk.nodes.Topic
+        properties:
+            topic_name: topic00
+
+
+    client00:
+        type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
+
+        properties:
+            service_component_type: 'nginx-web'
+            image: nginx
+            docker_config:
+                healthcheck:
+                    type: "http"
+                    endpoint: "/"
+            streams_publishes:
+              - name: feed00
+                location: san-francisco
+                client_role: org.onap.dcae.pnfPublisher
+                type: data_router
+                username: drdeliver
+                password: 1loveDataR0uter
+                delivery_url: "https://example.com/whatever"
+            streams_subscribes:
+              - name: topic00
+                location: san-francisco
+                client_role: org.onap.dcae.pnfSubscriber
+                type: message_router
+
+        relationships:
+            - type: ccsdk.relationships.publish_files
+              target: feed00
+            - type: ccsdk.relationships.subscribe_to_events
+              target: topic00
+
+        interfaces:
+          cloudify.interfaces.lifecycle:
+            start:
+              inputs:
+                ports:
+                  - '80:0'
+
+outputs:
+
+    feed00_publish_url:
+        description: "Feed 00 publish URL"
+        value: { get_attribute: [feed00, publish_url]}
+
+    feed00_logurl:
+        description: "Feed 00 logging URL"
+        value: { get_attribute: [feed00, log_url]}
+
+    feed00_feed_id:
+        description: "Feed 00 feed id"
+        value: { get_attribute: [feed00, feed_id]}
+
+    client00_feed00:
+        description: "Feed 00 data on client00"
+        value: { get_attribute: [client00, feed00]}
+
+    client00_topic00:
+        description: "Topic 00 data on client00"
+        value: { get_attribute: [client00, topic00]}
+

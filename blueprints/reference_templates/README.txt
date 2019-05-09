@@ -40,3 +40,13 @@ k8s-policy_handler.yaml-template
 k8s-inventory.yaml-template
 k8s-deployment_handler.yaml-template
 k8s-config_binding_service.yaml-template
+
+
+Blueprints used for testing dmaap plugin 
+========================================
+test_dr_mr.yaml-template
+test_dr_pubsub.yaml-template
+test_mr_multipub.yaml-template
+test_mr_multisub.yaml-template
+test_mr_pubsub_extra.yaml-template
+test_mr_pubsub.yaml-template
