@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c5875de_dbe74acf",
+        "filename": "blueprints/test_dr_mr.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 77,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34e269f9_afa97106",
+        "filename": "blueprints/test_dr_pubsub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 77,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "507c4cf2_32f9217d",
+        "filename": "blueprints/test_mr_multipub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 77,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7838e39_4e07e5e5",
+        "filename": "blueprints/test_mr_multisub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 78,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "efd2c195_f498a32f",
+        "filename": "blueprints/test_mr_pubsub.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 77,
+        "endLine": 22,
+        "endChar": 93
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47a3b1f5_0cf0a2a2",
+        "filename": "blueprints/test_mr_pubsub_extra.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "type_files/dmaap/dmaap.yaml",
+      "range": {
+        "startLine": 22,
+        "startChar": 77,
+        "endLine": 22,
+        "endChar": 92
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da1c07d0_c68b4cef",
+        "filename": "blueprints/test_mr_pubsub_extra.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-09T02:15:53Z",
+      "side": 1,
+      "message": "replace to reflect onap central mr host",
+      "range": {
+        "startLine": 31,
+        "startChar": 27,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "4453345dff90f81eec5b9122be7528f96be30eea",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
