@@ -26,10 +26,10 @@ imports:
 inputs:
   pnfUrl:
     type: string
-    default: "https://localhost:8443/aai/v12/network/pnfs/pnf"
+    default: "https://aai.onap.svc.cluster.local:8443/aai/v12/network/pnfs/pnf"
   aaiEnrichmentHost:
     type: string
-    default: "aai"
+    default: aai.onap.svc.cluster.local
   aaiEnrichmentPort:
     type: integer
     default: 8443
@@ -43,17 +43,17 @@ inputs:
     default: "AAI"
   dmaap_pnfReady_url:
     type: string
-    default: "http://localhost:8904/events/unauthenticated.PNF_READY"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.PNF_READY"
   dmaap_vesPnfRegOutput_url:
     type: string
-    default: "http://localhost:8904/events/unauthenticated.VES_PNFREG_OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
   dmaap_pnfUpdate_url:
     type: string
-    default: "http://localhost:8904/events/unauthenticated.PNF_UPDATE"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.PNF_UPDATE"
   dmaap_host:
     type: string
     description: dmaap host
-    default: message-router
+    default: message-router.onap.svc.cluster.local
   dmaap_port:
     type: integer
     description: dmaap port
