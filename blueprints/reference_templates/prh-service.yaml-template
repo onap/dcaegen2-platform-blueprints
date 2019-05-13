@@ -17,7 +17,7 @@ inputs:
     default: "zone1"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh:1.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh:1.2.2"
 
 
 node_templates:

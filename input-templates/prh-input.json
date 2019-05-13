@@ -3,5 +3,5 @@
   "docker_host_override": "component_dockerhost",
   "prh_publish_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.unauthenticated.PNF_READY/",
   "prh_subscribe_url": "http://{{ mr_ip_addr }}:3904/events/unauthenticated.VES_PNFREG_OUTPUT/",
-  "tag_version": "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh:1.2.1"
+  "tag_version": "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh:1.2.2"
 }
