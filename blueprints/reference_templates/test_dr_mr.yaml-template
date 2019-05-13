@@ -21,20 +21,43 @@ imports:
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dmaap/dmaap.yaml
 
+inputs:
+    topic00_name:
+        type: string
+        default: "topic00"
+    feed00_name:
+        type: string
+        default: "feed00"
+    feed00_desc:
+        type: string
+        default: "Test feed from orchestrator"
+    location:
+        type: string
+        default: "san-francisco"
+    username:
+        type: string
+        default: "drdeliver"
+    password:
+        type: string
+        default: "1loveDataR0uter"
+    delivery_url:
+        type: string
+        default: "https://example.com/whatever"
+
 node_templates:
 
     feed00:
         type: ccsdk.nodes.Feed
         properties:
-            feed_name: "feed00"
-            feed_description: "Test feed from orchestrator"
+            feed_name: { get_input: feed00_name }
+            feed_description: { get_input: feed00_desc }
             feed_version: 7.0.19
             aspr_classification: "unclassified"
 
     topic00:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic00
+            topic_name: { get_input: topic00_name }
 
 
     client00:
@@ -49,15 +72,15 @@ node_templates:
                     endpoint: "/"
             streams_publishes:
               - name: feed00
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: data_router
-                username: drdeliver
-                password: 1loveDataR0uter
-                delivery_url: "https://example.com/whatever"
+                username: { get_input: username }
+                password: { get_input: password }
+                delivery_url: { get_input: delivery_url }
             streams_subscribes:
               - name: topic00
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfSubscriber
                 type: message_router
 

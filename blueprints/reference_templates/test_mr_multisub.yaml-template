@@ -21,42 +21,76 @@ imports:
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dmaap/dmaap.yaml
 
+inputs:
+    topic00_name:
+        type: string
+        default: "topic00"
+    topic01_name:
+        type: string
+        default: "topic01"
+    topic02_name:
+inputs:
+    topic00_name:
+        type: string
+        default: "topic00"
+    topic01_name:
+        type: string
+        default: "topic01"
+    topic02_name:
+        type: string
+        default: "topic02"
+    topic03_name:
+        type: string
+        default: "topic03"
+    topic04_name:
+        type: string
+        default: "topic04"
+    topic05_name:
+        type: string
+        default: "topic05"
+    topic06_name:
+        type: string
+        default: "topic06"
+    location:
+        type: string
+        default: "san-francisco"
+
 node_templates:
 
     topic00:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic00
+            topic_name: { get_input: topic00_name }
 
     topic01:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic01
+            topic_name: { get_input: topic01_name }
 
     topic02:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic02
+            topic_name: { get_input: topic02_name }
 
     topic03:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic03
+            topic_name: { get_input: topic03_name }
 
     topic04:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic04
+            topic_name: { get_input: topic04_name }
 
     topic05:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic05
+            topic_name: { get_input: topic05_name }
 
     topic06:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic06
+            topic_name: { get_input: topic06_name }
 
     client00:
         type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
@@ -70,31 +104,31 @@ node_templates:
                     endpoint: "/"
             streams_subscribes:
               - name: topic00
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic01
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic02
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic03
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic04
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic05
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
               - name: topic06
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
 

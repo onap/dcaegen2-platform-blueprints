@@ -21,19 +21,30 @@ imports:
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
     - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/dmaap/dmaap.yaml
 
+inputs:
+    topic00_name:
+        type: string
+        default: "topic00"
+    topic01_name:
+        type: string
+        default: "topic01"
+    location:
+        type: string
+        default: "san-francisco"
+
 node_templates:
 
     topic00:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic00
+            topic_name: { get_input: topic00_name }
             replication_case: REPLICATION_EDGE_TO_CENTRAL_TO_GLOBAL
             global_mr_url: message-router
 
     topic01:
         type: ccsdk.nodes.Topic
         properties:
-            topic_name: topic01
+            topic_name: { get_input: topic01_name }
             replication_case: REPLICATION_EDGE_TO_CENTRAL
 
     client00:
@@ -48,12 +59,12 @@ node_templates:
                     endpoint: "/"
             streams_publishes:
               - name: topic00
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfPublisher
                 type: message_router
             streams_subscribes:
               - name: topic01
-                location: san-francisco
+                location: { get_input: location }
                 client_role: org.onap.dcae.pnfSubscriber
                 type: message_router
 
