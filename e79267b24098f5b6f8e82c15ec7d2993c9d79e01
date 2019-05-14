@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "29199d6c_757aa564",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-05-14T10:38:31Z",
+      "side": 1,
+      "message": "Hello Vijay,\n\nDo you mean there are 2 equal ways for providing default values:\n1) via OOM  input\n2) bootstrap container?",
+      "parentUuid": "6d39db96_ddd50057",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 50
+      },
+      "revId": "e79267b24098f5b6f8e82c15ec7d2993c9d79e01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f89d808d_7a07e9af",
         "filename": "blueprints/reference_templates/prh-service.yaml-template",
         "patchSetId": 1
