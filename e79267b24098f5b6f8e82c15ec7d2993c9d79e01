@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4e5d02a9_5ff4a65f",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-14T12:46:10Z",
+      "side": 1,
+      "message": "For services instantiated through DCAE bootstrap, input defaults can be specified both ways - either under OOM charts or blueprint defaults (which gets packaged into bootstrap pod). \n\nWhen OOM chart derived input is available, that will take precedence. For the input not explicitly specified from OOM chart, defaults from blueprints will be used.",
+      "parentUuid": "29199d6c_757aa564",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 50
+      },
+      "revId": "e79267b24098f5b6f8e82c15ec7d2993c9d79e01",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f89d808d_7a07e9af",
         "filename": "blueprints/reference_templates/prh-service.yaml-template",
         "patchSetId": 1
