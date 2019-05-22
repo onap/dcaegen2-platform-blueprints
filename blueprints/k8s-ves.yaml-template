@@ -65,16 +65,15 @@ node_templates:
       application_config:
         collector.dmaap.streamid: fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration
         collector.inputQueue.maxPending: "8096"
-        collector.keystore.alias: "dynamically generated"
         collector.keystore.file.location: /opt/app/VESCollector/etc/keystore
         collector.keystore.passwordfile: /opt/app/VESCollector/etc/passwordfile
         collector.schema.checkflag: "1"
         collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.0.1.json\"}"
         collector.service.port: "8080"
         collector.service.secure.port: "8443"
+        auth.method=noAuth
         event.transform.flag: "0"
-        header.authflag: "0"
-        header.authlist: "sample1,c2FtcGxlMQ=="
+        header.authlist: "sample1,$2a$10$0buh.2WeYwN868YMwnNNEuNEAMNYVU9.FSMJGyIKV3dGET/7oGOi6"
         services_calls: []
         streams_publishes:
             ves-fault:
