@@ -62,6 +62,24 @@
       "revId": "6350b6bee31e6e2cc2b0c287e688ce68e408b855",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9145295c_efa96fad",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-22T15:50:21Z",
+      "side": 1,
+      "message": "shld be - \"|measurement\u003dves-measurement\"",
+      "parentUuid": "d5e035cf_3fff5043",
+      "revId": "6350b6bee31e6e2cc2b0c287e688ce68e408b855",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
