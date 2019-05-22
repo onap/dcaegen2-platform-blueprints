@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d0f876c_ecb46d6d",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-22T15:02:11Z",
+      "side": 1,
+      "message": "should be 1.4.13",
+      "range": {
+        "startLine": 24,
+        "startChar": 88,
+        "endLine": 24,
+        "endChar": 93
+      },
+      "revId": "6350b6bee31e6e2cc2b0c287e688ce68e408b855",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d23ecadc_0e149caa",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-22T15:02:11Z",
+      "side": 1,
+      "message": "1.4.4",
+      "range": {
+        "startLine": 47,
+        "startChar": 124,
+        "endLine": 47,
+        "endChar": 129
+      },
+      "revId": "6350b6bee31e6e2cc2b0c287e688ce68e408b855",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5e035cf_3fff5043",
+        "filename": "blueprints/k8s-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-05-22T15:02:11Z",
+      "side": 1,
+      "message": "include \"|measurements\u003dves-measurement\" which is new domain for VES7.0",
+      "revId": "6350b6bee31e6e2cc2b0c287e688ce68e408b855",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
