@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bddf6a0d_d8b5be01",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5074
+      },
+      "writtenOn": "2019-05-29T14:05:49Z",
+      "side": 1,
+      "message": "I guess this shoiuld be changed to El Alto version later.",
+      "range": {
+        "startLine": 43,
+        "startChar": 99,
+        "endLine": 43,
+        "endChar": 104
+      },
+      "revId": "ece16ba1328464c795c4d437a70cd93c6b1112c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03cadd09_99185698",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5074
+      },
+      "writtenOn": "2019-05-29T14:05:49Z",
+      "side": 1,
+      "message": "Should this be /var/log/ONAP instead?",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 47
+      },
+      "revId": "ece16ba1328464c795c4d437a70cd93c6b1112c3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
