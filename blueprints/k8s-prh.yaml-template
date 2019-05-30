@@ -82,6 +82,15 @@ inputs:
     default: false
 node_templates:
   prh:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+           process:
+              env:
+                LOG_LEVEL: INFO
+                PRH_LOG_LEVEL: INFO
+
     properties:
       application_config:
         dmaap.dmaapConsumerConfiguration.dmaapUrl: { get_input: dmaap_vesPnfRegOutput_url }
