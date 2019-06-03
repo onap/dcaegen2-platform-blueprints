@@ -22,6 +22,29 @@
       "revId": "37d59799700589011cc36c6222411a54c89e181b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cf5d2e_2fad53d7",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-06-03T14:49:43Z",
+      "side": 1,
+      "message": "\"env\" setting is not a supported option when blueprints are generated through automated tools (spec-\u003ebp-gen process) hence this should be avoided.\n\nApp configuration should follow below override priority\n1) via CBS/Consul\n2) If CBS query fails/unsupported, use env (which is primarily required on standalone docker deploy only, not on blueprint). When application is deployed on blueprint, rest of platform availability is a pre-requisite.\n3) If no env defined, use container defaults.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 35
+      },
+      "revId": "37d59799700589011cc36c6222411a54c89e181b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
