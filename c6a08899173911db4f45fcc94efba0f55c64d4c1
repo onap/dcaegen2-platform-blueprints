@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "831bd5f5_4f55c5a2",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-06-12T11:27:55Z",
+      "side": 1,
+      "message": "Remove upper case at this line",
+      "revId": "c6a08899173911db4f45fcc94efba0f55c64d4c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ee86f6c_c541a299",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 3395
+      },
+      "writtenOn": "2019-06-12T11:27:55Z",
+      "side": 1,
+      "message": "remove empty line at the end",
+      "revId": "c6a08899173911db4f45fcc94efba0f55c64d4c1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
