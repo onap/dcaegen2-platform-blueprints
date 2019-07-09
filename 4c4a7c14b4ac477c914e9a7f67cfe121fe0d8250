@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "de0e1720_0d288cc5",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-07-09T21:39:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t align with standard blueprint expected to be generated via BP-gen tool. All MS\u0027s are expected to have same dmaap config structure. Will email the details on the change needed here.",
+      "parentUuid": "fc73e12d_56b25e16",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bdfcfb1_217044ee",
         "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
         "patchSetId": 1
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yes, what\u0027s here is the expected format of an entry in \"stream_publishes\".",
       "parentUuid": "cc666d5d_62663b79",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73d721a7_144bbb76",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-07-09T21:39:07Z",
+      "side": 1,
+      "message": "Sorry for the confusion; yes, this structure is correct. When using dmaap plugin, stream_publishes (or stream_subscribes) will be at both levels 1) top level for dmaap plugin to provision 2) Within application_config  (for returning configuration from CBS in standard structure)",
+      "parentUuid": "25778903_9adca31e",
       "range": {
         "startLine": 109,
         "startChar": 6,
