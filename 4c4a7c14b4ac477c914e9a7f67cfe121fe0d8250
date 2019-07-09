@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfc12ecd_a3b530b4",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-07-09T15:44:22Z",
+      "side": 1,
+      "message": "I believe this key should be included under stream_publishes. Jack/Tommy - Can you confirm",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3bdfcfb1_217044ee",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-07-09T15:44:22Z",
+      "side": 1,
+      "message": "Should be same level as stream_subscribes and include bulk_pm_feed (something like below)\n\n        streams_publishes:\n          dmaap_subscriber:\n            type: data_router\n            dmmap_info: \u003c\u003cbulk_pm_feed\u003e\u003e\n            location: \"loc00\"",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
