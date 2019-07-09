@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fc73e12d_56b25e16",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-07-09T18:56:06Z",
+      "side": 1,
+      "message": "This looks reasonable to me.  The feed placeholder (\u003c\u003cbulk_pm_feed\u003e\u003e) needs to be placed somewhere in the application_config section.  The application decides where it goes.  CBS will replace the placeholder with data that the DMaaP plugin received when it set up the application as a publisher.",
+      "parentUuid": "c313da9f_df7e9456",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bdfcfb1_217044ee",
         "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "this dynamic should be in the top level of Node properties, it should not be the same with stream_subscribes.",
       "parentUuid": "3bdfcfb1_217044ee",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25778903_9adca31e",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2019-07-09T18:56:06Z",
+      "side": 1,
+      "message": "Yes, what\u0027s here is the expected format of an entry in \"stream_publishes\".",
+      "parentUuid": "cc666d5d_62663b79",
       "range": {
         "startLine": 109,
         "startChar": 6,
