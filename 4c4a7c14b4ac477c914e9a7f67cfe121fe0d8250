@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c313da9f_df7e9456",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5107
+      },
+      "writtenOn": "2019-07-09T18:09:12Z",
+      "side": 1,
+      "message": "we have verified this key here, and the reason we add the \u003c\u003c\u003e\u003e here, is that we will need link the changeIdentifier(different file type) to different configuration generated from dmmap plugin in order to support publishing multiple dynamic feeds.",
+      "parentUuid": "bfc12ecd_a3b530b4",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bdfcfb1_217044ee",
         "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-09T15:44:22Z",
       "side": 1,
       "message": "Should be same level as stream_subscribes and include bulk_pm_feed (something like below)\n\n        streams_publishes:\n          dmaap_subscriber:\n            type: data_router\n            dmmap_info: \u003c\u003cbulk_pm_feed\u003e\u003e\n            location: \"loc00\"",
+      "range": {
+        "startLine": 109,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 27
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc666d5d_62663b79",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5107
+      },
+      "writtenOn": "2019-07-09T18:09:12Z",
+      "side": 1,
+      "message": "this dynamic should be in the top level of Node properties, it should not be the same with stream_subscribes.",
+      "parentUuid": "3bdfcfb1_217044ee",
       "range": {
         "startLine": 109,
         "startChar": 6,
