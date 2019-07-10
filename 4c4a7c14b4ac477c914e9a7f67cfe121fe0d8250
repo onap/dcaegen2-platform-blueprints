@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "ba77158b_56084744",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5107
+      },
+      "writtenOn": "2019-07-10T12:36:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de0e1720_0d288cc5",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "4c4a7c14b4ac477c914e9a7f67cfe121fe0d8250",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bdfcfb1_217044ee",
         "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
         "patchSetId": 1
