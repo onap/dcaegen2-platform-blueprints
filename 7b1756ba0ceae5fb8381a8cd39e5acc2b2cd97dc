@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08f0ec25_55f86649",
+        "filename": "blueprints/reference_templates/k8s-datafile-collector.yaml-template",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4011
+      },
+      "writtenOn": "2019-07-11T08:52:30Z",
+      "side": 1,
+      "message": "I think that this should be removed if we use the hard coded change identifier later on under the stream_publishes.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "7b1756ba0ceae5fb8381a8cd39e5acc2b2cd97dc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
