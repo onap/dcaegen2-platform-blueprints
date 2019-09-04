@@ -106,8 +106,8 @@ node_templates:
             Authorization: "Basic QUFJOkFBSQ=="
         security.trustStorePath: "/opt/app/prh/etc/cert/trust.jks"
         security.trustStorePasswordPath: "/opt/app/prh/etc/cert/trust.pass"
-        security.keyStorePath: "/opt/app/prh/etc/cert/key.p12"
-        security.keyStorePasswordPath: "/opt/app/prh/etc/cert/key.pass"
+        security.keyStorePath: "/opt/app/prh/etc/cert/cert.jks"
+        security.keyStorePasswordPath: "/opt/app/prh/etc/cert/cert.pass"
         security.enableAaiCertAuth: { get_input: secureEnableCert }
         security.enableDmaapCertAuth: { get_input: secureEnableCert }
         streams_publishes:
