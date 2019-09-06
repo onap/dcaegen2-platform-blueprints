@@ -143,6 +143,6 @@ node_templates:
       log_info:
         log_directory: "/opt/app/prh/logs"
       tls_info:
-        cert_directory: '/opt/app/prh/etc/cert/'
+        cert_directory: '/opt/app/prh/etc/cert'
         use_tls: true
     type: dcae.nodes.ContainerizedPlatformComponent

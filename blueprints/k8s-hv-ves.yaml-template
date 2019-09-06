@@ -121,6 +121,6 @@ node_templates:
       log_info:
         log_directory: { concat: [ '/var/log/ONAP/', { get_input: hv_ves_name } ] }
       tls_info:
-        cert_directory: '/etc/ves-hv/ssl/'
+        cert_directory: '/etc/ves-hv/ssl'
         use_tls: false
     type: dcae.nodes.ContainerizedPlatformComponent
