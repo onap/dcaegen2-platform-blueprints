@@ -22,7 +22,7 @@ description: >
   This blueprint deploys/manages the TCA module as a Docker container
 
 imports:
-  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml"
   - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/clamppolicyplugin/1.0.0/clamppolicyplugin_types.yaml"
 inputs:
