@@ -23,7 +23,7 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
+   - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml
 inputs:
   aaiEnrichmentHost:
     type: string
@@ -48,7 +48,7 @@ inputs:
     default: dcae-redis.onap.svc.cluster.local:6379
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.0.0"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.1.2"
   consul_host:
     type: string
     default: consul-server.onap.svc.cluster.local
@@ -79,6 +79,11 @@ node_templates:
           get_input: tag_version
         log_info:
           log_directory: "/opt/app/TCAnalytics/logs"
+        resource_config:
+            limits:
+                cpu: '1'
+            requests:
+                cpu: '0.5'
         application_config:
             app_config:
                 appDescription: DCAE Analytics Threshold Crossing Alert Application
@@ -157,5 +162,4 @@ node_templates:
                 CONFIG_BINDING_SERVICE: "config_binding_service"
             ports:
               - concat: ["11011:", "0"]
-
 
