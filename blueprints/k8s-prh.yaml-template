@@ -27,6 +27,9 @@ inputs:
   pnfUrl:
     type: string
     default: "https://aai.onap.svc.cluster.local:8443/aai/v12/network/pnfs/pnf"
+  baseUrl:
+    type: string
+    default: "https://aai.onap.svc.cluster.local:8443/aai/v12"
   aaiEnrichmentHost:
     type: string
     default: aai.onap.svc.cluster.local
@@ -89,6 +92,7 @@ node_templates:
         dmaap.dmaapUpdateProducerConfiguration.dmaapUserPassword: { get_input: dmaap_passwd }
         dmaap.dmaapUpdateProducerConfiguration.dmaapContentType: "application/json"
         aai.aaiClientConfiguration.pnfUrl: { get_input: pnfUrl }
+        aai.aaiClientConfiguration.baseUrl: { get_input: baseUrl }
         aai.aaiClientConfiguration.aaiHost: { get_input: aaiEnrichmentHost }
         aai.aaiClientConfiguration.aaiHostPortNumber: { get_input: aaiEnrichmentPort }
         aai.aaiClientConfiguration.aaiProtocol: "https"
