@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03fb1f3d_f3d02037",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-10-11T15:31:26Z",
+      "side": 1,
+      "message": "1.2.3",
+      "range": {
+        "startLine": 66,
+        "startChar": 124,
+        "endLine": 66,
+        "endChar": 129
+      },
+      "revId": "5b8362fdcbf5a32f688cedf48d01086f1dbba560",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
