@@ -22,6 +22,30 @@
       "revId": "c8b6c02a6457fae40e0305f9b7b780e5c66e1b25",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3652da2_c1a70a8f",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2019-10-14T06:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdb9790b_f665c3ac",
+      "range": {
+        "startLine": 66,
+        "startChar": 124,
+        "endLine": 66,
+        "endChar": 129
+      },
+      "revId": "c8b6c02a6457fae40e0305f9b7b780e5c66e1b25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
