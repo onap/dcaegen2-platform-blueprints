@@ -46,6 +46,30 @@
       "revId": "5b8362fdcbf5a32f688cedf48d01086f1dbba560",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "501da372_04768290",
+        "filename": "blueprints/k8s-prh.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2019-10-14T13:33:42Z",
+      "side": 1,
+      "message": "Yes indeed, should be 1.3.2. Sorry for the typo.",
+      "parentUuid": "2cf25015_3c8a2130",
+      "range": {
+        "startLine": 66,
+        "startChar": 124,
+        "endLine": 66,
+        "endChar": 129
+      },
+      "revId": "5b8362fdcbf5a32f688cedf48d01086f1dbba560",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
