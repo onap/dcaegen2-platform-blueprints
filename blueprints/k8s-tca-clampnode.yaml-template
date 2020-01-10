@@ -23,8 +23,8 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.4.13/k8splugin_types.yaml"
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/clamppolicyplugin/1.0.0/clamppolicyplugin_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.1/k8splugin_types.yaml"
+  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/clamppolicyplugin/1.1.0/clamppolicyplugin_types.yaml"
 inputs:
   aaiEnrichmentHost:
     type: string
@@ -171,5 +171,5 @@ node_templates:
     properties:
       policy_id:
            get_input: policy_id
-      policy_model_id: 
+      policy_model_id:
            get_input: policy_model_id
