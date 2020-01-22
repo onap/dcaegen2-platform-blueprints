@@ -23,7 +23,7 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.1/k8splugin_types.yaml
+  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.2/k8splugin_types.yaml
 inputs:
   aaiEnrichmentHost:
     type: string
@@ -48,7 +48,7 @@ inputs:
     default: dcae-redis.onap.svc.cluster.local:6379
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.1.2"
+    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.2.2"
   consul_host:
     type: string
     default: consul-server.onap.svc.cluster.local
