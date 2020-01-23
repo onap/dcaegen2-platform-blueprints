@@ -93,7 +93,7 @@ node_templates:
         server.listenPort: { get_input: container_port }
         cbs.requestIntervalSec: { get_input: cbs_request_interval_sec}
         security.sslDisable: { get_input: security_ssl_disable }
-        security.keys.keyStoreFile: { get_input: security_keys_trust_store_file }
+        security.keys.keyStoreFile: { get_input: security_keys_key_store_file }
         security.keys.keyStorePasswordFile: { get_input: security_keys_key_store_password_file }
         security.keys.trustStoreFile: { get_input: security_keys_trust_store_file }
         security.keys.trustStorePasswordFile: { get_input: security_keys_trust_store_password_file }
