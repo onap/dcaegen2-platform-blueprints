@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1de7f72a_eb64f70c",
+        "filename": "blueprints/k8s-hv-ves.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-01-29T14:46:24Z",
+      "side": 1,
+      "message": "Need to ensure this defect is closed before this version https://jira.onap.org/browse/DCAEGEN2-2039 can be used in bootstrap",
+      "range": {
+        "startLine": 29,
+        "startChar": 132,
+        "endLine": 29,
+        "endChar": 137
+      },
+      "revId": "6e59406c6ea872f0069fde1777b66f1aed823218",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
