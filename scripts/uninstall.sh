@@ -1,5 +1,6 @@
+#!/bin/bash
 # ================================================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,14 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
+
+# Clean up DCAE during ONAP uninstall
+
+set -x
+set +e
+
+# Leave the Consul cluster
+/opt/consul/bin/consul leave
+
+# Uninstall components managed by Cloudify
+# Get the list of deployment ids known to Cloudify via curl to Cloudify API.
+# The output of the curl is JSON that looks like {"items" :[{"id": "config_binding_service"}, ...], "metadata" :{...}}
 #
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
-{
-  "dh_location_id": "{{ dcae_zone }}",
-  "docker_host_override": "component_dockerhost",
-  "msb_hostname": "{{ openo_ip_addr }}",
-  "location_domain" : "{{ dcae_zone }}.{{ dcae_domain }}",
-  "location_prefix" : "dcae",
-  "pgaas_cluster_name" : "pgvm",
-  "database_name":"holmes"
-}
+# jq gives us the just the deployment ids (e.g., "config_binding_service"), one per line
+#
+# xargs -I lets us run the cfy uninstall command once for each deployment id extracted by jq
+
+curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" "$CMADDR/api/v3.1/deployments?_include=id" \
+| /bin/jq .items[].id \
+| xargs -I % sh -c 'cfy uninstall %'

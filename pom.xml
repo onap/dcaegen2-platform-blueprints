@@ -25,16 +25,12 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
     <artifactId>oparent</artifactId>
     <version>1.2.0</version>
   </parent>
-  <groupId>org.onap.dcaegen2.platform</groupId>
-  <artifactId>blueprints</artifactId>
-  <name>dcaegen2-platform-blueprints</name>
-  <version>1.2.0-SNAPSHOT</version>
+  <groupId>org.onap.dcaegen2.deployments</groupId>
+  <artifactId>k8s-bootstrap-container</artifactId>
+  <name>dcaegen2-deployments-k8s-bootstrap-container</name>
+  <version>1.9.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <packaging>pom</packaging>
-  <modules>
-     <module>blueprints</module>
-     <module>input-templates</module>
-  </modules>
 
   <properties>
     <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
@@ -92,7 +88,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
           </configuration>
         </plugin>
         <!-- first disable the default Java plugins at various stages -->
-        <!-- maven-resources-plugin is called during "*resource" phases by default behavior.  it prepares 
+        <!-- maven-resources-plugin is called during "*resource" phases by default behavior.  it prepares
          the resources dir.  we do not need it -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -123,7 +119,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
             </execution>
           </executions>
         </plugin>
-        <!-- maven-install-plugin is called during "install" phase by default behavior.  it tries to copy stuff under 
+        <!-- maven-install-plugin is called during "install" phase by default behavior.  it tries to copy stuff under
          target dir to ~/.m2.  we do not need it -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -173,5 +169,106 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <!-- now we configure custom action (calling a script) at various lifecycle phases -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>clean phase script</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>clean</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-sources script</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>generate-sources</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compile script</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>compile</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>package script</id>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>package</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test script</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>test</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>install script</id>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>install</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>deploy script</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <arguments>
+                <argument>${project.artifactId}</argument>
+                <argument>deploy</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>

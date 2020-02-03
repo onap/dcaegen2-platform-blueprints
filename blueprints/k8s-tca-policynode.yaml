@@ -1,7 +1,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018-2019 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
 inputs:
   aaiEnrichmentHost:
     type: string
@@ -48,7 +49,7 @@ inputs:
     default: dcae-redis.onap.svc.cluster.local:6379
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.2.2"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.0.0"
   consul_host:
     type: string
     default: consul-server.onap.svc.cluster.local
@@ -71,19 +72,18 @@ inputs:
 
 node_templates:
   tca_k8s:
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponent
+    relationships:
+      - target: tca_policy
+        type: cloudify.relationships.depends_on
     properties:
-        name: 'dcae-tca-analytics'
-        dns_name: 'dcae-tca-analytics'
+        service_component_type: 'dcaegen2-analytics-tca'
+        application_config: {}
+        docker_config: {}
         image:
           get_input: tag_version
         log_info:
           log_directory: "/opt/app/TCAnalytics/logs"
-        resource_config:
-            limits:
-                cpu: '1'
-            requests:
-                cpu: '0.5'
         application_config:
             app_config:
                 appDescription: DCAE Analytics Threshold Crossing Alert Application
@@ -136,6 +136,7 @@ node_templates:
                 subscriberTimeoutMS: '-1'
                 subscriberTopicName: unauthenticated.VES_MEASUREMENT_OUTPUT
                 tca_policy: '{"domain":"measurementsForVfScaling","metricsPerEventName":[{"eventName":"vFirewallBroadcastPackets","controlLoopSchemaType":"VM","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"LESS_OR_EQUAL","severity":"MAJOR","closedLoopEventStatus":"ONSET"},{"closedLoopControlName":"ControlLoop-vFirewall-d0a1dfc6-94f5-4fd4-a5b5-4630b438850a","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedTotalPacketsDelta","thresholdValue":700,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"vLoadBalancer","controlLoopSchemaType":"VM","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vDNS-6f37f56d-a87d-4b85-b6a9-cc953cf779b3","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.vNicPerformanceArray[*].receivedTotalPacketsDelta","thresholdValue":300,"direction":"GREATER_OR_EQUAL","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]},{"eventName":"Measurement_vGMUX","controlLoopSchemaType":"VNF","policyScope":"DCAE","policyName":"DCAE.Config_tca-hi-lo","policyVersion":"v0.0.1","thresholds":[{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"EQUAL","severity":"MAJOR","closedLoopEventStatus":"ABATED"},{"closedLoopControlName":"ControlLoop-vCPE-48f0c2c3-a172-4192-9ae3-052274181b6e","version":"1.0.2","fieldPath":"$.event.measurementsForVfScalingFields.additionalMeasurements[*].arrayOfFields[0].value","thresholdValue":0,"direction":"GREATER","severity":"CRITICAL","closedLoopEventStatus":"ONSET"}]}]}'
+        service_component_type: dcaegen2-analytics_tca
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
@@ -161,5 +162,11 @@ node_templates:
                     { get_input: cbs_port }
                 CONFIG_BINDING_SERVICE: "config_binding_service"
             ports:
-              - concat: ["11011:", "0"]
+              - concat: ["11011:", { get_input: external_port }]
+  tca_policy:
+    type: dcae.nodes.policy
+    properties:
+      policy_id:
+           get_input: policy_id
+
 

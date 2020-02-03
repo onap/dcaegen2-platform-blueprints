@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ================================================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ if [ -z "$SETTINGS_FILE" ]; then
     echo "SETTINGS_FILE environment variable not set.  Cannot proceed"
     exit
 fi
-   
+
 
 
 # mvn phase in life cycle
@@ -122,12 +122,7 @@ install)
   echo "==> install phase script"
   ;;
 deploy)
-  echo "==> deploy phase script"
-  if [ -z "$MVN_PROJECT_MODULEID" ]; then
-    upload_files_of_extension yaml
-  else
-    upload_files_of_extension yaml "$MVN_PROJECT_MODULEID"
-  fi
+  build_and_push_docker
   ;;
 *)
   echo "==> unprocessed phase"

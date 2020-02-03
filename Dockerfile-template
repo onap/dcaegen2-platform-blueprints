@@ -1,0 +1,63 @@
+# ============LICENSE_START=======================================================
+# org.onap.dcae
+# ================================================================================
+# Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+
+FROM centos:7.4.1708
+LABEL maintainer="maintainer"
+
+ENV DCAE_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}
+ENV CCSDK_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}
+ENV BP_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_releases }}
+
+# Install gcc
+RUN yum install -y gcc python-devel
+
+# Install Consul
+RUN yum install -y unzip \
+  && mkdir -p /opt/consul/bin \
+  && mkdir -p /opt/consul/data \
+  && mkdir -p /opt/consul/config \
+  && curl -Ssf https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip > /tmp/consul.zip \
+  && unzip -pj /tmp/consul.zip > /opt/consul/bin/consul \
+  && chmod +x /opt/consul/bin/consul
+COPY config/00-consul.json /opt/consul/config/
+
+# Install jq
+RUN curl -Ssf -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"  > /bin/jq \
+&& chmod +x /bin/jq
+
+# Install pip and Cloudify CLI (stay at version 4.2 because of changes in higher versions)
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+  && python get-pip.py \
+  && rm get-pip.py \
+  && pip install cloudify==4.2
+
+# Copy scripts
+RUN mkdir scripts
+COPY scripts/ /scripts
+
+# Get plugins from raw repos
+RUN scripts/load-plugins.sh ${DCAE_REPO} ${CCSDK_REPO} \
+  && rm scripts/load-plugins.sh \
+# Make sure scripts are executable
+  && chmod +x /scripts/*.sh
+
+# Load blueprints and input templates
+COPY blueprints/  /blueprints
+
+# Set up runtime script
+ENTRYPOINT exec "/scripts/bootstrap.sh"

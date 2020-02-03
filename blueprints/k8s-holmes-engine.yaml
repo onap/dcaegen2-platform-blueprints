@@ -20,9 +20,9 @@
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
 - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.2/k8splugin_types.yaml"
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml"
-- "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/pgaas/1.1.0/pgaas_types.yaml"
+- "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml"
+- "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml"
+- "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml"
 inputs:
   dcae_CL_publish_url:
     type: string
@@ -45,7 +45,7 @@ inputs:
     default: holmes
   he_image:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/holmes/engine-management:v1.0.0"
+    default: "nexus3.onap.org:10001/onap/holmes/engine-management:v1.0.0"
 
 node_templates:
   pgaasvm:

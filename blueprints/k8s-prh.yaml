@@ -21,7 +21,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
 
 inputs:
   pnfUrl:
@@ -63,7 +63,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "{{ ONAPTEMPLATE_DOCKERREGURL_org_onap_dcaegen2_releases }}/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.4.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.4.0"
   replicas:
     type: integer
     description: number of instances

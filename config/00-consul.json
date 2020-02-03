@@ -1,0 +1,9 @@
+{
+    "datacenter": "dc1",
+    "data_dir": "/opt/consul",
+    "log_level": "INFO",
+    "server": false,
+    "retry_join": ["consul"],
+    "node_name": "dcae-bootstrap",
+    "disable_update_check": true
+  }

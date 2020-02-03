@@ -18,7 +18,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - "{{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}/type_files/helm/4.0.0/helm-type.yaml"
+  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/helm/4.0.0/helm-type.yaml"
 
 inputs:
   tiller-server-ip:
