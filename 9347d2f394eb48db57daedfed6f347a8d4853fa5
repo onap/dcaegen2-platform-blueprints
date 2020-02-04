@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9acb0cc5_c16b190b",
+        "filename": "mvn-phase-script.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-04T15:38:58Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 127,
+        "startChar": 4,
+        "endLine": 127,
+        "endChar": 34
+      },
+      "revId": "9347d2f394eb48db57daedfed6f347a8d4853fa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d14a5fc_8902bb36",
+        "filename": "mvn-phase-script.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-04T15:38:58Z",
+      "side": 1,
+      "message": "to be removed also",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 58
+      },
+      "revId": "9347d2f394eb48db57daedfed6f347a8d4853fa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffbf9eb3_0acaa7d1",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-04T15:38:58Z",
+      "side": 1,
+      "message": "This module build can be moved up to root. The other modules are no longer necessary and can be removed",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "9347d2f394eb48db57daedfed6f347a8d4853fa5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
