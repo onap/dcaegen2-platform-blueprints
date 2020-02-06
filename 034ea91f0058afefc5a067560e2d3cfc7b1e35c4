@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf8f999e_0798f7ee",
+        "filename": "blueprints/k8s-ves-tls.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-06T23:12:39Z",
+      "side": 1,
+      "message": "can be made as input such that both tls/non-tls can share same blueprint template",
+      "range": {
+        "startLine": 116,
+        "startChar": 13,
+        "endLine": 116,
+        "endChar": 35
+      },
+      "revId": "034ea91f0058afefc5a067560e2d3cfc7b1e35c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc85021d_7de79569",
+        "filename": "blueprints/k8s-ves-tls.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-06T23:12:39Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 117,
+        "startChar": 17,
+        "endLine": 117,
+        "endChar": 39
+      },
+      "revId": "034ea91f0058afefc5a067560e2d3cfc7b1e35c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f1aaa7_e714c788",
+        "filename": "blueprints/k8s-ves-tls.yaml-template",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-06T23:12:39Z",
+      "side": 1,
+      "message": "healthcheck missing?",
+      "revId": "034ea91f0058afefc5a067560e2d3cfc7b1e35c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
