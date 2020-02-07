@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.9.0'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-master-merge-java/228'
+ref: bad772074d0bfd4c4dcb7bdd2cbe9ca7246fc28e
+containers:
+    - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+      version: '1.9.0-SNAPSHOT-20200207T200943Z'
