@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Tomasz Golabek <tomasz.golabek@nokia.com>
+Code-Review+1: Aleksandra Maciaga <aleksandra.maciaga@nokia.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 25 Feb 2020 18:56:08 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/101056
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
