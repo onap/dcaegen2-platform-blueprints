@@ -49,7 +49,7 @@ inputs:
     default: dcae-redis.onap.svc.cluster.local:6379
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.0.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.deployments.tca-cdap-container:1.2.2"
   consul_host:
     type: string
     default: consul-server.onap.svc.cluster.local
