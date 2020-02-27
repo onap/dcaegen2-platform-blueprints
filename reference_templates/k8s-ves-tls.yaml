@@ -1,9 +1,6 @@
-# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
-#
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
-# Copyright (c) 2020 Nokia. All rights reserved.
+# Copyright (c) 2019 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,8 +18,8 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
-  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - "https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml"
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/k8splugin/1.4.13/k8splugin_types.yaml
 
 inputs:
   ves_other_publish_url:
@@ -45,35 +42,15 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.5.3"
-  internal_port:
-    type: string
-    description: Kubernetes node port on which collector is exposed
-    default: "8080"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.4.5"
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
     default: "30235"
-  internal_port_tls:
+  external_tls_port:
     type: string
-    description: Kubernetes node port on which collector is exposed
-    default: "8443"
-  external_port_tls:
-    type: string
-    description: Kubernetes node port on which collector is exposed
+    description: Kubernetes node port on which collector is exposed for https
     default: "30417"
-  auth_method:
-    type: string
-    default: "noAuth"
-  component_name:
-    type: string
-    default: "dcae-ves-collector"
-  dns_component_name:
-    type: string
-    default: "dcae-ves-collector"
-  enable_tls:
-    type: boolean
-    default: false
   replicas:
     type: integer
     description: number of instances
@@ -84,75 +61,66 @@ node_templates:
       cloudify.interfaces.lifecycle:
         start:
           inputs:
-            ports:
-              - concat: [{get_input: internal_port},":",{get_input: external_port}]
-              - concat: [{get_input: internal_port_tls},":",{get_input: external_port_tls}]
+           ports:
+             - concat: ["8443:", { get_input: external_tls_port }]
     properties:
       application_config:
         collector.dmaap.streamid: fault=ves-fault|syslog=ves-syslog|heartbeat=ves-heartbeat|measurementsForVfScaling=ves-measurement|measurement=ves-measurement|mobileFlow=ves-mobileflow|other=ves-other|stateChange=ves-statechange|thresholdCrossingAlert=ves-thresholdCrossingAlert|voiceQuality=ves-voicequality|sipSignaling=ves-sipsignaling|notification=ves-notification|pnfRegistration=ves-pnfRegistration
-        collector.inputQueue.maxPending: "8096"
-        collector.keystore.file.location: /opt/app/dcae-certificate/cert.jks
-        collector.keystore.passwordfile: /opt/app/dcae-certificate/jks.pass
-        collector.truststore.file.location: /opt/app/dcae-certificate/trust.jks
-        collector.truststore.passwordfile: /opt/app/dcae-certificate/trust.pass
+        collector.keystore.file.location: /opt/app/VESCollector/tls/cert.jks
+        collector.keystore.passwordfile: /opt/app/VESCollector/tls/jks.pass
         collector.schema.checkflag: "1"
-        collector.schema.file: {"v1":"./etc/CommonEventFormat_27.2.json","v2":"./etc/CommonEventFormat_27.2.json","v3":"./etc/CommonEventFormat_27.2.json","v4":"./etc/CommonEventFormat_27.2.json","v5":"./etc/CommonEventFormat_28.4.1.json","v7":"./etc/CommonEventFormat_30.1.1.json"}
+        collector.schema.file: "{\"v1\":\"./etc/CommonEventFormat_27.2.json\",\"v2\":\"./etc/CommonEventFormat_27.2.json\",\"v3\":\"./etc/CommonEventFormat_27.2.json\",\"v4\":\"./etc/CommonEventFormat_27.2.json\",\"v5\":\"./etc/CommonEventFormat_28.4.1.json\",\"v7\":\"./etc/CommonEventFormat_30.0.1.json\"}"
         collector.service.port: "8080"
         collector.service.secure.port: "8443"
         event.transform.flag: "0"
-        auth.method:
-          get_input: auth_method
+        auth.method: certBasicAuth
         header.authlist: "sample1,$2a$10$0buh.2WeYwN868YMwnNNEuNEAMNYVU9.FSMJGyIKV3dGET/7oGOi6"
-        services_calls: []
         streams_publishes:
-          ves-fault:
-            dmaap_info:
-              topic_url:
-                get_input: ves_fault_publish_url
-            type: message_router
-          ves-measurement:
-            dmaap_info:
-              topic_url:
-                get_input: ves_measurement_publish_url
-            type: message_router
-          ves-notification:
-            dmaap_info:
-              topic_url:
-                get_input: ves_notification_publish_url
-            type: message_router
-          ves-pnfRegistration:
-            dmaap_info:
-              topic_url:
-                get_input: ves_pnfRegistration_publish_url
-            type: message_router
-          ves-heartbeat:
-            dmaap_info:
-              topic_url:
-                get_input: ves_heartbeat_publish_url
-            type: message_router
-          ves-other:
-            dmaap_info:
-              topic_url:
-                get_input: ves_other_publish_url
-            type: message_router
+            ves-fault:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_fault_publish_url
+              type: message_router
+            ves-measurement:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_measurement_publish_url
+              type: message_router
+            ves-notification:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_notification_publish_url
+              type: message_router
+            ves-pnfRegistration:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_pnfRegistration_publish_url
+              type: message_router
+            ves-heartbeat:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_heartbeat_publish_url
+              type: message_router
+            ves-other:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_other_publish_url
+              type: message_router
         collector.dynamic.config.update.frequency: "5"
+      tls_info:
+        cert_directory: '/opt/app/VESCollector/tls'
+        use_tls: true        
       docker_config:
         healthcheck:
           endpoint: /healthcheck
           interval: 15s
           timeout: 1s
-          type: http
+          type: https
       image:
         get_input: tag_version
       replicas: {get_input: replicas}
-      name:
-        get_input: component_name
-      dns_name:
-        get_input: dns_component_name
+      name: 'dcae-ves-collector-tls'
+      dns_name: 'dcae-ves-collector-tls'
       log_info:
         log_directory: "/opt/app/VESCollector/logs/ecomp"
-      tls_info:
-        cert_directory: '/opt/app/dcae-certificate/'
-        use_tls:
-          get_input: enable_tls
     type: dcae.nodes.ContainerizedPlatformComponent
