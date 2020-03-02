@@ -32,6 +32,7 @@ DEST=wagons
 DCAEPLUGINFILES=\
 "\
 k8splugin/1.7.2/k8splugin-1.7.2-py27-none-linux_x86_64.wgn
+k8splugin/2.0.0/k8splugin-2.0.0-py27-none-linux_x86_64.wgn
 relationshipplugin/1.1.0/relationshipplugin-1.1.0-py27-none-linux_x86_64.wgn
 clamppolicyplugin/1.1.0/clamppolicyplugin-1.1.0-py27-none-linux_x86_64.wgn
 dcaepolicyplugin/2.4.0/dcaepolicyplugin-2.4.0-py27-none-linux_x86_64.wgn \

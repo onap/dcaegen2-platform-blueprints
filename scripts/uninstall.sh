@@ -20,6 +20,14 @@
 set -x
 set +e
 
+# TLS setup
+CACERT="/certs/cacert.pem"
+CURLTLS=""
+if [ $CMPROTO = "https" ]
+then
+    CURLTLS="--cacert $CACERT"
+fi
+
 # Leave the Consul cluster
 /opt/consul/bin/consul leave
 
@@ -30,7 +38,17 @@ set +e
 # jq gives us the just the deployment ids (e.g., "config_binding_service"), one per line
 #
 # xargs -I lets us run the cfy uninstall command once for each deployment id extracted by jq
-
-curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" "$CMADDR/api/v3.1/deployments?_include=id" \
+curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" ${CURLTLS} "$CMPROTO://$CMADDR:$CMPORT/api/v3.1/deployments?_include=id" \
 | /bin/jq .items[].id \
 | xargs -I % sh -c 'cfy uninstall %'
+
+# Delete blueprints (in case the uninstall didn't get them)
+curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" ${CURLTLS} "$CMPROTO://$CMADDR:$CMPORT/api/v3.1/blueprints?_include=id" \
+| /bin/jq .items[].id \
+| xargs -I % sh -c 'cfy blueprints delete %'
+
+# Delete plugins
+curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" ${CURLTLS} "$CMPROTO://$CMADDR:$CMPORT/api/v3.1/plugins?_include=id" \
+| /bin/jq .items[].id \
+| xargs -I % sh -c 'cfy plugins delete %'
+
