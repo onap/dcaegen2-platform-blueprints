@@ -122,4 +122,4 @@ node_templates:
       dns_name: { get_input: service_name }
       replicas:
         get_input: replicas
-
+      name: { get_input: service_name }

@@ -25,15 +25,15 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:1.4.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:2.0.3"
   cache:
     type: string
     default:
-      dns_cache_ttl_seconds: 60
+      "dns_cache_ttl_seconds: 60"
   files:
     type: string
     default:
-      arriving_traps_log: snmptrapd_arriving_traps.log
+      "arriving_traps_log: snmptrapd_arriving_traps.log
       data_dir: data
       eelf_audit: audit.log
       eelf_base_dir: /opt/app/snmptrap/logs
@@ -47,32 +47,32 @@ inputs:
       roll_frequency: day
       runtime_base_dir: /opt/app/snmptrap
       snmptrapd_diag: snmptrapd_prog_diag.log
-      traps_stats_log: snmptrapd_stats.csv
+      traps_stats_log: snmptrapd_stats.csv"
   protocols:
     type: string
     default:
-      ipv4_interface: 0.0.0.0
+      "ipv4_interface: 0.0.0.0
       ipv4_port: 6162
       ipv6_interface: ::1
-      ipv6_port: 6162
+      ipv6_port: 6162"
   publisher:
     type: string
     default:
-      http_milliseconds_between_retries: 750
+      "http_milliseconds_between_retries: 750
       http_milliseconds_timeout: 1500
       http_peer_publisher: unavailable
       http_primary_publisher: 'true'
       http_retries: 3
       max_milliseconds_between_publishes: 10000
-      max_traps_between_publishes: 10
+      max_traps_between_publishes: 10"
   sec_fault_unsecure_topic:
     type: string
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.ONAP-COLLECTOR-SNMPTRAP"
   snmptrapd:
     type: string
     default:
-      title: Collector for receiving SNMP traps and publishing to DMAAP/MR
-      version: 1.4.0
+      "title: Collector for receiving SNMP traps and publishing to DMAAP/MR
+      version: 2.0.3"
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed

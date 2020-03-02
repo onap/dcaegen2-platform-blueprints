@@ -26,18 +26,18 @@ imports:
 inputs:
   msb_hostname:
     type: string
-    default: "msb-discovery.onap.svc.cluster.local"
+    default: "msb-iag.onap"
   pgaas_cluster_name:
     type: string
-    default: "dcae-postgres.onap.svc.cluster.local"
+    default: "dcae-pg-primary.onap"
     # use the single-VM PG instance
     #default: pgvm
   database_name:
     type: string
-    default: holmes
+    default: "holmes"
   hr_image:
     type: string
-    default: "nexus3.onap.org:10001/onap/holmes/rule-management:v1.0.0"
+    default: "nexus3.onap.org:10001/onap/holmes/rule-management:1.2.7"
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database

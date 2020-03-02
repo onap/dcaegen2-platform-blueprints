@@ -28,7 +28,7 @@ inputs:
   namespace:
     description: Target namespace to be installed under (requires to be new)
   chart-repo-url:
-     default: https://nexus.onap.org/content/sites/oom-helm-staging
+     default: 'https://nexus.onap.org/content/sites/oom-helm-staging'
   chart-version :
     description: Chart version for identified component-name
   stable-repo-url:

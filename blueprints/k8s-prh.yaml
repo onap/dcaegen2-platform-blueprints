@@ -32,7 +32,7 @@ inputs:
     default: "https://aai.onap.svc.cluster.local:8443/aai/v12"
   aaiEnrichmentHost:
     type: string
-    default: aai.onap.svc.cluster.local
+    default: "aai.onap.svc.cluster.local"
   aaiEnrichmentPort:
     type: integer
     default: 8443
@@ -150,3 +150,4 @@ node_templates:
         cert_directory: '/opt/app/prh/etc/cert'
         use_tls: true
     type: dcae.nodes.ContainerizedPlatformComponent
+
