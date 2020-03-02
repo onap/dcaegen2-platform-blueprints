@@ -1,0 +1,59 @@
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (C) 2020 QCT
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+#author: Kate Hsuan (kate.hsuan@qct.io)
+
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
+inputs:
+  image_name:
+    description: datalake feeder image URL.
+    type: string
+    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakeadminui:1.0.0
+  container_port:
+    type: string
+    description: exposed container port
+    default: 80
+  host_port:
+    type: string
+    description: external port
+    default: 30479
+node_templates:
+  datalake:
+    type: dcae.nodes.ContainerizedPlatformComponent
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            ports:
+              - '80:0'
+              - concat: [{get_input: container_port},":",{get_input: host_port}]
+    properties:
+      application_config:
+        FDDER_ADDR: dl-feeder
+      docker_config:
+        interval: 30s
+        timeout: 10s
+        type: http
+        endpoint: actuator/health
+      image:
+        get_input: image_name
+      dns_name: "dl-admin-ui"
+      name: datalake-admin-ui
