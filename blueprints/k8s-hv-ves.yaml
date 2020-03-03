@@ -78,6 +78,9 @@ inputs:
   security_keys_trust_store_password_file:
     type: string
     default: '/etc/ves-hv/ssl/trust.pass'
+  use_tls:
+    type: boolean
+    default: true
 node_templates:
   hv-ves:
     interfaces:
@@ -122,5 +125,5 @@ node_templates:
         log_directory: { concat: [ '/var/log/ONAP/', { get_input: hv_ves_name } ] }
       tls_info:
         cert_directory: '/etc/ves-hv/ssl'
-        use_tls: true
+        use_tls: { get_input: use_tls }
     type: dcae.nodes.ContainerizedPlatformComponent
