@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa59476_5e065f00",
+        "filename": "blueprints/k8s-datalake-admin-ui.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "Image is not released. Pls follow procedure documented under https://wiki.onap.org/pages/viewpage.action?pageId\u003d68545910 to submit release yaml\u0027s",
+      "range": {
+        "startLine": 29,
+        "startChar": 40,
+        "endLine": 29,
+        "endChar": 88
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3ace81d_1d7ab5fc",
+        "filename": "blueprints/k8s-datalake-admin-ui.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "should be enclosed in quotes",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 87
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4594dcda_97a0398c",
+        "filename": "blueprints/k8s-datalake-admin-ui.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "string type should be enclosed in quotes",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42fe18ad_d58b9697",
+        "filename": "blueprints/k8s-datalake-admin-ui.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "same comment as earlier",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ef86dde_a11522be",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "enclose in quotes",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a70c3bfc_100df59f",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "1.0.0 not released yet; this should be released as pre-requisite",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76cf895e_967e5c88",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "enclose in quotes",
+      "range": {
+        "startLine": 49,
+        "startChar": 13,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e7d7662_06b2cc19",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "same comment as earlier",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 19
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c87d91d2_7f6f3cce",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "same comment as earlier",
+      "range": {
+        "startLine": 57,
+        "startChar": 13,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306b6fd8_5dfe80b9",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "integer",
+      "range": {
+        "startLine": 59,
+        "startChar": 10,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7fa0f61_a56bd328",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T19:46:49Z",
+      "side": 1,
+      "message": "integer",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "213b7a21bf14b88cfed952663cf99c001386b104",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
