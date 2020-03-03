@@ -78,6 +78,9 @@ inputs:
   security_keys_trust_store_password_file:
     type: string
     default: '/etc/ves-hv/ssl/trust.pass'
+  use_tls:
+    type: boolean
+    default: true
 node_templates:
   hv-ves:
     interfaces:
