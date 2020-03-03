@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "742766b6_b66ee4b9",
+        "filename": "blueprints/k8s-pm-mapper.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 4023
+      },
+      "writtenOn": "2020-03-03T15:27:38Z",
+      "side": 1,
+      "message": "blueprints are to appear as executable no templating.",
+      "parentUuid": "134dbe61_56ec125d",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 7
+      },
+      "revId": "13fbc6f1384dee9a2a9b9340da48a58b0ecea85e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8958d566_0d7a9030",
         "filename": "blueprints/k8s-pm-mapper.yaml",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ac5d1eba_a0927730",
+        "filename": "blueprints/k8s-pm-mapper.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4023
+      },
+      "writtenOn": "2020-03-03T15:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8958d566_0d7a9030",
+      "range": {
+        "startLine": 40,
+        "startChar": 78,
+        "endLine": 40,
+        "endChar": 84
+      },
+      "revId": "13fbc6f1384dee9a2a9b9340da48a58b0ecea85e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aae2c1ff_276edfd3",
         "filename": "blueprints/k8s-pm-mapper.yaml",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2020-03-03T12:04:51Z",
       "side": 1,
       "message": "Should all inputs including passwords have a default value?",
+      "range": {
+        "startLine": 59,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 17
+      },
+      "revId": "13fbc6f1384dee9a2a9b9340da48a58b0ecea85e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538a0301_2c2dc261",
+        "filename": "blueprints/k8s-pm-mapper.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4023
+      },
+      "writtenOn": "2020-03-03T15:27:38Z",
+      "side": 1,
+      "message": "demo passwords can be stored as defaults, production usage shouldn\u0027t rely on demo passwords.",
+      "parentUuid": "aae2c1ff_276edfd3",
       "range": {
         "startLine": 59,
         "startChar": 2,
