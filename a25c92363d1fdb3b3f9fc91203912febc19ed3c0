@@ -16,6 +16,24 @@
       "revId": "a25c92363d1fdb3b3f9fc91203912febc19ed3c0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7bd28c1_b9cb2f78",
+        "filename": "scripts/uninstall.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-03-03T12:55:49Z",
+      "side": 1,
+      "message": "This is just a convenience function for testing.  It\u0027s not used as part of the automated DCAE uninstall process.   Originally it just tried to delete the deployments.  I added this block because I was typing in these commands a lot during testing.   I run this (plus some manual steps when needed) so that I can re-run bootstrap.sh when doing testing, without restarting all of DCAE.\n\nIn a full DCAE uninstall, inventory and its database would be deleted, so it would be redundant to have this script delete the blueprints from inventory.\n\nMy original plan was to delete this script, because it isn\u0027t used, but I found it helpful for developing/testing the bootstrap script, so I augmented it instead.",
+      "parentUuid": "1d7550c8_c9a5554e",
+      "revId": "a25c92363d1fdb3b3f9fc91203912febc19ed3c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
