@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d7550c8_c9a5554e",
+        "filename": "scripts/uninstall.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-03T04:51:57Z",
+      "side": 1,
+      "message": "should the bootstrap uninstall also delete the blueprints in inventory?",
+      "revId": "a25c92363d1fdb3b3f9fc91203912febc19ed3c0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
