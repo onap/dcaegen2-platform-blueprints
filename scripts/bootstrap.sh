@@ -40,12 +40,13 @@ CMPROTO=${CMPROTO:-http}
 CMPORT=${CMPORT:-80}
 
 # Set up additional parameters for using HTTPS
+CACERT="/certs/cacert.pem"
 CFYTLS=""
 CURLTLS=""
 if [ $CMPROTO = "https" ]
 then
-    CFYTLS="--rest-certificate /certs/cacert.pem --ssl"
-    CURLTLS="--cacert /certs/cacert.pem"
+    CFYTLS="--rest-certificate $CACERT --ssl"
+    CURLTLS="--cacert $CACERT"
 fi
 
 ### FUNCTION DEFINITIONS ###
@@ -229,6 +230,14 @@ deploy holmes_engine k8s-holmes-engine.yaml k8s-holmes_engine-inputs.yaml
 
 # Display deployments, for debugging purposes
 cfy deployments list
+
+# Load blueprints into DCAE inventory as
+# DCAE service types
+. /scripts/inventory.sh
+for BP in /blueprints/*.yaml
+do
+  upload_service_type $BP $CACERT
+done
 
 # Continue running
 keep_running "Finished bootstrap steps."
