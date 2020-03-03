@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.10.0'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-master-merge-java/235'
+ref: 491105a0e6d2cf27a1f7b8397935c1ea62078ccc
+containers:
+    - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+      version: '1.10.0-SNAPSHOT-20200303T151405Z'
