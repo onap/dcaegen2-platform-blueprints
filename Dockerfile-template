@@ -61,3 +61,12 @@ COPY blueprints/  /blueprints
 
 # Set up runtime script
 ENTRYPOINT exec "/scripts/bootstrap.sh"
+
+# Set up a non-root user
+RUN mkdir -p /opt/bootstrap \
+  && useradd -d /opt/bootstrap bootstrap \
+  && chown -R bootstrap:bootstrap /opt/bootstrap \
+  && chown -R bootstrap:bootstrap /scripts \
+  && chown -R bootstrap:bootstrap /blueprints \
+  && chown -R bootstrap:bootstrap /opt/consul
+USER bootstrap
