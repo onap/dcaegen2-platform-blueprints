@@ -1,0 +1,306 @@
+ #============LICENSE_START=======================================================
+ #    son-handler
+ #   ================================================================================
+ #     Copyright (C) 2019-2020 Wipro Limited.
+ #     ==============================================================================
+ #       Licensed under the Apache License, Version 2.0 (the "License");
+ #       you may not use this file except in compliance with the License.
+ #       You may obtain a copy of the License at
+ #    
+ #            http://www.apache.org/licenses/LICENSE-2.0
+ #    
+ #       Unless required by applicable law or agreed to in writing, software
+ #       distributed under the License is distributed on an "AS IS" BASIS,
+ #       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ #       See the License for the specific language governing permissions and
+ #       limitations under the License.
+ #       ============LICENSE_END=========================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - "http://www.getcloudify.org/spec/cloudify/3.4/types.yaml"
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
+inputs:
+  replicas:
+    type: integer
+    description: replica count for deployment
+    default: 1
+  tag_version:
+    type: string
+    description: docker image name and version
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.son-handler:2.0.0"
+  pgaas_cluster_name:
+    type: string
+    description: pg cluster
+    default: "dcae-pg-primary.onap"
+  database_name:
+    type: string
+    description: database name
+    default: "sonhms"
+  aaf_username:
+    type: string
+    description: aaf username
+    default:
+  aaf_password:
+    type: string
+    description: aaf password
+    default:
+  polling_interval:
+    type: integer
+    description: dmaap polling interval
+    default: 20
+  cbs_polling_interval:
+    type: integer
+    description: cbs polling interval
+    default: 60
+  polling_timeout:
+    type: integer
+    description: dmaap polling timeout
+    default: 60
+  num_solutions:
+    type: integer
+    description: num of solutions
+    default: 5
+  min_collision:
+    type: integer
+    description: minimum no. of collisions
+    default: 5
+  min_confusion: 
+    type: integer
+    description: minimum no. of confusions
+    default: 5
+  max_clusters:
+    type: integer
+    description: maximum clusters
+    default: 5
+  bad_threshold:
+    type: integer
+    description: threshold for bad neighbors
+    default: 50
+  poor_threshold:
+    type: integer
+    description: threshold for poor neighbors
+    default: 70
+  namespace:
+    type: string
+    description: namespace
+    default: "onap"
+  dmaap:
+    type: string
+    description: dmaap server
+    default: "message-router"
+  buffer_time:
+    type: integer
+    description: buffer time
+    default: 60
+  cg:
+    type: string
+    description: consumer group
+    default: "sonhms-cg"
+  cid:
+    type: string
+    description: consumer id
+    default: "sonhms-cid"
+  config_db:
+    type: string
+    description: config db location
+    default: "http://sdnc.onap:8181"
+  oof:
+    type: string
+    description: oof location
+    default: "http://oof-osdf.onap:8699"
+  oof_endpoint:
+    type: string
+    description: oof endpoint
+    default: "/api/oof/v1/pci"
+  pci_optimizer:
+    type: string
+    description: pci optimizer name in oof
+    default: "pci"
+  pci_anr_optimizer:
+    type: string
+    description: pci and anr optimizer name in oof
+    default: "pci_anr"
+  log_path:
+    type: string
+    description: log location in host
+    default: "/dockerdata-nfs/son-handler"
+  poorCountThreshold:
+    type: integer
+    description: poor neighbor count threshold
+    default: 3
+  badCountThreshold:
+    type: integer
+    description: bad neighbor count threshold
+    default: 3
+  oofTriggerCountTimer:
+    type: integer
+    description: timer for oof triggered count in minutes
+    default: 30
+  oofTriggerCountThreshold:
+    type: integer
+    description: Threshold for oof trigger count
+    default: 5
+  policyRespTimer:
+    type: integer
+    description: policy response wait timer in seconds
+    default: 10
+  policy_id:
+    type: string
+    description: policy id for config policy
+    default: "com.Config_PCIMS_CONFIG_POLICY"
+  performance_management_topic_url:
+    type: string
+    description: ves measurement topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
+  fault_management_topic_url:
+    type: string
+    description: ves fault topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/unauthenticated.SEC_FAULT_OUTPUT"
+  nbr_list_change_topic_url:
+    type: string
+    description: neighbor list change notification topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/PCI-NOTIF-TOPIC-NGHBR-LIST-CHANGE-INFO"
+  dcae_cl_response_topic_url:
+    type: string
+    description: dcae control loop response topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/DCAE_CL_RSP"
+  dcae_cl_topic_url:
+    type: string
+    description: dcae control loop topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/unauthenticated.DCAE_CL_OUTPUT"
+  policyNegativeAckThreshold:
+    type: integer
+    description: negative acknowledgement from policy threshold
+    default: 3
+  policyFixedPciTimeInterval:
+    type: integer
+    description: time interval for checking FixedPci table
+    default: 30000
+  
+node_templates:
+  pgaasvm:
+    type: dcae.nodes.pgaas.database
+    properties: 
+      writerfqdn: { get_input: pgaas_cluster_name }
+      name: { get_input: database_name }
+      use_existing: false
+    
+  sonhms:
+    type: dcae.nodes.ContainerizedServiceComponent
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              STANDALONE: "false"
+            ports:
+              - "8080:0"
+            volumes:
+              - host:
+                  path: { get_input: log_path }
+                container:
+                  bind: /home/sonhms/logs
+                  mode: rw
+    properties:
+      image:
+        get_input: tag_version
+      service_component_type: 'dcae-sonhms'
+      service_id: 'sonhms'
+      always_pull_image: true
+      replicas: {get_input: replicas}
+      docker_config:
+        healthcheck:
+          endpoint: /healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
+      application_config:
+        streams_subscribes:
+          performance_management_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: performance_management_topic_url }
+            type: message-router
+          fault_management_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: fault_management_topic_url }
+            type: message-router
+          nbr_list_change_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: nbr_list_change_topic_url }
+            type: message-router
+          dcae_cl_response_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: dcae_cl_response_topic_url }
+            type: message-router
+        streams_publishes:
+          CL_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: dcae_cl_topic_url }
+            type: message-router
+        postgres.host: { get_attribute: [ pgaasvm, admin, host ] }
+        postgres.port: { get_attribute: [ pgaasvm, admin, port ] }
+        postgres.username: { get_attribute: [ pgaasvm, admin, user ] }
+        postgres.password: { get_attribute: [ pgaasvm, admin, password ] }
+        sonhandler.pollingInterval: { get_input: polling_interval}
+        sonhandler.pollingTimeout: { get_input: polling_timeout }
+        cbsPollingInterval: { get_input: cbs_polling_interval }
+        sonhandler.numSolutions: { get_input: num_solutions }
+        sonhandler.minCollision: { get_input: min_collision }
+        sonhandler.minConfusion: { get_input: min_confusion }
+        sonhandler.maximumClusters: { get_input: max_clusters }
+        sonhandler.badThreshold: { get_input: bad_threshold }
+        sonhandler.poorThreshold: { get_input: poor_threshold }
+        sonhandler.namespace: { get_input: namespace }
+        sonhandler.sourceId: SONHMS
+        sonhandler.dmaap.server: 
+          - { get_input: dmaap }
+        sonhandler.bufferTime: { get_input: buffer_time }
+        sonhandler.cg: { get_input: cg }
+        sonhandler.cid: { get_input: cid }
+        sonhandler.configDb.service: { get_input: config_db }
+        sonhandler.oof.service: { get_input: oof }
+        sonhandler.oof.endpoint: { get_input: oof_endpoint }
+        sonhandler.pciOptimizer: { get_input: pci_optimizer }
+        sonhandler.pciAnrOptimizer: { get_input: pci_anr_optimizer }
+        sonhandler.poorCountThreshold: { get_input: poorCountThreshold}
+        sonhandler.badCountThreshold: { get_input: badCountThreshold}
+        sonhandler.oofTriggerCountTimer: { get_input: oofTriggerCountTimer}
+        sonhandler.oofTriggerCountThreshold: { get_input: oofTriggerCountThreshold}
+        sonhandler.policyRespTimer: { get_input: policyRespTimer}
+        sonhandler.policyNegativeAckThreshold: { get_input: policyNegativeAckThreshold}
+        sonhandler.policyFixedPciTimeInterval: { get_input: policyFixedPciTimeInterval}
+        service_calls:
+          sdnr-getpnfname: []
+          sdnr-getpci: []
+          sdnr-getnbrlist: []
+          sdnr-getcelllist: []
+          oof-req: []
+          policy-req: []
+    relationships:
+      - type: cloudify.relationships.depends_on
+        target: pgaasvm
+      - type: cloudify.relationships.depends_on
+        target: son_policy
+
+  son_policy:
+    type: dcae.nodes.policy
+    properties:
+      policy_id:
+           get_input: policy_id
+       
+      
+      
+        
