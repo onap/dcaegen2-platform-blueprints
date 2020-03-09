@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: David Farrelly <david.farrelly@est.tech>
+Code-Review+1: Rajendra Jaiswal <rajendra.jaiswal@ericsson.com>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Mon, 09 Mar 2020 02:31:35 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/103141
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
