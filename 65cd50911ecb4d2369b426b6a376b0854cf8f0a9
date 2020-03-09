@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a09ce998_df59fb15",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T17:18:39Z",
+      "side": 1,
+      "message": "should point to release version",
+      "range": {
+        "startLine": 40,
+        "startChar": 99,
+        "endLine": 40,
+        "endChar": 121
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
