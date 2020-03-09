@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "340b15b0_9991b083",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T18:29:30Z",
+      "side": 1,
+      "message": "R6/k8splugin/1.7.2/",
+      "range": {
+        "startLine": 22,
+        "startChar": 101,
+        "endLine": 22,
+        "endChar": 120
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a09ce998_df59fb15",
         "filename": "blueprints/k8s-bbs-event-processor.yaml",
         "patchSetId": 1
@@ -18,6 +41,29 @@
         "startChar": 99,
         "endLine": 40,
         "endChar": 121
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a26fbc83_e58f19d7",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T18:29:30Z",
+      "side": 1,
+      "message": "This should be driven as input; btw why is nodeport required? Also 308xx is not among valid range identified for ONAP - https://wiki.onap.org/display/DW/OOM+NodePort+List",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 196,
+        "endChar": 40
       },
       "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
