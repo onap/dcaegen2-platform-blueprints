@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7ccf668_c182aeb2",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T17:51:06Z",
+      "side": 1,
+      "message": "include default",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "c5d465df71d80431de7568a674c21adc952e0207",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62e64b41_2b40e730",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T17:51:06Z",
+      "side": 1,
+      "message": "default? If this corresponding property (aaf_password) is not used, then this input can be removed.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 62
+      },
+      "revId": "c5d465df71d80431de7568a674c21adc952e0207",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e54aa64_aa89e7b7",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-09T17:51:06Z",
+      "side": 1,
+      "message": "I see the topic are unauthenticated.. pls clarify how these configs are used within PMSH currently?",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 52
+      },
+      "revId": "c5d465df71d80431de7568a674c21adc952e0207",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
