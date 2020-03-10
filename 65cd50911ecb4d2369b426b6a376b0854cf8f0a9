@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd5ae858_ef6ff9a4",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6323
+      },
+      "writtenOn": "2020-03-10T10:14:00Z",
+      "side": 1,
+      "message": "We are unable to test the blueprint with the given version (environment not available)",
+      "parentUuid": "340b15b0_9991b083",
+      "range": {
+        "startLine": 22,
+        "startChar": 101,
+        "endLine": 22,
+        "endChar": 120
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a09ce998_df59fb15",
         "filename": "blueprints/k8s-bbs-event-processor.yaml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-09T17:18:39Z",
       "side": 1,
       "message": "should point to release version",
+      "range": {
+        "startLine": 40,
+        "startChar": 99,
+        "endLine": 40,
+        "endChar": 121
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3ee7a5a_76cb4c6d",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6323
+      },
+      "writtenOn": "2020-03-10T10:14:00Z",
+      "side": 1,
+      "message": "As the artefact is now released I will push the updated version of the blueprint",
+      "parentUuid": "a09ce998_df59fb15",
       "range": {
         "startLine": 40,
         "startChar": 99,
@@ -68,6 +116,30 @@
       "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "362a7cd1_24117bd5",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 6323
+      },
+      "writtenOn": "2020-03-10T10:14:00Z",
+      "side": 1,
+      "message": "Errors are raised during blueprint installation if the port provided is not in the range of 30000-32767. I have booked port 30413 on the provided wiki page for BBS-ep and will push the updated blueprint using this port.",
+      "parentUuid": "a26fbc83_e58f19d7",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 196,
+        "endChar": 40
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
