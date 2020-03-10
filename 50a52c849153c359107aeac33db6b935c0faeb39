@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca31a3fb_a124d843",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-03-10T13:23:40Z",
+      "side": 1,
+      "message": "Should use up-to-date imports\n- https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml\n- https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml",
+      "revId": "50a52c849153c359107aeac33db6b935c0faeb39",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a13f2c_819b041e",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-03-10T13:23:40Z",
+      "side": 1,
+      "message": "quote string values",
+      "revId": "50a52c849153c359107aeac33db6b935c0faeb39",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12e2e6f5_c366b828",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-03-10T13:23:40Z",
+      "side": 1,
+      "message": "quote string values",
+      "revId": "50a52c849153c359107aeac33db6b935c0faeb39",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
