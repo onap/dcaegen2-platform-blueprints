@@ -140,6 +140,30 @@
       "revId": "c5d465df71d80431de7568a674c21adc952e0207",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a0a965b_e5028cdf",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5038
+      },
+      "writtenOn": "2020-03-11T14:58:02Z",
+      "side": 1,
+      "message": "I have removed the inputs for these properties, but would like to leave these properties in for now as we will be re-adding authenticated topics soon and removing these now will require a new image release.",
+      "parentUuid": "5e54aa64_aa89e7b7",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 52
+      },
+      "revId": "c5d465df71d80431de7568a674c21adc952e0207",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
