@@ -22,6 +22,30 @@
       "revId": "b133d39867f170e57afe0b7c1902e585777c2542",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "027012fe_fbb8ca7f",
+        "filename": "releases/1.12.1-k8s-bootstrap-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2020-03-11T06:54:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "786692fa_65a99e45",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 46
+      },
+      "revId": "b133d39867f170e57afe0b7c1902e585777c2542",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
