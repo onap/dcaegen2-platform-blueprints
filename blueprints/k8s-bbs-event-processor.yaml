@@ -1,0 +1,204 @@
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (c) 2019 AT&T, NOKIA
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+
+inputs:
+  aai_enrichment_host:
+    type: string
+    default: "aai.onap"
+  aai_enrichment_port:
+    type: integer
+    default: 8443
+  aai_enrichment_protocol:
+    type: string
+    default: "https"
+  aai_secure_enable_cert:
+    type: boolean
+    description: enable certificates-based connection with AAI
+    default: true
+  tag_version:
+    type: string
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.bbs-event-processor:2.0.0"
+  replicas:
+    type: integer
+    description: number of instances
+    default: 1
+  pnf_reregistration_url:
+    type: string
+    default: "https:message-router:3905/events/unauthenticated.PNF_UPDATE"
+  cpe_authentication_url:
+    type: string
+    default: "https:message-router:3905/events/unauthenticated.CPE_AUTHENTICATION"
+  close_loop_url:
+    type: string
+    default: "https:message-router:3905/events/unauthenticated.DCAE_CL_OUTPUT"
+  application_policy_version:
+    description: Policy version value for building CL events
+    type: string
+    default: "1.0.0.5"
+  application_cl_target_type:
+    description: Close Loop target type value for building CL events
+    type: string
+    default: "VM"
+  application_cl_event_status:
+    description: Close Loop event status value for building CL events
+    type: string
+    default: "ONSET"
+  application_cl_version:
+    description: Close Loop version value for building CL events
+    type: string
+    default: "1.0.2"
+  application_cl_target:
+    description: Close Loop target value for building CL events
+    type: string
+    default: "vserver.vserver-name"
+  application_cl_originator:
+    description: Close Loop originator value for building CL events
+    type: string
+    default: "DCAE-BBS-ep"
+  application_rereg_policy_scope:
+    description: Policy Scope value for building PNF relocation CL event
+    type: string
+    default: "policyScopeReReg"
+  application_rereg_cl_control_name:
+    description: Close Loop control name value for building PNF relocation CL event
+    type: string
+    default: "clControlNameReReg"
+  application_cpeAuth_policy_scope:
+    description: Policy Scope value for building CPE Authentication CL event
+    type: string
+    default: "policyScopeCpeAuth"
+  application_cpeAuth_cl_control_name:
+    description: Close Loop control name value for building CPE Authentication CL event
+    type: string
+    default: "clControlNameCpeAuth"
+  application_cbs_polling_interval_sec:
+    type: integer
+    default: 120
+  application_logging_level:
+    type: string
+    default: "INFO"
+  dmaap_username:
+    type: string
+    default: "admin"
+  dmaap_password:
+    type: string
+    default: "admin"
+  dmaap_consumer_id:
+    type: string
+    default: "c12"
+  dmaap_consumer_group:
+    type: string
+    default: "OpenDcae-c12"
+  dmaap_secure_enable_cert:
+    type: boolean
+    description: enable certificates-based connection with DMaaP
+    default: true
+  internal_port:
+    type: string
+    description: Internal port on which BBS-ep is exposed
+    default: "8100"
+  external_port:
+    type: string
+    description: External port on which BBS-ep is exposed
+    default: "30413"
+node_templates:
+  bbs-event-processor:
+    type: dcae.nodes.ContainerizedServiceComponent
+    properties:
+      application_config:
+        streams_subscribes:
+          pnf_reregistration:
+            type: message_router
+            aaf_username: { get_input: dmaap_username }
+            aaf_password: { get_input: dmaap_password }
+            dmaap_info:
+              topic_url: { get_input: pnf_reregistration_url }
+          cpe_authentication:
+            type: message_router
+            aaf_username: { get_input: dmaap_username }
+            aaf_password: { get_input: dmaap_password }
+            dmaap_info:
+              topic_url: { get_input: cpe_authentication_url }
+        streams_publishes:
+          close_loop:
+            type: message_router
+            aaf_username: { get_input: dmaap_username }
+            aaf_password: { get_input: dmaap_password }
+            dmaap_info:
+              topic_url: { get_input: close_loop_url }
+        dmaap.protocol: "https"
+        dmaap.contentType: "application/json"
+        dmaap.consumer.consumerId: { get_input: dmaap_consumer_id }
+        dmaap.consumer.consumerGroup: { get_input: dmaap_consumer_group }
+        dmaap.messageLimit: -1
+        dmaap.timeoutMs: -1
+        aai.host: { get_input: aai_enrichment_host }
+        aai.port: { get_input: aai_enrichment_port }
+        aai.protocol: { get_input: aai_enrichment_protocol }
+        aai.username: "AAI"
+        aai.password: "AAI"
+        aai.aaiIgnoreSslCertificateErrors: true
+        application.pipelinesPollingIntervalSec: 25
+        application.pipelinesTimeoutSec: 15
+        application.cbsPollingIntervalSec: { get_input: application_cbs_polling_interval_sec }
+        application.policyVersion: { get_input: application_policy_version }
+        application.clTargetType: { get_input: application_cl_target_type }
+        application.clEventStatus: { get_input: application_cl_event_status }
+        application.clVersion: { get_input: application_cl_version }
+        application.clTarget: { get_input: application_cl_target }
+        application.clOriginator: { get_input: application_cl_originator }
+        application.reregistration.policyScope: { get_input: application_rereg_policy_scope }
+        application.reregistration.clControlName: { get_input: application_rereg_cl_control_name }
+        application.cpe.authentication.policyScope: { get_input: application_cpeAuth_policy_scope }
+        application.cpe.authentication.clControlName: { get_input: application_cpeAuth_cl_control_name }
+        application.reregistration.configKey: "pnf_reregistration"
+        application.cpeAuth.configKey: "cpe_authentication"
+        application.closeLoop.configKey: "close_loop"
+        application.loggingLevel: { get_input: application_logging_level }
+        application.ssl.keyStorePath: "/opt/app/bbs-event-processor/etc/cert/cert.jks"
+        application.ssl.keyStorePasswordPath: "/opt/app/bbs-event-processor/etc/cert/jks.pass"
+        application.ssl.trustStorePath: "/opt/app/bbs-event-processor/etc/cert/trust.jks"
+        application.ssl.trustStorePasswordPath: "/opt/app/bbs-event-processor/etc/cert/trust.pass"
+        application.ssl.enableAaiCertAuth: { get_input: aai_secure_enable_cert }
+        application.ssl.enableDmaapCertAuth: { get_input: dmaap_secure_enable_cert }
+      docker_config:
+        healthcheck:
+          endpoint: /heartbeat
+          interval: 180s
+          timeout: 5s
+          type: http
+      image:
+        { get_input: tag_version }
+      replicas: {get_input: replicas}
+      service_component_type: 'bbs-event-processor'
+      log_info:
+        log_directory: "/opt/app/bbs-event-processor/logs"
+      tls_info:
+        cert_directory: '/opt/app/bbs-event-processor/etc/cert'
+        use_tls: true
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            ports:
+              - concat: [{get_input: internal_port},":",{get_input: external_port}] 
