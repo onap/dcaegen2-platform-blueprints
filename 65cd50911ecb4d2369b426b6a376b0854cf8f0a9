@@ -140,6 +140,30 @@
       "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5230f52_faa8ef09",
+        "filename": "blueprints/k8s-bbs-event-processor.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-11T17:05:18Z",
+      "side": 1,
+      "message": "As discussed in email nodeport is not required for BBS. However as this was existing in Dublin/El-Alto, nodeport removal can be worked as separate change.",
+      "parentUuid": "362a7cd1_24117bd5",
+      "range": {
+        "startLine": 196,
+        "startChar": 35,
+        "endLine": 196,
+        "endChar": 40
+      },
+      "revId": "65cd50911ecb4d2369b426b6a376b0854cf8f0a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
