@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "786692fa_65a99e45",
+        "filename": "releases/1.12.1-k8s-bootstrap-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-11T01:45:00Z",
+      "side": 1,
+      "message": "This version is not found/generated from job #244 noted above",
+      "range": {
+        "startLine": 8,
+        "startChar": 30,
+        "endLine": 8,
+        "endChar": 46
+      },
+      "revId": "b133d39867f170e57afe0b7c1902e585777c2542",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
