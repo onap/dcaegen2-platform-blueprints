@@ -1,0 +1,186 @@
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (C) 2019-2020 AT&T
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml
+
+
+inputs:
+  tag_version:
+    type: string
+    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.heartbeat:2.1.0'
+  heartbeat_name:
+    type: string
+    default: 'dcae-heartbeat-service'
+  replicas:
+    type: integer
+    description: number of instances
+    default: 1
+  host_port:
+    type: integer
+    description: Network port that the platform service is expecting to expose on the host
+    default: 30223
+  container_port:
+    type: integer
+    description: Network port that the platform service exposes in the container
+    default: 10002
+  consul_host:
+    type: string
+    description: Consul endpoint address
+    default: 'consul-server.onap'
+  consul_port:
+    type: integer
+    description: Consul endpoint port
+    default: 8500
+  CBS_polling_allowed:
+    type: string
+    default: 'True'
+  CBS_polling_interval:
+    type: string
+    default: '300'
+  consumerID:
+    type: string
+    default: '1'
+  groupID:
+    type: string
+    default: 'hbgrpID'
+  namespace:
+    type: string
+    default: 'onap'
+  pg_dbName:
+    type: string
+    default: 'postgres'
+  pg_ipAddress:
+    type: string
+    default: 'hbpostgres-write'
+  pg_passwd:
+    type: string
+    default: 'postgres'
+  pg_portNum:
+    type: string
+    default: '5432'
+  pg_userName:
+    type: string
+    default: 'postgres'
+  ves_heartbeat_publish_url:
+    type: string
+    default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT'
+  dcae_CL_publish_url:
+    type: string
+    default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_CL_OUTPUT'
+node_templates:
+  hbpostgres:
+    type: dcae.nodes.ContainerizedApplication
+    properties:
+        name:
+            "hbpostgres-write"
+        image:
+            "postgres:9.5.2"
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              PGDATA:
+                "/var/lib/postgresql/data/hbpostgres"
+              POSTGRES_PASSWORD:
+                { get_input: pg_passwd }
+              POSTGRES_USER:
+                { get_input: pg_userName }
+              SERVICE_NAME:
+                "hbpostgres-write"
+            ports:
+              - "5432:0"
+  heartbeat:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              CBS_polling_allowed:
+                get_input: CBS_polling_allowed
+              CBS_polling_interval: "300"
+              consumerID: "1"
+              groupID:
+                get_input: groupID
+              pg_ipAddress:
+                get_input: pg_ipAddress
+              pg_passwd:
+                get_input: pg_passwd
+              pg_portNum: "5432"
+              pg_userName:
+                get_input: pg_userName
+              pg_dbName:
+                get_input: pg_dbName
+            ports:
+              - "10002:0"
+                
+    properties:
+      application_config:
+        CBS_polling_allowed:
+          get_input: CBS_polling_allowed
+        CBS_polling_interval:
+          get_input: CBS_polling_interval
+        consumerID:
+          get_input: consumerID
+        groupID:
+          get_input: groupID
+        pg_ipAddress:
+          get_input: pg_ipAddress
+        pg_passwd:
+          get_input: pg_passwd
+        pg_portNum:
+          get_input: pg_portNum
+        pg_userName:
+          get_input: pg_userName
+        pg_dbName:
+          get_input: pg_dbName
+        heartbeat_config: '{"vnfs": [{"eventName": "Heartbeat_vDNS","heartbeatcountmissed": 3,"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1",     "policyVersion": "1.0.0.5",     "policyName":"vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF",        "target": "genVnfName", "version": "1.0"}, {"eventName": "Heartbeat_vFW","heartbeatcountmissed": 3,     "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName",    "target_type":"VNF",    "target": "genVnfName",    "version": "1.0"}, {"eventName": "Heartbeat_xx","heartbeatcountmissed": 3,      "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall",      "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF","target": "genVnfName","version": "1.0"}]}'
+        streams_publishes:
+          dcae_cl_out:
+            dmaap_info:
+             topic_url:
+                  get_input: dcae_CL_publish_url
+            type: message_router
+        streams_subscribes:
+            ves-heartbeat:
+              dmaap_info:
+                topic_url:
+                  get_input: ves_heartbeat_publish_url
+              type: message_router
+      docker_config:
+        healthcheck:
+          type: http
+          endpoint: /
+          interval: 15s
+          timeout: 1s
+      service_component_type:
+          get_input: heartbeat_name
+      image: { get_input: tag_version }
+      replicas: { get_input: replicas }
+      log_info:
+          log_directory: '/var/log/ONAP/dcae-heartbeat-services'
+    type: dcae.nodes.ContainerizedServiceComponent
+    relationships:
+    - type: cloudify.relationships.depends_on
+      target: hbpostgres
+
+

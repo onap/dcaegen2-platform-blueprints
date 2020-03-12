@@ -1,0 +1,116 @@
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2019 Huawei. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+tosca_definitions_version: cloudify_dsl_1_3
+
+description: >
+  This blueprint deploys/manages the RestConf Collector module as a Docker container
+
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+inputs:
+  dmaap_host:
+    type: string
+    default: "message-router.onap.svc.cluster.local"
+  dmaap_port:
+    type: string
+    default: "3904"
+  tag_version:
+    type: string
+    default:  "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.restconfcollector:1.1.1"
+  consul_host:
+    type: string
+    default: "consul-server.onap.svc.cluster.local"
+  consul_port:
+    type: string
+    default: "8500"
+  cbs_host:
+    type: string
+    default: "config-binding-service.dcae.svc.cluster.local"
+  cbs_port:
+    type: string
+    default: "10000"
+  external_port:
+    type: string
+    description: Kubernetes node port on which collector is exposed
+    default: "30416"
+  notification_publish_url:
+    type: string
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_RCC_OUTPUT"
+
+node_templates:
+  rcc_k8s:
+    type: dcae.nodes.ContainerizedPlatformComponent
+    properties:
+        name: 'dcaegen2-collectors-rcc'
+        docker_config:
+            healthcheck:
+              endpoint: /healthcheck
+              interval: 15s
+              timeout: 1s
+              type: http
+        image:
+          get_input: tag_version
+        log_info:
+          log_directory: "/opt/app/RCCollector/logs"
+        application_config:
+            collector.rcc.appDescription: DCAE RestConf Collector Application
+            collector.rcc.appName: "dcae-rcc"
+            collector.rcc.dmaap.streamid: "notification=device-registration"
+            collector.rcc.inputQueue.maxPending: "8096"
+            tomcat.maxthreads: "200"
+            collector.rcc.service.port: "8080"
+            collector.rcc.service.secure.port: "8687"
+            collector.rcc.keystore.file.location: "/opt/app/restconfcollector/etc/keystore"
+            collector.rcc.keystore.passwordfile: "/opt/app/restconfcollector/etc/rcc_passwordfile"
+            collector.rcc.keystore.alias: "dynamically generated"
+            collector.rcc.truststore.file.location: "/opt/app/restconfcollector/etc/truststore.onap.client.jks"
+            collector.rcc.truststore.passwordfile: "/opt/app/restconfcollector/etc/trustpasswordfile"
+            collector.keystore.file.location: "/opt/app/restconfcollector/etc/sdnc.p12"
+            collector.keystore.passwordfile: "/opt/app/restconfcollector/etc/passwordfile"
+            collector.header.authflag: "0"
+            collector.header.authlist: "sample1,c2FtcGxlMQ=="
+            collector.rcc.service.secure.clientauth: "0"
+            streams_publishes:
+                        device-registration:
+                          dmaap_info:
+                            topic_url:
+                              get_input: notification_publish_url
+                          type: message_router
+            rcc_policy: '[{"controller_name":"AccessM&C","controller_restapiUrl":"172.30.0.55:26335","controller_restapiUser":"access","controller_restapiPassword":"Huawei@123","controller_accessTokenUrl":"/rest/plat/smapp/v1/oauth/token","controller_accessTokenFile":"./etc/access-token.json","controller_accessTokenMethod":"put","controller_subsMethod":"post","controller_subscriptionUrl":"/restconf/v1/operations/huawei-nce-notification-action:establish-subscription","controller_disableSsl":"true","event_details":[{"event_name":"ONT_registration","event_description":"ONTregistartionevent","event_sseventUrlEmbed":"true","event_sseventsField":"output.url","event_sseventsUrl":"null","event_subscriptionTemplate":"./etc/ont_registartion_subscription_template.json","event_unSubscriptionTemplate":"./etc/ont_registartion_unsubscription_template.json","event_ruleId":"12345678","modifyData": "true","modifyMethod": "modifyOntEvent","userData": "remote_id=AC9.0234.0337;svlan=100;cvlan=10;"}]}]'
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+                DMAAPHOST:
+                    { get_input: dmaap_host }
+                DMAAPPORT: "3904"
+                DMAAPPUBTOPIC: "unauthenticated.DCAE_RCC_OUTPUT"
+                CONSUL_HOST:
+                    { get_input: consul_host }
+                CONSUL_PORT: "8500"
+                CBS_HOST:
+                    { get_input: cbs_host }
+                CBS_PORT: "10000"
+                CONFIG_BINDING_SERVICE: "config_binding_service"
+            ports:
+              - concat: ["8080:", { get_input: external_port }]
+
+

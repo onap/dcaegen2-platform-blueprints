@@ -1,0 +1,108 @@
+#
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (c) 2019 TechMahindra. All rights reserved.
+# Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+description: "This blueprint deploys the UniversalVESAdapter(UVA) as a Docker container\n"
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+
+inputs: 
+  rcc_notification_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_RCC_OUTPUT"
+    type: string
+  snmp_notification_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.ONAP-COLLECTOR-SNMPTRAP"
+    type: string
+  tag_version: 
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.mapper.vesadapter.universalvesadaptor:1.0.1"
+    type: string
+  universal_mapper_name: 
+    default: "dcaegen2-svc-mapper"
+    type: string
+  ves_fault_publish_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
+    type: string
+  ves_measurement_publish_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
+    type: string
+  ves_notification_publish_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_NOTIFICATION_OUTPUT"
+    type: string
+  ves_pnfRegistration_publish_url: 
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
+    type: string
+node_templates: 
+  universalvesadapter: 
+    interfaces: 
+      cloudify.interfaces.lifecycle: 
+        start: 
+          inputs: 
+            envs: 
+              CONFIG_BINDING_SERVICE: config_binding_service
+            max_wait: 3600
+            ports: 
+              - "80:0"
+    properties: 
+      application_config: 
+        app_preferences: 
+          collectors: 
+            - 
+              identifier: notification-id
+              mapping-files: 
+                - 
+                  defaultMappingFile-rcc-notification: "<?xml version='1.0' encoding='UTF-8'?><smooks-resource-list xmlns='http://www.milyn.org/xsd/smooks-1.1.xsd' xmlns:jb='http://www.milyn.org/xsd/smooks/javabean-1.4.xsd' xmlns:json='http://www.milyn.org/xsd/smooks/json-1.1.xsd'><json:reader rootName='vesevent' keyWhitspaceReplacement='-'><json:keyMap><json:key from='date&amp;time' to='date-and-time' /></json:keyMap></json:reader><jb:bean class='org.onap.dcaegen2.ves.domain.ves70.VesEvent' beanId='vesEvent' createOnElement='vesevent'><jb:wiring property='event' beanIdRef='event' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves70.Event' beanId='event' createOnElement='vesevent'><jb:wiring property='commonEventHeader' beanIdRef='commonEventHeader' /><jb:wiring property='pnfRegistrationFields' beanIdRef='pnfRegistrationFields' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves70.CommonEventHeader' beanId='commonEventHeader' createOnElement='vesevent'><jb:expression property='version'>org.onap.dcaegen2.ves.domain.ves70.CommonEventHeader.Version._4_0_1</jb:expression><jb:expression property='eventType'>'pnfRegistration'</jb:expression><jb:expression property='vesEventListenerVersion'>org.onap.dcaegen2.ves.domain.ves70.CommonEventHeader.VesEventListenerVersion._7_0_1</jb:expression><jb:expression property='eventId' execOnElement='vesevent'>'registration_'+commonEventHeader.ts1</jb:expression><jb:expression property='reportingEntityName'>'VESMapper'</jb:expression><jb:expression property='domain'>org.onap.dcaegen2.ves.domain.ves70.CommonEventHeader.Domain.PNF_REGISTRATION</jb:expression><jb:expression property='eventName' execOnElement='vesevent'>commonEventHeader.domain</jb:expression><jb:value property='sequence' data='0' default='0' decoder='Long' /><jb:expression property='lastEpochMicrosec' execOnElement='vesevent'>commonEventHeader.ts1</jb:expression><jb:expression property='startEpochMicrosec' execOnElement='vesevent'>commonEventHeader.ts1</jb:expression><jb:expression property='priority'>org.onap.dcaegen2.ves.domain.ves70.CommonEventHeader.Priority.NORMAL</jb:expression><jb:expression property='sourceName' execOnElement='vesevent'>pnfRegistrationFields.vendorName+'-'+pnfRegistrationFields.serialNumber</jb:expression></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves70.PnfRegistrationFields' beanId='pnfRegistrationFields' createOnElement='vesevent'><jb:expression property='pnfRegistrationFieldsVersion'>org.onap.dcaegen2.ves.domain.ves70.PnfRegistrationFields.PnfRegistrationFieldsVersion._2_0</jb:expression><jb:value property='serialNumber' data='pnfRegistration/serialNumber' /><jb:value property='lastServiceDate' data='pnfRegistration/lastServiceDate' /><jb:value property='manufactureDate' data='pnfRegistration/manufactureDate' /><jb:value property='modelNumber' data='pnfRegistration/modelNumber' /><jb:value property='oamV4IpAddress' data='pnfRegistration/oamV4IpAddress' /><jb:value property='oamV6IpAddress' data='pnfRegistration/oamV6IpAddress' /><jb:value property='softwareVersion' data='pnfRegistration/softwareVersion' /><jb:value property='unitFamily' data='pnfRegistration/unitFamily' /><jb:value property='unitType' data='pnfRegistration/unitType' /><jb:value property='vendorName' data='pnfRegistration/vendorName' /><jb:wiring property='additionalFields' beanIdRef='alarmAdditionalInformation' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves70.AlarmAdditionalInformation' beanId='alarmAdditionalInformation' createOnElement='vesevent'><jb:wiring property='additionalProperties' beanIdRef='additionalFields2' /></jb:bean><jb:bean beanId='additionalFields2' class='java.util.HashMap' createOnElement='vesevent/pnfRegistration/additionalFields'><jb:value data='pnfRegistration/additionalFields/*'/></jb:bean></smooks-resource-list>"
+              stream_publisher: ves-pnfRegistration
+              stream_subscriber: rcc-notification
+            -
+              identifier: notify OID
+              mapping-files: 
+                - 
+                  defaultMappingFile-snmp-notification: "<?xml version='1.0' encoding='UTF-8'?><smooks-resource-list xmlns='http://www.milyn.org/xsd/smooks-1.1.xsd' xmlns:jb='http://www.milyn.org/xsd/smooks/javabean-1.4.xsd' xmlns:json='http://www.milyn.org/xsd/smooks/json-1.1.xsd'><json:reader rootName='vesevent' keyWhitspaceReplacement='-'><json:keyMap><json:key from='date&amp;time' to='date-and-time' /></json:keyMap></json:reader><jb:bean class='org.onap.dcaegen2.ves.domain.ves54.VesEvent' beanId='vesEvent' createOnElement='vesevent'><jb:wiring property='event' beanIdRef='event' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves54.Event' beanId='event' createOnElement='vesevent'><jb:wiring property='commonEventHeader' beanIdRef='commonEventHeader' /><jb:wiring property='faultFields' beanIdRef='faultFields' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves54.CommonEventHeader' beanId='commonEventHeader' createOnElement='vesevent'><jb:expression property='version'>'3.0'</jb:expression><jb:expression property='eventType'>'FaultField'</jb:expression><jb:expression property='eventId' execOnElement='vesevent'>'XXXX'</jb:expression><jb:expression property='reportingEntityName'>'VESMapper'</jb:expression><jb:expression property='domain'>org.onap.dcaegen2.ves.domain.ves54.CommonEventHeader.Domain.FAULT</jb:expression><jb:expression property='eventName' execOnElement='vesevent'>commonEventHeader.domain</jb:expression><jb:value property='sequence' data='0' default='0' decoder='Long' /><jb:value property='lastEpochMicrosec' data='#/time-received' /><jb:value property='startEpochMicrosec' data='#/time-received' /><jb:expression property='priority'>org.onap.dcaegen2.ves.domain.ves54.CommonEventHeader.Priority.NORMAL</jb:expression><jb:expression property='sourceName'>'VesAdapter'</jb:expression></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves54.FaultFields' beanId='faultFields' createOnElement='vesevent'><jb:value property='faultFieldsVersion' data='2.0' default='2.0' decoder='Double' /><jb:value property='alarmCondition' data='#/trap-category' /><jb:expression property='specificProblem'>'SNMP Fault'</jb:expression><jb:expression property='vfStatus'>org.onap.dcaegen2.ves.domain.ves54.FaultFields.VfStatus.ACTIVE</jb:expression><jb:expression property='eventSeverity'>org.onap.dcaegen2.ves.domain.ves54.FaultFields.EventSeverity.MINOR</jb:expression><jb:wiring property='alarmAdditionalInformation' beanIdRef='alarmAdditionalInformationroot' /></jb:bean><jb:bean class='java.util.ArrayList' beanId='alarmAdditionalInformationroot' createOnElement='vesevent'><jb:wiring beanIdRef='alarmAdditionalInformation' /></jb:bean><jb:bean class='org.onap.dcaegen2.ves.domain.ves54.AlarmAdditionalInformation' beanId='alarmAdditionalInformation' createOnElement='varbinds/element'><jb:value property='name' data='#/varbind_oid' /><jb:value property='value' data='#/varbind_value' /></jb:bean></smooks-resource-list>"
+              stream_publisher: ves-fault
+              stream_subscriber: snmp-notification
+        streams_publishes: 
+          ves-fault: 
+            dmaap_info: 
+              topic_url: 
+                get_input: ves_fault_publish_url
+            type: message_router
+          ves-pnfRegistration: 
+            dmaap_info: 
+              topic_url: 
+                get_input: ves_pnfRegistration_publish_url
+            type: message_router
+        streams_subscribes: 
+          rcc-notification: 
+            dmaap_info: 
+              topic_url: 
+                get_input: rcc_notification_url
+            type: message_router
+          snmp-notification: 
+            dmaap_info: 
+              topic_url: 
+                get_input: snmp_notification_url
+            type: message_router
+      docker_config: {}
+      image: 
+        get_input: tag_version
+      service_component_type: 
+        get_input: universal_mapper_name
+    type: dcae.nodes.ContainerizedServiceComponent
+tosca_definitions_version: cloudify_dsl_1_3
+
