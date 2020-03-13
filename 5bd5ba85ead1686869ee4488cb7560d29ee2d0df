@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cce0d2be_6a851d2a",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-13T17:53:57Z",
+      "side": 1,
+      "message": "you will also need to include list of env expected by the pod here as emailed",
+      "revId": "5bd5ba85ead1686869ee4488cb7560d29ee2d0df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
