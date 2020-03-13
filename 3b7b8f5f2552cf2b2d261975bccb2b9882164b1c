@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4932afdf_3fede8ed",
+        "filename": "blueprints/k8s-datalake-admin-ui.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-13T17:30:15Z",
+      "side": 1,
+      "message": "must point to released image only",
+      "range": {
+        "startLine": 29,
+        "startChar": 83,
+        "endLine": 29,
+        "endChar": 89
+      },
+      "revId": "3b7b8f5f2552cf2b2d261975bccb2b9882164b1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd3e174_2a1c9dc5",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-13T17:30:15Z",
+      "side": 1,
+      "message": "This tag should point to released image (cannot have snapshot or latest)",
+      "range": {
+        "startLine": 45,
+        "startChar": 82,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "3b7b8f5f2552cf2b2d261975bccb2b9882164b1c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
