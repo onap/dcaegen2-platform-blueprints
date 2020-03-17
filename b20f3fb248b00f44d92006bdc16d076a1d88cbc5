@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ae3b69_36b5c52c",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-17T00:25:10Z",
+      "side": 1,
+      "message": "why is healthcheck removed?",
+      "revId": "b20f3fb248b00f44d92006bdc16d076a1d88cbc5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
