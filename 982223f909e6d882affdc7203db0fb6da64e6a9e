@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2885e627_72ea18e8",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-20T20:36:57Z",
+      "side": 1,
+      "message": "Noticed error on 1.0.1 and POD did not come up (1.0.0 was okay after ES configuration was updated)\n\nroot@onap2-nfs:~# kubectl logs -f -n onap dep-dl-feeder-97989bdb-5g4gw\nstart init db ...\nDATABASE ALREADY EXISTS\nrun-parts: /home/datalake/db_init/10_check-db-exist exited with return code 1\nfinish init db\nno main manifest attribute, in feeder-1.0.1-docker-info.jar",
+      "range": {
+        "startLine": 45,
+        "startChar": 82,
+        "endLine": 45,
+        "endChar": 87
+      },
+      "revId": "982223f909e6d882affdc7203db0fb6da64e6a9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
