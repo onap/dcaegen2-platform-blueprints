@@ -65,7 +65,7 @@ inputs:
     default: 5
   security_ssl_disable:
     type: boolean
-    default: true
+    default: false
   security_keys_key_store_file:
     type: string
     default: '/etc/ves-hv/ssl/cert.jks'
