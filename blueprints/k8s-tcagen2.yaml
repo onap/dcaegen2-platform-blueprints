@@ -35,7 +35,7 @@ inputs:
     default: "mongodb://dcae-mongohost/dcae-tcagen2"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.analytics.tca-gen2.dcae-analytics-tca-web:1.0.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.analytics.tca-gen2.dcae-analytics-tca-web:1.0.1"
   tca.aai.password:
     type: string
     default: "DCAE"
