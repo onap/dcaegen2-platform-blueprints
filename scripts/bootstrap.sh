@@ -220,7 +220,6 @@ deploy pgaas_initdb k8s-pgaas-initdb.yaml k8s-pgaas-initdb-inputs.yaml
 # tca, ves, prh, hv-ves, datafile-collector can be deployed simultaneously
 deploy tca k8s-tca.yaml k8s-tca-inputs.yaml &
 deploy tcagen2 k8s-tcagen2.yaml k8s-tcagen2-inputs.yaml &
-deploy ves k8s-ves.yaml k8s-ves-inputs.yaml &
 deploy ves-tls k8s-ves.yaml k8s-ves-inputs-tls.yaml &
 deploy prh k8s-prh.yaml k8s-prh-inputs.yaml &
 deploy hv-ves k8s-hv-ves.yaml k8s-hv_ves-inputs.yaml &
