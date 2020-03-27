@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "316ad6af_768bc9a7",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-03-27T16:52:51Z",
+      "side": 1,
+      "message": "This requires a change to the DCAE healthcheck -- it currently expects to see the ves collector deployment.",
+      "revId": "c65523cc625dfe85f5f4a554523b96eb96afebd4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
