@@ -16,6 +16,24 @@
       "revId": "c65523cc625dfe85f5f4a554523b96eb96afebd4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "327ae5ed_721d98a1",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-03-27T17:56:26Z",
+      "side": 1,
+      "message": "I intend to keep the original ves (non-tls) deployment/service name for VES-tls. Although tca-gen2 is new addition. I did see it being reported on healthcheck, do we still need to include on default list under dcaehealthcheck?",
+      "parentUuid": "316ad6af_768bc9a7",
+      "revId": "c65523cc625dfe85f5f4a554523b96eb96afebd4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
