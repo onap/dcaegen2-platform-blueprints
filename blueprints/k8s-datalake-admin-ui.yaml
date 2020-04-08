@@ -26,11 +26,11 @@ inputs:
   image_name:
     description: datalake feeder image URL.
     type: string
-    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakeadminui:1.0.1
+    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakeadminui:1.0.2
   container_port:
     type: string
     description: exposed container port
-    default: "80"
+    default: "8088"
   host_port:
     type: string
     description: external port
@@ -43,7 +43,7 @@ node_templates:
         start:
           inputs:
             ports:
-              - '80:0'
+              - '8088:0'
               - concat: [{get_input: container_port},":",{get_input: host_port}]
     properties:
       application_config:
@@ -58,3 +58,4 @@ node_templates:
         get_input: image_name
       dns_name: "dl-admin-ui"
       name: datalake-admin-ui
+
