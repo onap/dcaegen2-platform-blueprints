@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be4b1617_3d4e10f8",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-05-04T14:06:30Z",
+      "side": 1,
+      "message": "master has already diverged, this version should be 1.13.0 on master branch (frankfurt patch should be 1.12.6). The release should be done from frankfurt branch",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "a98ae2c74b2b045a31cdf288b4dd3d82aad46ac2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
