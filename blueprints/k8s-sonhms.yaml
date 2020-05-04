@@ -110,7 +110,7 @@ inputs:
   oof:
     type: string
     description: oof location
-    default: "http://oof-osdf.onap:8699"
+    default: "https://oof-osdf.onap:8698"
   oof_endpoint:
     type: string
     description: oof endpoint
@@ -179,6 +179,10 @@ inputs:
     type: integer
     description: time interval for checking FixedPci table
     default: 30000
+  nfNamingCode:
+    type: string
+    description: filter fm and pm notification using this parameter
+    default: "RansimAgent"
   
 node_templates:
   pgaasvm:
@@ -282,6 +286,7 @@ node_templates:
         sonhandler.policyRespTimer: { get_input: policyRespTimer}
         sonhandler.policyNegativeAckThreshold: { get_input: policyNegativeAckThreshold}
         sonhandler.policyFixedPciTimeInterval: { get_input: policyFixedPciTimeInterval}
+        sonhandler.nfNamingCode: { get_input: nfNamingCode}
         service_calls:
           sdnr-getpnfname: []
           sdnr-getpci: []
