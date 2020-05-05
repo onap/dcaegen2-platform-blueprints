@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '1.12.6'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-frankfurt-merge-java/1'
+ref: 9ea2667bcdbcb57382aa1554948938d2610ec267
+containers:
+    - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+      version: '1.12.6-SNAPSHOT-20200505T132908Z'
