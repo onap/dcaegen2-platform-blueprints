@@ -19,10 +19,6 @@
 FROM centos:7.4.1708
 LABEL maintainer="maintainer"
 
-ENV DCAE_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_plugins_releases }}
-ENV CCSDK_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases }}
-ENV BP_REPO {{ ONAPTEMPLATE_RAWREPOURL_org_onap_dcaegen2_platform_blueprints_releases }}
-
 # Install gcc
 RUN yum install -y gcc python-devel
 
@@ -40,21 +36,15 @@ COPY config/00-consul.json /opt/consul/config/
 RUN curl -Ssf -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"  > /bin/jq \
 && chmod +x /bin/jq
 
-# Install pip and Cloudify CLI (stay at version 4.2 because of changes in higher versions)
+# Install pip and Cloudify CLI
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
   && python get-pip.py \
   && rm get-pip.py \
-  && pip install cloudify==4.2
+  && pip install cloudify==4.5.5
 
 # Copy scripts
 RUN mkdir scripts
 COPY scripts/ /scripts
-
-# Get plugins from raw repos
-RUN scripts/load-plugins.sh ${DCAE_REPO} ${CCSDK_REPO} \
-  && rm scripts/load-plugins.sh \
-# Make sure scripts are executable
-  && chmod +x /scripts/*.sh
 
 # Load blueprints and input templates
 COPY blueprints/  /blueprints
@@ -62,8 +52,9 @@ COPY blueprints/  /blueprints
 # Set up runtime script
 ENTRYPOINT exec "/scripts/bootstrap.sh"
 
-# Set up a non-root user
-RUN mkdir -p /opt/bootstrap \
+# Make scripts executable & set up a non-root user
+RUN chmod +x /scripts/*.sh \
+  && mkdir -p /opt/bootstrap \
   && useradd -d /opt/bootstrap bootstrap \
   && chown -R bootstrap:bootstrap /opt/bootstrap \
   && chown -R bootstrap:bootstrap /scripts \

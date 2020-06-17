@@ -22,7 +22,6 @@
 #   ONAP common Kubernetes namespace in ONAP_NAMESPACE environment variable
 #   If DCAE components are deployed in a separate Kubernetes namespace, that namespace in DCAE_NAMESPACE variable.
 #   Consul address with port in CONSUL variable
-#   Plugin wagon files in /wagons
 # 	Blueprints for components to be installed in /blueprints
 #   Input files for components to be installed in /inputs
 #   Configuration JSON files that need to be loaded into Consul in /dcae-configs
@@ -119,18 +118,6 @@ function deploy {
     fi
 }
 
-# Install plugin if it's not already installed
-# $1 -- path to wagon file for plugin
-function install_plugin {
-    ARCHIVE=$(basename $1)
-    # See if it's already installed
-    if cm_hasany "plugins?archive_name=$ARCHIVE"
-    then
-        echo plugin $1 already installed on ${CMADDR}
-    else
-        cfy plugin upload $1
-    fi
-}
 
 ### END FUNCTION DEFINTIONS ###
 
@@ -192,22 +179,6 @@ done
 
 # Store the CM password into a Cloudify secret
 cfy secret create -s ${CMPASS} cmpass
-
-# Load plugins onto CM
-for wagon in /wagons/*.wgn
-do
-    install_plugin ${wagon}
-done
-
-# In some oversubscribed cloud environments, we have
-# observed that even though the plugin installations appear
-# to have completed, there are background installation tasks
-# that might still be running.  So we check for running system workflows
-while cm_hasany "executions?is_system_workflow=true&status=pending&status=started&status=queued&status=scheduled"
-do
-    echo "Waiting for running system workflows to complete"
-    sleep 15
-done
 
 # After this point, failures should not stop the script or block later commands
 trap - ERR
