@@ -22,8 +22,8 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - 'http://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml'
-  - 'https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml'
-  - 'https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/dmaap/dmaap.yaml'
+  - plugin:k8splugin?version=3.0.0
+  - plugin:dmaap?version=1.5.0
 
 inputs:
   filter:
@@ -115,13 +115,13 @@ inputs:
 
 node_templates:
   pm-feed:
-    type: ccsdk.nodes.Feed
+    type: dcaegen2.nodes.Feed
     properties:
       feed_name: { get_input: feed_name }
       useExisting: true
 
   pm-topic:
-    type: ccsdk.nodes.Topic
+    type: dcaegen2.nodes.Topic
     properties:
       topic_name: { get_input: topic_name }
 
@@ -136,9 +136,9 @@ node_templates:
               - '8081:0'
 
     relationships:
-      - type: ccsdk.relationships.subscribe_to_files
+      - type: dcaegen2.relationships.subscribe_to_files
         target: pm-feed
-      - type: ccsdk.relationships.publish_events
+      - type: dcaegen2.relationships.publish_events
         target: pm-topic
 
     properties:

@@ -12,16 +12,17 @@ for the bootstrap container.
 _Note: Prior to the Frankfurt release (R6), this repository held blueprint templates
 for components deployed using Cloudify Manager.   The build process for this
 repository expanded the templates and pushed them to the Nexus raw
-repository.  The DCAE bootstrap container was hosted in the `dcaegen2.deployments` repository.  The Docker build process for the bootstrap containter image pulled the blueprints it needed from the Nexus raw repository._
+repository.  The DCAE bootstrap container was hosted in the `dcaegen2.deployments` repository.
+The Docker build process for the bootstrap containter image pulled the blueprints it needed from the Nexus raw repository._
 
 ## DCAE Bootstrap Container
-This container is responsible for loading plugins and wagons onto the
+This container is responsible for loading blueprints onto the
 DCAE Cloudify Manager instance and for launching DCAE components.
 
-The Docker image build process loads plugins and blueprints into the
-image's file system.  The plugins are pulled from the Nexus raw repository.  The
-blueprints are copied from the `blueprints` directory in this repository.  At run time, the main script in the container
-(`bootstrap.sh`) uploads the plugins to Cloudify Manager, then installs
+The Docker image build process loads  blueprints into the
+image's file system.   The blueprints are copied from the `blueprints` directory in this repository.
+At run time, the main script in the container
+(`bootstrap.sh`) installs
 components using the blueprints.
 
 The container expects to be started with two environment variables:

@@ -1,6 +1,6 @@
 # ============LICENSE_START==========================================
 # ===================================================================
-# Copyright (c) 2019 AT&T
+# Copyright (c) 2019-2020 AT&T
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/helm/4.0.0/helm-type.yaml"
+  - plugin:helm?version=4.2.0
 
 inputs:
   tiller-server-ip:
@@ -45,15 +45,15 @@ node_templates:
   dcaecomponent:
     type: onap.nodes.component
     properties:
-      tiller-server-ip: { get_input: tiller-server-ip }
-      tiller-server-port: { get_input: tiller-server-port }
-      component-name: { get_input: component-name }
-      chart-repo-url: { get_input: chart-repo-url }
-      chart-version: { get_input: chart-version }
+      tiller_ip: { get_input: tiller-server-ip }
+      tiller_port: { get_input: tiller-server-port }
+      component_name: { get_input: component-name }
+      chart_repo_url: { get_input: chart-repo-url }
+      chart_version: { get_input: chart-version }
       namespace: { get_input: namespace }
-      stable-repo-url: { get_input: stable-repo-url}
-      config-url:  { get_input: config-url}
-      config-format: { get_input: config-format}
+      stable_repo_url: { get_input: stable-repo-url}
+      config_url:  { get_input: config-url}
+      config_format: { get_input: config-format}
 outputs:
   dcaecomponent_install_status:
     value: { get_attribute: [ dcaecomponent, install-status ] }

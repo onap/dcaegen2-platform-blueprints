@@ -28,9 +28,6 @@ then
     CURLTLS="--cacert $CACERT"
 fi
 
-# Leave the Consul cluster
-/opt/consul/bin/consul leave
-
 # Uninstall components managed by Cloudify
 # Get the list of deployment ids known to Cloudify via curl to Cloudify API.
 # The output of the curl is JSON that looks like {"items" :[{"id": "config_binding_service"}, ...], "metadata" :{...}}
@@ -51,4 +48,3 @@ curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" ${CURLTLS} "$CMPROTO:/
 curl -Ss --user admin:$CMPASS -H "Tenant: default_tenant" ${CURLTLS} "$CMPROTO://$CMADDR:$CMPORT/api/v3.1/plugins?_include=id" \
 | /bin/jq .items[].id \
 | xargs -I % sh -c 'cfy plugins delete %'
-

@@ -19,8 +19,8 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
-  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml
+  - plugin:k8splugin?version=3.0.0
+  - plugin:pgaas?version=1.3.0
 
 
 inputs:
@@ -132,7 +132,7 @@ node_templates:
                 get_input: pg_dbName
             ports:
               - "10002:0"
-                
+
     properties:
       application_config:
         CBS_polling_allowed:

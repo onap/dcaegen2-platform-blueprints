@@ -3,7 +3,7 @@
 # ============LICENSE_START====================================================
 # org.onap.dcae
 # =============================================================================
-# Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ description: |-
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/relationshipplugin/1.1.0/relationshipplugin_types.yaml"
-  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/sshkeyshare/sshkey_types.yaml"
-  - "https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml"
+  - plugin:relationshipplugin?version=1.1.0
+  - plugin:sshkeyshare?version=1.2.0
+  - plugin:pgaas?version=1.3.0
 
 inputs:
   blueprint_version:
@@ -64,7 +64,7 @@ node_templates:
         target: sharedsshkey_pgrs
 
   sharedsshkey_pgrs:
-    type: ccsdk.nodes.ssh.keypair
+    type: dcaegen2.nodes.ssh.keypair
 
 
 outputs:
