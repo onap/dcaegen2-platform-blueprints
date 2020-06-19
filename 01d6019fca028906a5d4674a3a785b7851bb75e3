@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ee74a59_9b840800",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-06-19T21:36:30Z",
+      "side": 1,
+      "message": "No longer launching a Consul agent and creating service entries for CBS in this script.  Instead, move it to a Consul init container.   When components remove their dependency on a Consul lookup to find CBS, the Consul init container can be removed from the charts.",
+      "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
