@@ -52,6 +52,24 @@
       "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0faee682_57b7f123",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-06-22T18:38:19Z",
+      "side": 1,
+      "message": "Okay. Was considering CBS helm charts as service registration done currently is mainly for CBS, I suppose bootstrap is okay too (as long as entry is available prior to services being instantiated)",
+      "parentUuid": "6fbd7817_1c56590b",
+      "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
