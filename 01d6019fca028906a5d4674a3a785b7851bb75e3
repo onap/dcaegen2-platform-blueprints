@@ -34,6 +34,24 @@
       "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fbd7817_1c56590b",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-06-22T17:13:10Z",
+      "side": 1,
+      "message": "Yes, that\u0027s the container I\u0027m referring to.   I\u0027ve updated the OOM chart for bootstrap to add this init container.  I\u0027m testing with it locally.  I will submit the OOM changes after we have released the new bootstrap container.",
+      "parentUuid": "be0d60f9_0cfa0493",
+      "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
