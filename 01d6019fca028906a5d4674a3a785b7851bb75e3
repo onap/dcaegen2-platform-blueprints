@@ -16,6 +16,24 @@
       "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be0d60f9_0cfa0493",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-06-22T16:02:55Z",
+      "side": 1,
+      "message": "Jack - Are you referring to this https://git.onap.org/dcaegen2/deployments/tree/consul-loader-container?  Will CBS helm charts be updated to run this init container to do the required service registration?",
+      "parentUuid": "1ee74a59_9b840800",
+      "revId": "01d6019fca028906a5d4674a3a785b7851bb75e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
