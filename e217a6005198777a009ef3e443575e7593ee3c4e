@@ -22,6 +22,30 @@
       "revId": "e217a6005198777a009ef3e443575e7593ee3c4e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904b4650_a847ba41",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2020-06-23T13:59:40Z",
+      "side": 1,
+      "message": "Na, the EVENT stays the same. I just changed the consumer_id in the aai_event_handler call to something more appropriate.",
+      "parentUuid": "a5d36dc4_41cc4efe",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 24
+      },
+      "revId": "e217a6005198777a009ef3e443575e7593ee3c4e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
