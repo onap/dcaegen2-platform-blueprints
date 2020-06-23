@@ -29,7 +29,7 @@ inputs:
   tag_version:
     type: string
     description: Docker image to be used
-    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.pmsh:1.0.3'
+    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.pmsh:1.1.0'
   replicas:
     type: integer
     description: Number of instances
@@ -76,6 +76,9 @@ inputs:
   pgaas_cluster_name:
     type: string
     default: 'dcae-pg-primary.onap'
+  enable_tls:
+    type: boolean
+    default: true
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
@@ -108,6 +111,7 @@ node_templates:
       service_component_type: 'dcae-pmsh'
       service_component_name_override: 'dcae-pmsh'
       application_config:
+        enable_tls: { get_input: enable_tls }
         aaf_identity: 'dcae@dcae.onap.org'
         aaf_password: 'demo123456!'
         operational_policy_name: { get_input: operational_policy_name }
@@ -148,4 +152,4 @@ node_templates:
         log_directory: '/var/log/ONAP/dcaegen2/services/pmsh'
       tls_info:
         cert_directory: '/opt/app/pmsh/etc/certs'
-        use_tls: true
+        use_tls: { get_input: enable_tls }
