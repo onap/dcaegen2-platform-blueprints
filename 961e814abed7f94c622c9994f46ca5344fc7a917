@@ -33,6 +33,40 @@
       "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08408553_8c6215df",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-07-22T09:42:15Z",
+      "side": 1,
+      "message": "Why component\u0027s configuration change operation in Consul is called policy_update?",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5724ee1_ae51c839",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-07-22T09:42:15Z",
+      "side": 1,
+      "message": "Can we use any VALID blueprint to test operation or there is a specific mapping between operation and blueprint (e.g. operation X can only be tested with blueprint Y and Z)?",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
