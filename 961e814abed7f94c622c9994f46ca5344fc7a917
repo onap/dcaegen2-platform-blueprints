@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "bb808c37_d5448409",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-23T17:36:50Z",
+      "side": 1,
+      "message": "Configuration updates for DCAE components are expected to be triggered from Policy framework hence operation accordingly to notify MS to fetch config when policy change is detected by platform. This is required mainly for MS which do not have periodic fetch/config sync done currently",
+      "parentUuid": "08408553_8c6215df",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c5724ee1_ae51c839",
         "filename": "plugin_testing_blueprints/operations/README.md",
         "patchSetId": 1
@@ -64,6 +82,24 @@
       "writtenOn": "2020-07-22T09:42:15Z",
       "side": 1,
       "message": "Can we use any VALID blueprint to test operation or there is a specific mapping between operation and blueprint (e.g. operation X can only be tested with blueprint Y and Z)?",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f863cd6e_86d4a45a",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-23T17:36:50Z",
+      "side": 1,
+      "message": "For scale and update_image - we dont have this included in component blueprint. For Policy though - son-handler blueprint can be used.",
+      "parentUuid": "c5724ee1_ae51c839",
       "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
