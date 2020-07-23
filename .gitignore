@@ -1,5 +1,12 @@
+### IntelliJ IDEA ###
+.idea
+k8s-bootstrap-container.iml
+
+### Visual Studio ###
 .project
-Dockerfile
 .vscode
 bootstrap-container.code-workspace
+
+Dockerfile
+
 target
