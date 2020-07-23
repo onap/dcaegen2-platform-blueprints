@@ -1,3 +1,5 @@
+.idea
+k8s-bootstrap-container.iml
 .project
 Dockerfile
 .vscode
