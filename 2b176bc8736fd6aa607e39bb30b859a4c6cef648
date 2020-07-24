@@ -22,6 +22,30 @@
       "revId": "2b176bc8736fd6aa607e39bb30b859a4c6cef648",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c023794_b31722f6",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6714
+      },
+      "writtenOn": "2020-07-24T09:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7804f12e_bb361653",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "2b176bc8736fd6aa607e39bb30b859a4c6cef648",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
