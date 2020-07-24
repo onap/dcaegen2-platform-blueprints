@@ -121,6 +121,24 @@
       "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31235966_15ccdf7b",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 511
+      },
+      "writtenOn": "2020-07-24T20:42:56Z",
+      "side": 1,
+      "message": "Operations apply to an existing deployment.  I usually use one of the simpler blueprints and then execute an operation against it (for instance, changing the version of nginx or changing the number of replicas).",
+      "parentUuid": "bc231029_15e98eae",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
