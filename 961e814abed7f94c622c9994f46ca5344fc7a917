@@ -139,6 +139,24 @@
       "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef88285b_0b00dfbb",
+        "filename": "plugin_testing_blueprints/operations/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-07-27T07:56:13Z",
+      "side": 1,
+      "message": "Got it",
+      "parentUuid": "31235966_15ccdf7b",
+      "revId": "961e814abed7f94c622c9994f46ca5344fc7a917",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
