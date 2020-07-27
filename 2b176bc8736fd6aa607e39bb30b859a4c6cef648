@@ -46,6 +46,29 @@
       "revId": "2b176bc8736fd6aa607e39bb30b859a4c6cef648",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf22a09a_dc2503a7",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-07-27T15:57:22Z",
+      "side": 1,
+      "message": "This should be revised based on version to be set on https://gerrit.onap.org/r/c/dcaegen2/collectors/datafile/+/110190.\n\nThat change should be merged and new container released prior to update here.",
+      "range": {
+        "startLine": 56,
+        "startChar": 99,
+        "endLine": 56,
+        "endChar": 105
+      },
+      "revId": "2b176bc8736fd6aa607e39bb30b859a4c6cef648",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
