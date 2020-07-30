@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a2b25e5_0a376928",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6714
+      },
+      "writtenOn": "2020-07-30T07:12:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c611fe2f_76eedd2a",
+      "revId": "66d9f16d32c3f1b13fa2a8a25680b3eb6f6bd0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be6b8272_2923961e",
         "filename": "blueprints/k8s-datafile.yaml",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "66d9f16d32c3f1b13fa2a8a25680b3eb6f6bd0db",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc82963_124321a9",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6714
+      },
+      "writtenOn": "2020-07-30T07:12:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6b8272_2923961e",
+      "range": {
+        "startLine": 56,
+        "startChar": 99,
+        "endLine": 56,
+        "endChar": 104
+      },
+      "revId": "66d9f16d32c3f1b13fa2a8a25680b3eb6f6bd0db",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
