@@ -50,7 +50,7 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_MEASUREMENT_OUTPUT"
   tca_handle_out_publish_url:
     type: string
-    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.TCAGEN2-OUTPUT"
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_CL_OUTPUT"
   tca_consumer_group:
     type: string
     default: "cg1"
