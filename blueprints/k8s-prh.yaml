@@ -21,7 +21,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=3.3.0
 inputs:
   pnfUrl:
     type: string
@@ -67,9 +67,19 @@ inputs:
     type: integer
     description: number of instances
     default: 1
+  service_component_type:
+    type: string
+    default: "dcae-prh"
+  service_id:
+    type: string
+    default: "prh"
   host_port:
     description: port on Kubernetes host where PRH API will be exposed
     default: 0
+  container_port:
+    type: integer
+    description: Network port that the platform service exposes in the container
+    default: 8100
   secureEnableCert:
     type: boolean
     description: enable certificate base connection with AAI and DMaap
@@ -127,26 +137,23 @@ node_templates:
               type: "message_router"
               dmaap_info:
                 topic_url: { get_input: dmaap_vesPnfRegOutput_url }
-
-      host_port:
-          { get_input: host_port }
-      container_port:
-        8100
       docker_config:
         healthcheck:
           endpoint: /heartbeat
           interval: 15s
           timeout: 1s
           type: http
+        ports:
+          - { concat: [ { get_input: container_port }, ':', { get_input: host_port } ] }
       image:
         { get_input: tag_version }
       replicas: {get_input: replicas}
-      name: 'dcae-prh'
-      dns_name: 'dcae-prh'
+      service_component_type: { get_input: service_component_type } 
+      service_id: { get_input: service_id }
       log_info:
         log_directory: "/opt/app/prh/logs"
       tls_info:
         cert_directory: '/opt/app/prh/etc/cert'
         use_tls: true
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
 
