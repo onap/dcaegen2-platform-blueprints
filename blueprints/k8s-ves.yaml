@@ -22,7 +22,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=3.3.0
 
 inputs:
   ves_other_publish_url:
@@ -65,14 +65,36 @@ inputs:
   auth_method:
     type: string
     default: "noAuth"
-  component_name:
+  service_component_type:
     type: string
     default: "dcae-ves-collector"
-  dns_component_name:
+  service_id:
     type: string
-    default: "dcae-ves-collector"
+    default: "ves"
   enable_tls:
     type: boolean
+    default: false
+  external_tls_ca_name:
+    type: string
+    description: Name of Certificate Authority configured on CertService side.
+    default: "RA"
+  external_tls_cert_type:
+    type: string
+    description: Output type
+    default: "P12"
+  external_tls_common_name:
+    type: string
+    description: Common name which should be present in certificate.
+    default: "common-name"
+  external_tls_sans:
+    type: string
+    description: "List of Subject Alternative Names (SANs) which should be present
+      in certificate. Delimiter - : Should contain common_name value and other FQDNs
+      under which given component is accessible."
+    default: "sans"
+  external_tls_use_external_tls:
+    type: boolean
+    description: Flag to indicate external tls enable/disable.
     default: false
   replicas:
     type: integer
@@ -151,14 +173,25 @@ node_templates:
       image:
         get_input: tag_version
       replicas: {get_input: replicas}
-      name:
-        get_input: component_name
-      dns_name:
-        get_input: dns_component_name
       log_info:
         log_directory: "/opt/app/VESCollector/logs"
       tls_info:
         cert_directory: '/opt/app/dcae-certificate/'
         use_tls:
           get_input: enable_tls
-    type: dcae.nodes.ContainerizedPlatformComponent
+      external_cert:
+        external_cert_directory: /opt/app/dcae-certificate/
+        use_external_tls:
+          get_input: external_tls_use_external_tls
+        cert_type:
+          get_input: external_tls_cert_type
+        ca_name:
+          get_input: external_tls_ca_name
+        external_certificate_parameters:
+          common_name:
+            get_input: external_tls_common_name
+          sans:
+            get_input: external_tls_sans
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
+    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
