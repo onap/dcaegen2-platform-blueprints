@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+1: Michał Bańka <michal.banka@nokia.com>
+Code-Review+2: Tony Hansen <tony@att.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Fri, 21 Aug 2020 14:58:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/111503
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
