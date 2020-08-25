@@ -16,8 +16,6 @@
 # ============LICENSE_END======================================================
 #k8s-tca-gen2-v3.yaml
 
-#k8s-tca-gen2-v3.yaml
-
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
@@ -39,7 +37,7 @@ inputs:
     default: "mongodb://dcae-mongohost/dcae-tcagen2"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.analytics.tca-gen2.dcae-analytics-tca-web:1.0.1"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.analytics.tca-gen2.dcae-analytics-tca-web:1.2.0"
   tca.aai.password:
     type: string
     default: "DCAE"
@@ -82,8 +80,8 @@ node_templates:
         streams_publishes:
           tca_handle_out:
             dmaap_info:
-             topic_url:
-                  get_input: tca_handle_out_publish_url
+              topic_url:
+                get_input: tca_handle_out_publish_url
             type: message_router
         streams_subscribes:
           tca_handle_in:
@@ -138,7 +136,6 @@ node_templates:
     type: clamp.nodes.policy
     properties:
       policy_id:
-           get_input: policy_id
+        get_input: policy_id
       policy_model_id:
-           get_input: policy_model_id
-
+        get_input: policy_model_id
