@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Bogumil Zebek <bogumil.zebek@nokia.com>
+Code-Review+1: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Code-Review+1: Maciej Malewski <maciej.malewski@nokia.com>
+Code-Review+1: Jessica Wagantall <jwagantall@linuxfoundation.org>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Tue, 25 Aug 2020 19:42:20 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/111616
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
