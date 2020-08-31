@@ -2,6 +2,7 @@
 # ============LICENSE_START====================================================
 # =============================================================================
 # Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2020 Nokia Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +24,7 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=3.3.0
 inputs:
   aaiEnrichmentHost:
     type: string
@@ -68,13 +69,19 @@ inputs:
     type: string
     description: Kubernetes node port on which CDAPgui is exposed
     default: "32010"
+  service_component_type:
+    type: string
+    default: "dcae-tca-analytics"
+  service_id:
+    type: string
+    default: "dcae-tca-analytics"
 
 node_templates:
   tca_k8s:
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponent
     properties:
-        name: 'dcae-tca-analytics'
-        dns_name: 'dcae-tca-analytics'
+        service_component_type: { get_input: service_component_type }
+        service_id: { get_input: service_id }
         image:
           get_input: tag_version
         log_info:
