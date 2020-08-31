@@ -30,7 +30,7 @@ RUN curl -Ssf -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-lin
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
   && python get-pip.py \
   && rm get-pip.py \
-  && pip install cloudify==4.5.5
+  && pip install cloudify==20.03.03
 
 # Copy scripts
 RUN mkdir scripts
