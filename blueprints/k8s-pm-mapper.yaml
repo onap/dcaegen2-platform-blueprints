@@ -1,6 +1,7 @@
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2019-2020 Nordix Foundation.
+#  Copyright (C) 2020 Nokia
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - 'http://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml'
-  - plugin:k8splugin?version=3.0.0
+  - plugin:k8splugin?version=3.3.0
   - plugin:dmaap?version=1.5.0
 
 inputs:
@@ -126,7 +127,7 @@ node_templates:
       topic_name: { get_input: topic_name }
 
   pm-mapper:
-    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
+    type: dcae.nodes.ContainerizedServiceComponent
     interfaces:
       cloudify.interfaces.lifecycle:
         create:
