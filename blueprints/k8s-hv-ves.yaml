@@ -22,15 +22,18 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=3.3.0
 
 inputs:
   tag_version:
     type: string
     default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.4.0'
-  hv_ves_name:
+  service_component_type:
     type: string
     default: 'dcae-hv-ves-collector'
+  service_id:
+    type: string
+    default: "dcae-hv-ves-collector"
   replicas:
     type: integer
     description: number of instances
@@ -89,7 +92,7 @@ node_templates:
         start:
           inputs:
             envs:
-              JAVA_OPTS: { concat: [ '-Dlogback.configurationFile=/etc/ONAP/', { get_input: hv_ves_name }, '/logback.xml' ] }
+              JAVA_OPTS: { concat: [ '-Dlogback.configurationFile=/etc/ONAP/', { get_input: service_component_type }, '/logback.xml' ] }
     properties:
       application_config:
         logLevel: { get_input: log_level }
@@ -116,15 +119,15 @@ node_templates:
           script: "/opt/ves-hv-collector/healthcheck.sh"
           interval: 15s
           timeout: 2s
+        ports:
+          - { concat: [ { get_input: container_port }, ':', { get_input: host_port } ] }
       image: { get_input: tag_version }
       replicas: { get_input: replicas }
-      name: { get_input: hv_ves_name }
-      dns_name: { get_input: hv_ves_name }
-      container_port: { get_input: container_port }
-      host_port: { get_input: host_port }
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
       log_info:
-        log_directory: { concat: [ '/var/log/ONAP/', { get_input: hv_ves_name } ] }
+        log_directory: { concat: [ '/var/log/ONAP/', { get_input: service_component_type } ] }
       tls_info:
         cert_directory: '/etc/ves-hv/ssl'
         use_tls: { get_input: use_tls }
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
