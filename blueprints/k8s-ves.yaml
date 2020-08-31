@@ -22,7 +22,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=3.3.0
 
 inputs:
   ves_other_publish_url:
@@ -69,6 +69,12 @@ inputs:
     type: string
     default: "dcae-ves-collector"
   dns_component_name:
+    type: string
+    default: "dcae-ves-collector"
+  service_component_type:
+    type: string
+    default: "dcae-ves-collector"
+  service_id:
     type: string
     default: "dcae-ves-collector"
   enable_tls:
@@ -156,14 +162,12 @@ node_templates:
       image:
         get_input: tag_version
       replicas: {get_input: replicas}
-      name:
-        get_input: component_name
-      dns_name:
-        get_input: dns_component_name
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
       log_info:
         log_directory: "/opt/app/VESCollector/logs"
       tls_info:
         cert_directory: '/opt/app/dcae-certificate/'
         use_tls:
           get_input: enable_tls
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponent
