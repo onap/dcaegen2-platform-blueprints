@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c65525ab_d750110f",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:07:31Z",
+      "side": 1,
+      "message": "Was this validated e2e? \n\nAs dmaap_info is set to predefined (and unauthenticated topic), dcae.nodes.ContainerizedServiceComponent nodetype will be better.",
+      "range": {
+        "startLine": 216,
+        "startChar": 10,
+        "endLine": 216,
+        "endChar": 60
+      },
+      "revId": "dcb324b0df2223e83409bd65486248c3c1d89bc4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
