@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "786079dc_0e2a3590",
+        "filename": "blueprints/k8s-holmes-engine.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ead994_7550f74c",
+        "filename": "blueprints/k8s-holmes-rules.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf010edd_c7938665",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 133,
+        "startChar": 10,
+        "endLine": 133,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb19c1b4_c9ee268b",
+        "filename": "blueprints/k8s-prh.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 159,
+        "startChar": 10,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8ffa4d0_601385a2",
+        "filename": "blueprints/k8s-tca.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 81,
+        "startChar": 10,
+        "endLine": 81,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0958534_95274ebf",
+        "filename": "blueprints/k8s-tcagen2.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 63,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "222b7a1c_6b169b09",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-08-31T18:13:09Z",
+      "side": 1,
+      "message": "dcae.nodes.ContainerizedServiceComponent",
+      "range": {
+        "startLine": 173,
+        "startChar": 10,
+        "endLine": 173,
+        "endChar": 60
+      },
+      "revId": "f7b875ecaf80057d7107049c4265a47b0dec2b57",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
