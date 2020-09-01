@@ -22,6 +22,30 @@
       "revId": "b402f8db0266e4d1f5a92c6d3307217e55d0e126",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bbfd529_d2b304a8",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6779
+      },
+      "writtenOn": "2020-09-01T09:14:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "37440c9a_d6ff056d",
+      "range": {
+        "startLine": 68,
+        "startChar": 1,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "b402f8db0266e4d1f5a92c6d3307217e55d0e126",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
