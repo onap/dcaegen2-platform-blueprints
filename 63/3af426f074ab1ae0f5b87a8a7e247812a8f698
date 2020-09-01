@@ -1,0 +1,9 @@
+Code-Review+1: Terry Schmalzried <ts862m@att.com>
+Code-Review+1: Jessica Wagantall <jwagantall@linuxfoundation.org>
+Code-Review+2: Jack Lucas <jflos@sonoris.net>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Jack Lucas <jflos@sonoris.net>
+Submitted-at: Tue, 01 Sep 2020 17:17:11 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/111920
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
