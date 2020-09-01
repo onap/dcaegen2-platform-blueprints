@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4284706_b0e03ca2",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-01T13:13:38Z",
+      "side": 1,
+      "message": "Why have you enabled this? I don\u0027t see corresponding Jira ticket to request this?",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02246e84_e6eebce2",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-01T13:13:38Z",
+      "side": 1,
+      "message": "Same story",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5e7a06_8bc046ab",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-01T13:13:38Z",
+      "side": 1,
+      "message": "Is this related to \"Update config for newer SDK\"? Why you haven\u0027t link corresponding community ticket?",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
