@@ -22,6 +22,30 @@
       "revId": "dcb324b0df2223e83409bd65486248c3c1d89bc4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda2d0f1_0565fbe5",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-02T13:15:33Z",
+      "side": 1,
+      "message": "In the latest patchset this line is set to dcae.nodes.ContainerizedServiceComponent as you proposed.\n\nIt was done here: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/111883 and Edyta\u0027s MR was rebased after merge.",
+      "parentUuid": "c65525ab_d750110f",
+      "range": {
+        "startLine": 216,
+        "startChar": 10,
+        "endLine": 216,
+        "endChar": 60
+      },
+      "revId": "dcb324b0df2223e83409bd65486248c3c1d89bc4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
