@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1b7c24b3_116746d5",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-02T06:32:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b4284706_b0e03ca2",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02246e84_e6eebce2",
         "filename": "blueprints/k8s-datafile.yaml",
         "patchSetId": 9
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "75050bea_dcc95255",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-02T06:32:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "02246e84_e6eebce2",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5e7a06_8bc046ab",
         "filename": "blueprints/k8s-datafile.yaml",
         "patchSetId": 9
@@ -50,6 +86,24 @@
       "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4b7798_b8ac0d4f",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-02T06:32:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5d5e7a06_8bc046ab",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
