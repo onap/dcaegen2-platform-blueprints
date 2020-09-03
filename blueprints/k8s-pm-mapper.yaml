@@ -127,7 +127,7 @@ node_templates:
       topic_name: { get_input: topic_name }
 
   pm-mapper:
-    type: dcae.nodes.ContainerizedServiceComponent
+    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
     interfaces:
       cloudify.interfaces.lifecycle:
         create:

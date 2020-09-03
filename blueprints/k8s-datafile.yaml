@@ -59,7 +59,7 @@ inputs:
     default: false
 node_templates:
   datafile-collector:
-    type: dcae.nodes.ContainerizedServiceComponent
+    type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
