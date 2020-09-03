@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Daniel Milaszkiewicz <daniel.milaszkiewicz@nokia.com>
+Code-Review+1: Krzysztof Kosewski <krzysztof.kosewski@nokia.com>
+Code-Review+1: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Code-Review+2: Jack Lucas <jflos@sonoris.net>
+Submitted-by: Jack Lucas <jflos@sonoris.net>
+Submitted-at: Thu, 03 Sep 2020 17:40:13 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/112099
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
