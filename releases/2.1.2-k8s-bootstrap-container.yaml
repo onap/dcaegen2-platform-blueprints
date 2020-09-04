@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.1.2'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-master-release-version-java-daily/973'
+ref: a48970067bfdebef74e9fce79ec5ba98d7c55dc4
+containers:
+  - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+    version: '2.1.2-SNAPSHOT-20200903T174441Z'
