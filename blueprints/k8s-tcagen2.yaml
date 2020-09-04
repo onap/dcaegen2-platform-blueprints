@@ -26,6 +26,9 @@ inputs:
   service_id:
     type: string
     default: "dcae-tcagen2"
+  service_component_name_override:
+    type: string
+    default: "dcae-tcagen2"
   log_directory:
     type: string
     default: "/opt/logs/dcae-analytics-tca"
@@ -126,3 +129,4 @@ node_templates:
         get_input: replicas
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
