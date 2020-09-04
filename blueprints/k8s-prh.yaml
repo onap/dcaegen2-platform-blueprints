@@ -2,8 +2,8 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018-2020 AT&T, NOKIA
-# Copyright (c) 2020 NOKIA
+# Copyright (c) 2018-2020 AT&T
+# Copyright (c) 2018-2020 NOKIA
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.2"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.4"
   replicas:
     type: integer
     description: number of instances
@@ -85,6 +85,9 @@ inputs:
     type: boolean
     description: enable certificate base connection with AAI and DMaap
     default: false
+  service_component_name_override:
+    type: string
+    default: "dcae-prh"
 node_templates:
   prh:
     properties:
@@ -151,6 +154,7 @@ node_templates:
       replicas: {get_input: replicas}
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
       log_info:
         log_directory: "/opt/app/prh/logs"
       tls_info:

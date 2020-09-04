@@ -57,7 +57,7 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.3"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.4"
   internal_port:
     type: string
     description: Kubernetes node port on which collector is exposed
@@ -89,8 +89,29 @@ inputs:
   service_id:
     type: string
     default: "dcae-ves-collector"
+  service_component_name_override:
+    type: string
+    default: "dcae-ves-collector"
   enable_tls:
     type: boolean
+    default: false
+  external_cert_ca_name:
+    type: string
+    description: Name of Certificate Authority configured on CertService side.
+    default: "RA"
+  external_cert_common_name:
+    type: string
+    description: Common name which should be present in certificate.
+    default: "dcae-ves-collector"
+  external_cert_sans:
+    type: string
+    description: "List of Subject Alternative Names (SANs) which should be present
+      in certificate. Delimiter - : Should contain common_name value and other FQDNs
+      under which given component is accessible."
+    default: "dcae-ves-collector:ves-collector:ves"
+  external_cert_use_external_tls:
+    type: boolean
+    description: Flag to indicate external tls enable/disable.
     default: false
   replicas:
     type: integer
@@ -134,8 +155,8 @@ node_templates:
           get_input: collector_externalSchema_schemasLocation
         collector.externalSchema.mappingFileLocation:
           get_input: collector_externalSchema_mappingFileLocation
-        event.externalSchema.schemaRefPath: /event/stndDefinedFields/schemaReference
-        event.externalSchema.stndDefinedDataPath: /event/stndDefinedFields/data
+        event.externalSchema.schemaRefPath: $.event.stndDefinedFields.schemaReference
+        event.externalSchema.stndDefinedDataPath: $.event.stndDefinedFields.data
         collector.service.port: "8080"
         collector.service.secure.port: "8443"
         event.transform.flag: "0"
@@ -207,10 +228,23 @@ node_templates:
       replicas: {get_input: replicas}
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
       log_info:
         log_directory: "/opt/app/VESCollector/logs"
       tls_info:
         cert_directory: '/opt/app/dcae-certificate/'
         use_tls:
           get_input: enable_tls
+      external_cert:
+        external_cert_directory: '/opt/app/dcae-certificate/'
+        use_external_tls:
+          get_input: external_cert_use_external_tls
+        cert_type: "JKS"
+        ca_name:
+          get_input: external_cert_ca_name
+        external_certificate_parameters:
+          common_name:
+            get_input: external_cert_common_name
+          sans:
+            get_input: external_cert_sans
     type: dcae.nodes.ContainerizedServiceComponent
