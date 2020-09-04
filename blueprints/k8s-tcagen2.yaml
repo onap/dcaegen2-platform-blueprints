@@ -122,7 +122,6 @@ node_templates:
       tls_info:
         use_tls: true
         cert_directory: '/etc/tca-gen2/ssl'
-      dns_name: { get_input: service_name }
       replicas:
         get_input: replicas
       service_component_type: { get_input: service_component_type }
