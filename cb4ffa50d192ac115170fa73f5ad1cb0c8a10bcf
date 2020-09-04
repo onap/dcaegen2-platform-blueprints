@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "720e0096_913bfef3",
+        "filename": "releases/2.1.2-k8s-bootstrap-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-04T07:26:49Z",
+      "side": 1,
+      "message": "Minor but this should point to change that is being released (Here it would be: \u0027a48970067bfdebef74e9fce79ec5ba98d7c55dc4\u0027). Release job is later tagging the commit and it will be possible to do: \u0027git checkout 2.1.2\u0027 (expecting that it\u0027s a state of 2.1.2 container).",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 45
+      },
+      "revId": "cb4ffa50d192ac115170fa73f5ad1cb0c8a10bcf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
