@@ -57,7 +57,7 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.3"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.4"
   internal_port:
     type: string
     description: Kubernetes node port on which collector is exposed
@@ -87,6 +87,9 @@ inputs:
     type: string
     default: "dcae-ves-collector"
   service_id:
+    type: string
+    default: "dcae-ves-collector"
+  service_component_name_override:
     type: string
     default: "dcae-ves-collector"
   enable_tls:
@@ -134,8 +137,8 @@ node_templates:
           get_input: collector_externalSchema_schemasLocation
         collector.externalSchema.mappingFileLocation:
           get_input: collector_externalSchema_mappingFileLocation
-        event.externalSchema.schemaRefPath: /event/stndDefinedFields/schemaReference
-        event.externalSchema.stndDefinedDataPath: /event/stndDefinedFields/data
+        event.externalSchema.schemaRefPath: $.event.stndDefinedFields.schemaReference
+        event.externalSchema.stndDefinedDataPath: $.event.stndDefinedFields.data
         collector.service.port: "8080"
         collector.service.secure.port: "8443"
         event.transform.flag: "0"
@@ -207,6 +210,7 @@ node_templates:
       replicas: {get_input: replicas}
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
       log_info:
         log_directory: "/opt/app/VESCollector/logs"
       tls_info:
