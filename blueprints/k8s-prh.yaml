@@ -2,8 +2,8 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018-2020 AT&T, NOKIA
-# Copyright (c) 2020 NOKIA
+# Copyright (c) 2018-2020 AT&T
+# Copyright (c) 2018-2020 NOKIA
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.2"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.4"
   replicas:
     type: integer
     description: number of instances
