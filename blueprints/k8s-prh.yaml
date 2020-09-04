@@ -63,7 +63,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.2"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.5.4"
   replicas:
     type: integer
     description: number of instances
