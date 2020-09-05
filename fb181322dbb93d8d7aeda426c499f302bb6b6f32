@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e9b7a8c_7c96a67e",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:38:58Z",
+      "side": 1,
+      "message": "2018-2020",
+      "revId": "fb181322dbb93d8d7aeda426c499f302bb6b6f32",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "971f6e97_5adeaf6d",
+        "filename": "blueprints/k8s-prh.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-09-05T21:38:58Z",
+      "side": 1,
+      "message": "please remove NOKIA from the first line and change the second line to say 2018-2020",
+      "revId": "fb181322dbb93d8d7aeda426c499f302bb6b6f32",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
