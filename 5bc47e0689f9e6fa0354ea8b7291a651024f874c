@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a8f70d99_f6337a0d",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-07T11:11:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b7c24b3_116746d5",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02246e84_e6eebce2",
         "filename": "blueprints/k8s-datafile.yaml",
         "patchSetId": 9
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "79f29eaf_aba24040",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-07T11:11:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75050bea_dcc95255",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5e7a06_8bc046ab",
         "filename": "blueprints/k8s-datafile.yaml",
         "patchSetId": 9
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "5d5e7a06_8bc046ab",
+      "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3a93dcf_84f53710",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-07T11:11:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c4b7798_b8ac0d4f",
       "revId": "5bc47e0689f9e6fa0354ea8b7291a651024f874c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
