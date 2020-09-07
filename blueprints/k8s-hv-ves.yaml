@@ -85,6 +85,24 @@ inputs:
   use_tls:
     type: boolean
     default: true
+  external_tls_ca_name:
+    type: string
+    description: Name of Certificate Authority configured on CertService side.
+    default: "RA"
+  external_tls_common_name:
+    type: string
+    description: Common name which should be present in certificate.
+    default: "dcae-hv-ves-collector"
+  external_tls_sans:
+    type: string
+    description: "List of Subject Alternative Names (SANs) which should be present
+      in certificate. Delimiter - : Should contain common_name value and other FQDNs
+      under which given component is accessible."
+    default: "dcae-hv-ves-collector:hv-ves-collector:hv-ves"
+  external_tls_use_external_tls:
+    type: boolean
+    description: Flag to indicate external tls enable/disable.
+    default: false
 node_templates:
   hv-ves:
     interfaces:
@@ -130,4 +148,16 @@ node_templates:
       tls_info:
         cert_directory: '/etc/ves-hv/ssl'
         use_tls: { get_input: use_tls }
+      external_cert:
+        external_cert_directory: '/etc/ves-hv/ssl'
+        use_external_tls:
+          get_input: external_tls_use_external_tls
+        cert_type: "JKS"
+        ca_name:
+          get_input: external_tls_ca_name
+        external_certificate_parameters:
+          common_name:
+            get_input: external_tls_common_name
+          sans:
+            get_input: external_tls_sans
     type: dcae.nodes.ContainerizedServiceComponent
