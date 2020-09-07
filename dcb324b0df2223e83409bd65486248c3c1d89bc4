@@ -46,6 +46,30 @@
       "revId": "dcb324b0df2223e83409bd65486248c3c1d89bc4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c941a5_344d0b4b",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2020-09-07T09:55:32Z",
+      "side": 1,
+      "message": "We tested blueprint by manually installing it via Cloudify in Bootstrap container using already existing VES imports.\n\nEvents are routed correctly to DMaaP, stndDefined validation use-cases look correct, logs in VES are ok.",
+      "parentUuid": "cda2d0f1_0565fbe5",
+      "range": {
+        "startLine": 216,
+        "startChar": 10,
+        "endLine": 216,
+        "endChar": 60
+      },
+      "revId": "dcb324b0df2223e83409bd65486248c3c1d89bc4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
