@@ -23,10 +23,10 @@ inputs:
     default: "250m"
   datafile-collector_memory_limit:
     type: string
-    default: "256Mi"
+    default: "512Mi"
   datafile-collector_memory_request:
     type: string
-    default: "256Mi"
+    default: "512Mi"
   envs:
     default: {}
   external_port:
@@ -53,10 +53,10 @@ inputs:
     default: 1
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.3.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.4.3"
   use_tls:
     type: boolean
-    default: false
+    default: true
 node_templates:
   datafile-collector:
     type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
@@ -73,20 +73,26 @@ node_templates:
           PM_MEAS_FILES:
             dmaap_info: <<feed0>>
             type: data_router
-        streams_subscribes: {}
         dmaap.ftpesConfig.keyCert: /opt/app/datafile/config/cert.jks
         dmaap.ftpesConfig.keyPasswordPath: /opt/app/datafile/config/jks.pass
         dmaap.ftpesConfig.trustedCa: /opt/app/datafile/config/trust.jks
         dmaap.ftpesConfig.trustedCaPasswordPath: /opt/app/datafile/etc/cert/trust.pass
-        dmaap.security.enableDmaapCertAuth: false
-        dmaap.security.keyStorePasswordPath: /opt/app/datafile/etc/cert/key.pass
-        dmaap.security.keyStorePath: /opt/app/datafile/etc/cert/key.p12
+        dmaap.security.enableDmaapCertAuth: true
+        dmaap.security.keyStorePasswordPath: /opt/app/datafile/etc/cert/p12.pass
+        dmaap.security.keyStorePath: /opt/app/datafile/etc/cert/cert.p12
         dmaap.security.trustStorePasswordPath: /opt/app/datafile/etc/cert/trust.pass
         dmaap.security.trustStorePath: /opt/app/datafile/etc/cert/trust.jks
+        dmaap.dmaapConsumerConfiguration.consumerGroup:
+          get_input: consumer_group
+        dmaap.dmaapConsumerConfiguration.consumerId:
+          get_input: consumer_id
+        dmaap.dmaapConsumerConfiguration.timeoutMs: -1
+        sftp.security.strictHostKeyChecking: true
         streams_subscribes:
           dmaap_subscriber:
+            type: message_router
             dmaap_info:
-              topic_url: { concat: ['https://message-router:3905/events/',{ get_input: topic_name }, '/', { get_input: consumer_group }, "/", { get_input: consumer_id }] }
+              topic_url: { concat: ['https://message-router:3905/events/',{ get_input: topic_name }] }
       docker_config:
         healthcheck:
           interval: 15s
