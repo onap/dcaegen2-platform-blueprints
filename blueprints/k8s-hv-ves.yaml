@@ -85,6 +85,9 @@ inputs:
   use_tls:
     type: boolean
     default: true
+  service_component_name_override:
+    type: string
+    default: "dcae-hv-ves-collector"
 node_templates:
   hv-ves:
     interfaces:
@@ -125,6 +128,7 @@ node_templates:
       replicas: { get_input: replicas }
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
       log_info:
         log_directory: { concat: [ '/var/log/ONAP/', { get_input: service_component_type } ] }
       tls_info:
