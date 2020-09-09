@@ -85,6 +85,9 @@ inputs:
     type: boolean
     description: enable certificate base connection with AAI and DMaap
     default: false
+  service_component_name_override:
+    type: string
+    default: "dcae-prh"
 node_templates:
   prh:
     properties:
@@ -151,6 +154,7 @@ node_templates:
       replicas: {get_input: replicas}
       service_component_type: { get_input: service_component_type }
       service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
       log_info:
         log_directory: "/opt/app/prh/logs"
       tls_info:
