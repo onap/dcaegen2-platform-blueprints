@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172a7738_1b8ea971",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-10T17:59:47Z",
+      "side": 1,
+      "message": "include brief discription of what change(s) were introduced on this new container version",
+      "revId": "d37a1e8ea6de1361eedab3c786b337fa84989697",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
