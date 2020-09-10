@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7361311_060aa8f8",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-10T08:55:17Z",
+      "side": 1,
+      "message": "Fix from https://gerrit.onap.org/r/c/oom/+/112272 allows 3 SANS.",
+      "parentUuid": "42431699_49b54053",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54610429_cd20be11",
         "filename": "blueprints/k8s-hv-ves.yaml",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8426c28_2af251f3",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-10T08:55:17Z",
+      "side": 1,
+      "message": "Won\u0027t have time to verify P12 keystore.",
+      "parentUuid": "54610429_cd20be11",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "998c3dec_35650fa9",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-10T08:55:17Z",
+      "side": 1,
+      "message": "Same as VES.",
+      "parentUuid": "8ad63eb9_e3df47df",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae251ba0_6b1a12ea",
         "filename": "blueprints/k8s-ves.yaml",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79ffd853_5559765f",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-10T08:55:17Z",
+      "side": 1,
+      "message": "Same as in VES. Won\u0027t have time to verify with P12 certs.",
+      "parentUuid": "ae251ba0_6b1a12ea",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
