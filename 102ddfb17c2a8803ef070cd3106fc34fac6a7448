@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42431699_49b54053",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-10T08:39:03Z",
+      "side": 1,
+      "message": "AFAIK, EJBCA doesn\u0027t support by default more than 2 SANs. If this is still true, please keep just two of them in default config.",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54610429_cd20be11",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-10T08:39:03Z",
+      "side": 1,
+      "message": "I thought that you are going to change cert_type to P12. Have you changed your mind?",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ad63eb9_e3df47df",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-10T08:39:03Z",
+      "side": 1,
+      "message": "The same as in VES",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae251ba0_6b1a12ea",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5775
+      },
+      "writtenOn": "2020-09-10T08:39:03Z",
+      "side": 1,
+      "message": "The same as in VES",
+      "revId": "102ddfb17c2a8803ef070cd3106fc34fac6a7448",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
