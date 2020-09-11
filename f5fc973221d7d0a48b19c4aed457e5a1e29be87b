@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74635b94_ba67466d",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-11T15:17:39Z",
+      "side": 1,
+      "message": "1.1.1 should be released",
+      "range": {
+        "startLine": 31,
+        "startChar": 73,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "f5fc973221d7d0a48b19c4aed457e5a1e29be87b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
