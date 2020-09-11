@@ -22,6 +22,30 @@
       "revId": "f5fc973221d7d0a48b19c4aed457e5a1e29be87b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d4a8282_0ee53c78",
+        "filename": "blueprints/k8s-pmsh.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2020-09-11T15:27:04Z",
+      "side": 1,
+      "message": "https://gerrit.onap.org/r/c/dcaegen2/services/+/112485",
+      "parentUuid": "74635b94_ba67466d",
+      "range": {
+        "startLine": 31,
+        "startChar": 73,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "f5fc973221d7d0a48b19c4aed457e5a1e29be87b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
