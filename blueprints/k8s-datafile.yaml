@@ -57,6 +57,28 @@ inputs:
   use_tls:
     type: boolean
     default: true
+  external_cert_ca_name:
+    type: string
+    description: Name of Certificate Authority configured on CertService side.
+    default: "RA"
+  external_cert_cert_type:
+    type: string
+    description: Format of provided certificates
+    default: "JKS"
+  external_cert_common_name:
+    type: string
+    description: Common name which should be present in certificate.
+    default: "dcae-datafile-collector"
+  external_cert_sans:
+    type: string
+    description: '"List of Subject Alternative Names (SANs) which should be present
+      in certificate. Delimiter - : Should contain common_name value and other FQDNs
+      under which given component is accessible."'
+    default: "dcae-datafile-collector:datafile-collector:datafile"
+  external_cert_use_external_tls:
+    type: boolean
+    description: Flag to indicate external tls enable/disable.
+    default: true
 node_templates:
   datafile-collector:
     type: dcae.nodes.ContainerizedServiceComponentUsingDmaap
@@ -120,6 +142,20 @@ node_templates:
           get_input: cert_directory
         use_tls:
           get_input: use_tls
+      external_cert:
+        external_cert_directory:
+          get_input: cert_directory
+        use_external_tls:
+          get_input: external_cert_use_external_tls
+        ca_name:
+          get_input: external_cert_ca_name
+        cert_type:
+          get_input: external_cert_cert_type
+        external_certificate_parameters:
+          common_name:
+            get_input: external_cert_common_name
+          sans:
+            get_input: external_cert_sans
       resource_config:
         limits:
           cpu:
