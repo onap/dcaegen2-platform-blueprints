@@ -22,6 +22,30 @@
       "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45ec36ef_6ac5b9f8",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-09-16T15:31:35Z",
+      "side": 1,
+      "message": "The idea for CMPv2 integration was to merge CMPv2 truststore with one from tls-init and swap keystore from tls-init to one from CMPv2 (so that for other components it will be possible to change used certificates without changing the paths, only by using external_cert_use_external_tls flag). More info: https://wiki.onap.org/display/DW/DCAE+CertService+integration#DCAECertServiceintegration-Option1(DCAEextrainitcontainer(akatrustmerger))",
+      "parentUuid": "6d44c307_ddf92a55",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 86
+      },
+      "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
