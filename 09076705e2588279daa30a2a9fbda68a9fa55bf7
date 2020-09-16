@@ -46,6 +46,30 @@
       "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9ef0fdf_c8c0b003",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2020-09-16T15:53:12Z",
+      "side": 1,
+      "message": "Ok. Just trying to understand how this works in production env. If a 5g Node already has it\u0027s own set of certificates and you wanted to add it\u0027s CA to DFC truststore, is this the proposed solution? Thanks for your patience. 😊",
+      "parentUuid": "45ec36ef_6ac5b9f8",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 86
+      },
+      "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
