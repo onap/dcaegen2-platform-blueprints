@@ -95,6 +95,10 @@ inputs:
   enable_tls:
     type: boolean
     default: false
+  external_cert_cert_type:
+    type: string
+    description: Output type
+    default: "JKS"
   external_cert_ca_name:
     type: string
     description: Name of Certificate Authority configured on CertService side.
@@ -239,7 +243,8 @@ node_templates:
         external_cert_directory: '/opt/app/dcae-certificate/'
         use_external_tls:
           get_input: external_cert_use_external_tls
-        cert_type: "JKS"
+        cert_type:
+          get_input: external_cert_cert_type
         ca_name:
           get_input: external_cert_ca_name
         external_certificate_parameters:
