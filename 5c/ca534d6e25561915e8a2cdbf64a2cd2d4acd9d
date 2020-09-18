@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Paweł Baniewski <pawel.baniewski@nokia.com>
+Code-Review+1: Jan Malkiewicz <jan.malkiewicz@nokia.com>
+Code-Review+1: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Code-Review+2: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-by: Kornel Janiak <kornel.janiak@nokia.com>
+Submitted-at: Fri, 18 Sep 2020 12:20:36 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/112811
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
