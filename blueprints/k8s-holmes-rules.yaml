@@ -47,6 +47,18 @@ inputs:
   service_component_name_override:
     type: string
     default: "holmes-rule-mgmt"
+  dcae-analytics-holmes-rule-mgt_cpu_limit:
+    type: string
+    default: "250m"
+  dcae-analytics-holmes-rule-mgt_cpu_request:
+    type: string
+    default: "250m"
+  dcae-analytics-holmes-rule-mgt_memory_limit:
+    type: string
+    default: "1024Mi"
+  dcae-analytics-holmes-rule-mgt_memory_request:
+    type: string
+    default: "256Mi"
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
@@ -86,6 +98,17 @@ node_templates:
         streams_subscribes: {}
       image: { get_input: hr_image }
       #service_component_type: dcae-analytics-holmes-rule-management
+      resource_config:
+        limits:
+          cpu:
+            get_input: dcae-analytics-holmes-rule-mgt_cpu_limit
+          memory:
+            get_input: dcae-analytics-holmes-rule-mgt_memory_limit
+        requests:
+          cpu:
+            get_input: dcae-analytics-holmes-rule-mgt_cpu_request
+          memory:
+            get_input: dcae-analytics-holmes-rule-mgt_memory_request
     relationships:
     - type: cloudify.relationships.depends_on
       target: pgaasvm
