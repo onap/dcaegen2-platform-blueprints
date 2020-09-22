@@ -54,7 +54,18 @@ inputs:
   service_component_name_override:
     type: string
     default: "holmes-engine-mgmt"
-
+  dcae-analytics-holmes-engine-mgt_cpu_limit:
+    type: string
+    default: "500m"
+  dcae-analytics-holmes-engine-mgt_cpu_request:
+    type: string
+    default: "500m"
+  dcae-analytics-holmes-engine-mgt_memory_limit:
+    type: string
+    default: "1024Mi"
+  dcae-analytics-holmes-engine-mgt_memory_request:
+    type: string
+    default: "256Mi"
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
@@ -105,6 +116,17 @@ node_templates:
       image: { get_input: he_image }
       # need to use truncated name!!
       #service_component_type: dcae-analytics-holmes-engin-management
+      resource_config:
+        limits:
+          cpu:
+            get_input: dcae-analytics-holmes-engine-mgt_cpu_limit
+          memory:
+            get_input: dcae-analytics-holmes-engine-mgt_memory_limit
+        requests:
+          cpu:
+            get_input: dcae-analytics-holmes-engine-mgt_cpu_request
+          memory:
+            get_input: dcae-analytics-holmes-engine-mgt_memory_request
     relationships:
     - type: cloudify.relationships.depends_on
       target: pgaasvm
