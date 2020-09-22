@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af655018_b8964137",
+        "filename": "blueprints/k8s-slice-analysis-ms.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-22T15:15:07Z",
+      "side": 1,
+      "message": "imports should be revised to new convention and latest plugin and typle files for Guilin (refer https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/112948)",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 137
+      },
+      "revId": "607ed7dd6f81a90901c4364f617c08d119725f00",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
