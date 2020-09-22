@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff0a12c3_e11d0942",
+        "filename": "releases/2.1.6-k8s-bootstrap-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-22T21:20:29Z",
+      "side": 1,
+      "message": "pls use #300 and corresponding snapshot for release (merged ealier Holmes blueprint change which can be rolled into 2.1.6 also)",
+      "range": {
+        "startLine": 4,
+        "startChar": 57,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "80c6366686812efd0105a1d94d7b719233884d94",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
