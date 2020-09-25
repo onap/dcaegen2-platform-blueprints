@@ -1,0 +1,140 @@
+# ============LICENSE_START====================================================
+# =============================================================================
+# Copyright (C) 2020 QCT
+# =============================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END======================================================
+
+#author: Kai Lu (lukai@chinamobile.com)
+
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
+  - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/k8splugin/1.7.2/k8splugin_types.yaml
+  -https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R6/dcaepolicyplugin/2.4.0/dcaepolicyplugin_types.yaml
+inputs:
+  mariadb_address:
+    type: string
+    description: MariaDB URL
+    default: "mariadb-galera"
+  mariadb_port:
+    type: string
+    description: MariaDB port
+    default: "3306"
+  db_username:
+    type: string
+    description: MariaDB Username
+    default: "root"
+  db_password:
+    description: MariaDB password
+    type: string
+    default: "secretpassword"
+  presto_address:
+    type: string
+    description: Presto URL
+    default: "dl-presto"
+  presto_port:
+    type: string
+    description: Presto port
+    default: "9000"
+  presto__username:
+    type: string
+    description: Presto Username
+    default: "user"
+  presto__password:
+    description: Presto password
+    type: string
+    default: "test"
+  image_name:
+    description: des image URL.
+    type: string
+    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalake.exposure.service:1.1.0
+  dl_hostname:
+    type: string
+    description: dl default des_hostname
+    default: k8s-des
+  consul_host:
+    type: string
+    description: consul address
+    default: consul
+  cbs_address:
+    type: string
+    description: CBS address
+    default: config-binding-service
+  container_port:
+    type: string
+    description: exposed container port
+    default: "1681"
+  host_port:
+    type: string
+    description: external port
+    default: "30409"
+node_templates:
+  datalake:
+    type: dcae.nodes.ContainerizedPlatformComponent
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            ports:
+              - '1681:0'
+              - concat: [{get_input: container_port},":",{get_input: host_port}]
+            envs:
+              MYSQL_HOST:
+                get_input: mariadb_address
+              MYSQL_PORT:
+                get_input: mariadb_port
+              MYSQL_ROOT_PASSWORD:
+                get_input: db_password
+              PRESTO_HOST:
+                get_input: presto_address
+              PRESTO_PORT:
+                get_input: presto_port
+              PRESTO_USER:
+                get_input: presto__username
+              PRESTO__PASSWORD:
+                get_input: presto__password
+    properties:
+      application_config:
+        MYSQL_HOST:
+          get_input: mariadb_address
+        MYSQL_PORT:
+          get_input: mariadb_port
+        MYSQL_ROOT_PASSWORD:
+          get_input: db_password
+        PRESTO_HOST:
+          get_input: presto_address
+        PRESTO_PORT:
+          get_input: presto_port
+        PRESTO_USER:
+          get_input: presto__username
+        PRESTO__PASSWORD:
+          get_input: presto__password
+        HOSTNAME:
+          get_input: dl_hostname
+        CONSUL_HOST:
+          get_input: consul_host
+        CONFIG_BINDING_SERVICE:
+          get_input: cbs_address
+      image:
+          get_input: image_name
+      docker_config:
+        healthcheck:
+          interval: 90s
+          timeout: 10s
+          type: http
+          endpoint: /
+      dns_name: "dl-des"
+      name: datalake-des
+      container_port: { get_input: container_port }
+      host_port: { get_input: host_port }
