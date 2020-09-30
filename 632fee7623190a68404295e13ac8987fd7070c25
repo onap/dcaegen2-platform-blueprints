@@ -22,6 +22,30 @@
       "revId": "632fee7623190a68404295e13ac8987fd7070c25",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521de42f_0dbcb868",
+        "filename": "blueprints/k8s-slice-analysis-ms.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-30T16:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc7d050a_1b961877",
+      "range": {
+        "startLine": 31,
+        "startChar": 86,
+        "endLine": 31,
+        "endChar": 91
+      },
+      "revId": "632fee7623190a68404295e13ac8987fd7070c25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
