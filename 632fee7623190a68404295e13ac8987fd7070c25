@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc7d050a_1b961877",
+        "filename": "blueprints/k8s-slice-analysis-ms.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-09-30T16:05:37Z",
+      "side": 1,
+      "message": "image must be released",
+      "range": {
+        "startLine": 31,
+        "startChar": 86,
+        "endLine": 31,
+        "endChar": 91
+      },
+      "revId": "632fee7623190a68404295e13ac8987fd7070c25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
