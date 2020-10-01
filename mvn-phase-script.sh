@@ -85,7 +85,7 @@ echo "MVN_DOCKERREGISTRY_PUBLIC is       [$MVN_DOCKERREGISTRY_PUBLIC]"
 echo "HOME is                            [$HOME]"
 echo "PROJECT_ROOT is                    [$PROJECT_ROOT]"
 
-MVN_RELEASE_TAG="${MVN_RELEASE_TAG:-R7}"
+MVN_RELEASE_TAG="${MVN_RELEASE_TAG:-R8}"
 
 
 if ! wget -O ${PROJECT_ROOT}/mvn-phase-lib.sh \
