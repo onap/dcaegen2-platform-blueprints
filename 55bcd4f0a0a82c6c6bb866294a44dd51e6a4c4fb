@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79fde155_bc8f61e5",
+        "filename": "blueprints/k8s-heartbeat.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T22:27:47Z",
+      "side": 1,
+      "message": "add copyright for wipro",
+      "revId": "55bcd4f0a0a82c6c6bb866294a44dd51e6a4c4fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc92d8bf_2de9316c",
+        "filename": "blueprints/k8s-heartbeat.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T22:27:47Z",
+      "side": 1,
+      "message": "suggest keeping original nodetypename or hbpgaas",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 9
+      },
+      "revId": "55bcd4f0a0a82c6c6bb866294a44dd51e6a4c4fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d356882_0d72a90a",
+        "filename": "blueprints/k8s-heartbeat.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T22:27:47Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 162,
+        "startChar": 14,
+        "endLine": 162,
+        "endChar": 21
+      },
+      "revId": "55bcd4f0a0a82c6c6bb866294a44dd51e6a4c4fb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
