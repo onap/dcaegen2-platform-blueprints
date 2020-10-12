@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa504bb8_b12f1eb9",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3949
+      },
+      "writtenOn": "2020-10-12T11:22:15Z",
+      "side": 0,
+      "message": "Why has \"measurement\u003dves-measurement\" been removed and how that goes together with the latest version of the schema (https://github.com/onap/dcaegen2-collectors-ves/blob/master/etc/CommonEventFormat_30.2_ONAP.json) which still allows \"measurement\" as the only domain value to map events to ves-measurement topic?",
+      "range": {
+        "startLine": 97,
+        "startChar": 133,
+        "endLine": 97,
+        "endChar": 160
+      },
+      "revId": "11d86d637c806e4861a0f8b68024a0b5e38c883b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
