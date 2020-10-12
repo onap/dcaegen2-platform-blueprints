@@ -22,6 +22,30 @@
       "revId": "11d86d637c806e4861a0f8b68024a0b5e38c883b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b48fb75_f0d1b5a4",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3949
+      },
+      "writtenOn": "2020-10-12T15:00:59Z",
+      "side": 0,
+      "message": "I created a bug ticket https://jira.onap.org/browse/DCAEGEN2-2482 and correction candidate https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/113804. I admit that I don\u0027t fully understand what https://jira.onap.org/browse/DCAEGEN2-2264 brings though so if there\u0027s a new different way of sending VES measurement events (or configuring VES Collector for them), feel free to set me straight",
+      "parentUuid": "aa504bb8_b12f1eb9",
+      "range": {
+        "startLine": 97,
+        "startChar": 133,
+        "endLine": 97,
+        "endChar": 160
+      },
+      "revId": "11d86d637c806e4861a0f8b68024a0b5e38c883b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
