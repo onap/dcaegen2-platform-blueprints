@@ -46,6 +46,30 @@
       "revId": "11d86d637c806e4861a0f8b68024a0b5e38c883b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b52703_b16b128f",
+        "filename": "blueprints/k8s-ves.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T20:10:37Z",
+      "side": 0,
+      "message": "Good catch. Agreed \"measurement\" domain mapping should not have been removed (also \"measurementsForVfScaling\" is required for VES 5.4.1 and prior versions)",
+      "parentUuid": "7b48fb75_f0d1b5a4",
+      "range": {
+        "startLine": 97,
+        "startChar": 133,
+        "endLine": 97,
+        "endChar": 160
+      },
+      "revId": "11d86d637c806e4861a0f8b68024a0b5e38c883b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
