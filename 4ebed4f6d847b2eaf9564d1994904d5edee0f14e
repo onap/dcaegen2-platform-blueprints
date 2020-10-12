@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f7ce051_f4ce7cad",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T20:26:40Z",
+      "side": 1,
+      "message": "https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 21,
+        "endChar": 61
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1b43440_4609e7fc",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T20:26:40Z",
+      "side": 1,
+      "message": "These shouldn\u0027t be required as platform input as plugin sets them during deployment",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57b8ec86_2c0407c3",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-12T20:26:40Z",
+      "side": 1,
+      "message": "As noted earlier, K8s plugin sets CONSUL_HOST and CONFIG_BINDING_SERVICE env during deployment.  Pls confirm why you appr would need to override them? If not required, remove them",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 32
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
