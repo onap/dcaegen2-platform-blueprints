@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "685371e9_833326ca",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6065
+      },
+      "writtenOn": "2020-10-13T01:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f7ce051_f4ce7cad",
+      "range": {
+        "startLine": 21,
+        "startChar": 5,
+        "endLine": 21,
+        "endChar": 61
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1b43440_4609e7fc",
         "filename": "blueprints/k8s-datalake-des.yaml",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "30ed01b0_200611c4",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6065
+      },
+      "writtenOn": "2020-10-13T01:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1b43440_4609e7fc",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57b8ec86_2c0407c3",
         "filename": "blueprints/k8s-datalake-des.yaml",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8141a45_fc6fcf35",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6065
+      },
+      "writtenOn": "2020-10-13T01:53:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b8ec86_2c0407c3",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 32
+      },
+      "revId": "4ebed4f6d847b2eaf9564d1994904d5edee0f14e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
