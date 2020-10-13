@@ -1,6 +1,7 @@
 # ============LICENSE_START====================================================
 # =============================================================================
 # Copyright (C) 2019-2020 AT&T
+# Copyright (C) 2020 Wipro Limited
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -65,21 +66,13 @@ inputs:
   namespace:
     type: string
     default: 'onap'
+  pgaas_cluster_name:
+    type: string
+    description: pg cluster
+    default: "dcae-pg-primary.onap"
   pg_dbName:
     type: string
-    default: 'postgres'
-  pg_ipAddress:
-    type: string
-    default: 'hbpostgres-write'
-  pg_passwd:
-    type: string
-    default: 'postgres'
-  pg_portNum:
-    type: string
-    default: '5432'
-  pg_userName:
-    type: string
-    default: 'postgres'
+    default: 'heartbeat'
   ves_heartbeat_publish_url:
     type: string
     default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT'
@@ -87,28 +80,13 @@ inputs:
     type: string
     default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_CL_OUTPUT'
 node_templates:
-  hbpostgres:
-    type: dcae.nodes.ContainerizedApplication
+  hbpgaas:
+    type: dcae.nodes.pgaas.database
     properties:
-        name:
-            "hbpostgres-write"
-        image:
-            "postgres:9.5.2"
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        start:
-          inputs:
-            envs:
-              PGDATA:
-                "/var/lib/postgresql/data/hbpostgres"
-              POSTGRES_PASSWORD:
-                { get_input: pg_passwd }
-              POSTGRES_USER:
-                { get_input: pg_userName }
-              SERVICE_NAME:
-                "hbpostgres-write"
-            ports:
-              - "5432:0"
+      writerfqdn: { get_input: pgaas_cluster_name }
+      name: { get_input: pg_dbName}
+      use_existing: false
+
   heartbeat:
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -122,12 +100,13 @@ node_templates:
               groupID:
                 get_input: groupID
               pg_ipAddress:
-                get_input: pg_ipAddress
+                { get_attribute: [ hbpgaas, admin, host ] }
               pg_passwd:
-                get_input: pg_passwd
-              pg_portNum: "5432"
+                { get_attribute: [ hbpgaas, admin, password ] }
+              pg_portNum:
+                { get_attribute: [ hbpgaas, admin, port ] }
               pg_userName:
-                get_input: pg_userName
+                { get_attribute: [ hbpgaas, admin, user ] }
               pg_dbName:
                 get_input: pg_dbName
             ports:
@@ -144,13 +123,13 @@ node_templates:
         groupID:
           get_input: groupID
         pg_ipAddress:
-          get_input: pg_ipAddress
+          { get_attribute: [ hbpgaas, admin, host ] }
         pg_passwd:
-          get_input: pg_passwd
+           { get_attribute: [ hbpgaas, admin, password ] }
         pg_portNum:
-          get_input: pg_portNum
+           { get_attribute: [ hbpgaas, admin, port ] }
         pg_userName:
-          get_input: pg_userName
+           { get_attribute: [ hbpgaas, admin, user ] }
         pg_dbName:
           get_input: pg_dbName
         heartbeat_config: '{"vnfs": [{"eventName": "Heartbeat_vDNS","heartbeatcountmissed": 3,"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1",     "policyVersion": "1.0.0.5",     "policyName":"vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF",        "target": "genVnfName", "version": "1.0"}, {"eventName": "Heartbeat_vFW","heartbeatcountmissed": 3,     "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName",    "target_type":"VNF",    "target": "genVnfName",    "version": "1.0"}, {"eventName": "Heartbeat_xx","heartbeatcountmissed": 3,      "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall",      "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF","target": "genVnfName","version": "1.0"}]}'
@@ -181,6 +160,5 @@ node_templates:
     type: dcae.nodes.ContainerizedServiceComponent
     relationships:
     - type: cloudify.relationships.depends_on
-      target: hbpostgres
-
+      target: hbpgaas
 
