@@ -42,7 +42,7 @@ inputs:
   image_name:
     description: datalake feeder image URL.
     type: string
-    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakefeeder:1.0.2
+    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakefeeder:1.1.0
   dl_hostname:
     type: string
     description: dl default dl_hostname
