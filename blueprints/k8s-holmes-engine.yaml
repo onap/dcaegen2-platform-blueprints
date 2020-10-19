@@ -44,7 +44,7 @@ inputs:
     default: "holmes"
   he_image:
     type: string
-    default: "nexus3.onap.org:10001/onap/holmes/engine-management:1.2.6"
+    default: "nexus3.onap.org:10001/onap/holmes/engine-management:1.2.8"
   service_component_type:
     type: string
     default: "holmes-engine-mgmt"
