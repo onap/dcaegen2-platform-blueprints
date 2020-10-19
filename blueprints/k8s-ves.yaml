@@ -57,7 +57,7 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.6"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.ves.vescollector:1.7.8"
   internal_port:
     type: string
     description: Kubernetes node port on which collector is exposed
@@ -77,12 +77,6 @@ inputs:
   auth_method:
     type: string
     default: "noAuth"
-  component_name:
-    type: string
-    default: "dcae-ves-collector"
-  dns_component_name:
-    type: string
-    default: "dcae-ves-collector"
   service_component_type:
     type: string
     default: "dcae-ves-collector"
