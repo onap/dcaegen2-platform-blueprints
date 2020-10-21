@@ -40,11 +40,11 @@ inputs:
   aaf_username:
     type: string
     description: aaf username
-    default:
+    default: "dcae@dcae.onap.org"
   aaf_password:
     type: string
     description: aaf password
-    default:
+    default: "demo123456!"
   dmaap_polling_interval:
     type: integer
     description: dmaap polling interval
@@ -80,7 +80,7 @@ inputs:
   config_db:
     type: string
     description: config db location
-    default: "http://sdnc.onap:8181"
+    default: "http://config-db:8080"
   log_path:
     type: string
     description: log location in host
@@ -152,6 +152,8 @@ node_templates:
           timeout: 1s
           type: http
       application_config:
+        aafUsername: { get_input: aaf_username }
+        aafPassword: { get_input: aaf_password }
         streams_subscribes:
           performance_management_topic:
             aaf_username: { get_input: aaf_username }
