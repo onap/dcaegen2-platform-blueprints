@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5463d350_60375390",
+        "filename": "blueprints/k8s-slice-analysis-ms.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-21T17:57:30Z",
+      "side": 1,
+      "message": "does these new updates work with this version or dependent on 1.0.1 version from https://gerrit.onap.org/r/c/dcaegen2/services/+/113845?",
+      "range": {
+        "startLine": 31,
+        "startChar": 97,
+        "endLine": 31,
+        "endChar": 103
+      },
+      "revId": "80a790d43df083ffbae1a05daa73c2941f460d13",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e7a5e7f_bccfff3d",
+        "filename": "blueprints/k8s-slice-analysis-ms.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-10-21T17:57:30Z",
+      "side": 1,
+      "message": "Add tls_info to enable certificate distribution. refer https://git.onap.org/dcaegen2/platform/blueprints/tree/blueprints/k8s-ves.yaml#n232",
+      "revId": "80a790d43df083ffbae1a05daa73c2941f460d13",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
