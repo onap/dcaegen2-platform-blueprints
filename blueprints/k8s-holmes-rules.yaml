@@ -37,7 +37,7 @@ inputs:
     default: "holmes"
   hr_image:
     type: string
-    default: "nexus3.onap.org:10001/onap/holmes/rule-management:1.2.8"
+    default: "nexus3.onap.org:10001/onap/holmes/rule-management:1.2.9"
   service_component_type:
     type: string
     default: "holmes-rule-mgmt"
