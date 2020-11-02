@@ -28,7 +28,7 @@ inputs:
   tag_version:
     type: string
     description: docker image name and version
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.slice-analysis-ms:1.0.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.slice-analysis-ms:1.0.1"
   pgaas_cluster_name:
     type: string
     description: pg cluster
@@ -40,11 +40,11 @@ inputs:
   aaf_username:
     type: string
     description: aaf username
-    default:
+    default: "dcae@dcae.onap.org"
   aaf_password:
     type: string
     description: aaf password
-    default:
+    default: "demo123456!"
   dmaap_polling_interval:
     type: integer
     description: dmaap polling interval
@@ -80,7 +80,7 @@ inputs:
   config_db:
     type: string
     description: config db location
-    default: "http://sdnc.onap:8181"
+    default: "http://config-db:8080"
   log_path:
     type: string
     description: log location in host
@@ -113,7 +113,6 @@ inputs:
     type: integer
     description: delay for the consumer thread
     default: 120000
-
 node_templates:
   pgaasvm:
     type: dcae.nodes.pgaas.database
@@ -151,7 +150,14 @@ node_templates:
           interval: 15s
           timeout: 1s
           type: http
+      tls_info:
+        cert_directory: '/opt/app/sliceanalysisms/etc/cert/'
+        use_tls: true
       application_config:
+        aafUsername: { get_input: aaf_username }
+        aafPassword: { get_input: aaf_password }
+        trust_store_path: '/opt/app/sliceanalysisms/etc/cert/trust.jks'
+        trust_store_pass_path: '/opt/app/sliceanalysisms/etc/cert/trust.pass'
         streams_subscribes:
           performance_management_topic:
             aaf_username: { get_input: aaf_username }
