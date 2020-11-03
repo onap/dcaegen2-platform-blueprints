@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d5b514f_4f89834d",
+        "filename": "blueprints/k8s-holmes-rules.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-11-03T14:52:33Z",
+      "side": 1,
+      "message": "Was this change validated? The output topic name should be unauthenticated.DCAE_CL_OUTPUT; or are you trying to reference the topic key in this configuration?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2244,
+        "endLine": 92,
+        "endChar": 2255
+      },
+      "revId": "2c07561d9ec136a07fb059a87e8f8802a57fc070",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
