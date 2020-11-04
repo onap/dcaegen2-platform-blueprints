@@ -22,6 +22,30 @@
       "revId": "2c07561d9ec136a07fb059a87e8f8802a57fc070",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b3c896_bbb9ae36",
+        "filename": "blueprints/k8s-holmes-rules.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1515
+      },
+      "writtenOn": "2020-11-04T00:21:35Z",
+      "side": 1,
+      "message": "Sorry, Vijay. It is the config_key name. I think I had ever asked you about this via email.\nIt\u0027s already been verified in the SB-00 tenant and things work fine.",
+      "parentUuid": "0d5b514f_4f89834d",
+      "range": {
+        "startLine": 92,
+        "startChar": 2244,
+        "endLine": 92,
+        "endChar": 2255
+      },
+      "revId": "2c07561d9ec136a07fb059a87e8f8802a57fc070",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
