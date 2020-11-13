@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.1.8'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-guilin-merge-java/7'
+ref: 99646c89e066142600f46750f822bf0ce6b290bd
+containers:
+  - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+    version: '2.1.8-SNAPSHOT-20201113T175336Z'
