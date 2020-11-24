@@ -94,6 +94,30 @@
       "revId": "58260f9a2033b9501160166a54c52594e7859510",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ffa3b41_04b79247",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6592
+      },
+      "writtenOn": "2020-11-24T10:46:03Z",
+      "side": 1,
+      "message": "Agree. I increased minor version",
+      "parentUuid": "3f686cda_8ce61134",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "58260f9a2033b9501160166a54c52594e7859510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
