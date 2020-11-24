@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06f25bcd_30ef016d",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-11-24T10:20:37Z",
+      "side": 1,
+      "message": "Its just bug fix?",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "58260f9a2033b9501160166a54c52594e7859510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
