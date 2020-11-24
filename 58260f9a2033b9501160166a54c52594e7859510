@@ -22,6 +22,30 @@
       "revId": "58260f9a2033b9501160166a54c52594e7859510",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c15200_e45d2f97",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6592
+      },
+      "writtenOn": "2020-11-24T10:29:36Z",
+      "side": 1,
+      "message": "Not exactly. In k8splugin we replaced AAF with OOM CertService and renamed init container from truststore merger to cert post processor. Should I here increase minor version?",
+      "parentUuid": "06f25bcd_30ef016d",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "58260f9a2033b9501160166a54c52594e7859510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
