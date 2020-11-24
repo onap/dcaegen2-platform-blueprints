@@ -46,6 +46,30 @@
       "revId": "58260f9a2033b9501160166a54c52594e7859510",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd99aab4_a6d559b9",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2837
+      },
+      "writtenOn": "2020-11-24T10:35:17Z",
+      "side": 1,
+      "message": "Ok since no new functionality introduced it could remain as it is.",
+      "parentUuid": "92c15200_e45d2f97",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "58260f9a2033b9501160166a54c52594e7859510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
