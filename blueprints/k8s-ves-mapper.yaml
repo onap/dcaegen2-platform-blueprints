@@ -20,7 +20,7 @@
 description: "This blueprint deploys the UniversalVESAdapter"
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=3.4.3
+  - plugin:k8splugin?version=>=3.4.3,<4.0.0
 
 inputs:
   rcc_notification_url:
