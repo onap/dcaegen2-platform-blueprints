@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387c7e52_9046cda7",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-12-01T15:56:06Z",
+      "side": 1,
+      "message": "1.5.1?",
+      "range": {
+        "startLine": 30,
+        "startChar": 95,
+        "endLine": 30,
+        "endChar": 100
+      },
+      "revId": "95123b3dfcdb4f3a24fe8f0df930e31e32531d36",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
