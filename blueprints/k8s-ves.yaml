@@ -104,9 +104,9 @@ inputs:
   external_cert_sans:
     type: string
     description: "List of Subject Alternative Names (SANs) which should be present
-      in certificate. Delimiter - : Should contain common_name value and other FQDNs
+      in certificate. Delimiter - , Should contain common_name value and other FQDNs
       under which given component is accessible."
-    default: "dcae-ves-collector:ves-collector:ves"
+    default: "dcae-ves-collector,ves-collector,ves"
   external_cert_use_external_tls:
     type: boolean
     description: Flag to indicate external tls enable/disable.
