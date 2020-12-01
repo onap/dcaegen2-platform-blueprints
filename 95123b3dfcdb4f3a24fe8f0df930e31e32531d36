@@ -22,6 +22,30 @@
       "revId": "95123b3dfcdb4f3a24fe8f0df930e31e32531d36",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf2ac1f_4af8d58a",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-12-01T16:04:25Z",
+      "side": 1,
+      "message": "1.5.1 is not released yet - I\u0027ve made the commit for that earlier today: https://gerrit.onap.org/r/c/dcaegen2/collectors/hv-ves/+/115952",
+      "parentUuid": "387c7e52_9046cda7",
+      "range": {
+        "startLine": 30,
+        "startChar": 95,
+        "endLine": 30,
+        "endChar": 100
+      },
+      "revId": "95123b3dfcdb4f3a24fe8f0df930e31e32531d36",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
