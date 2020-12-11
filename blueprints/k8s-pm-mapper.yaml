@@ -38,7 +38,7 @@ inputs:
   tag_version:
     type: string
     description: Docker image to be used
-    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.pm-mapper:1.4.2'
+    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.pm-mapper:1.5.0'
   replicas:
     type: integer
     description: Number of instances
