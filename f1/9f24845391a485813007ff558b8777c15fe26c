@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Adam Wudzinski <adam.wudzinski@nokia.com>
+Code-Review+1: Pawel Kasperkiewicz <pawel.kasperkiewicz@nokia.com>
+Code-Review+2: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-by: Remigiusz Janeczek <remigiusz.janeczek@nokia.com>
+Submitted-at: Mon, 14 Dec 2020 14:07:03 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/116335
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
