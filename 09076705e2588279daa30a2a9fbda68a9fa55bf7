@@ -70,6 +70,30 @@
       "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c02dbb9b_dfedebff",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2020-12-30T12:14:48Z",
+      "side": 1,
+      "message": "Sorry for the delay, missed the question because the change was set to WIP.\n\nPreviously I guess you\u0027d have to edit truststore with keytool or something like that, the change wouldn\u0027t be permanent though, so any pod restart would require you to repeat those steps. The goal is probably using some shared CA for DFC and external resources.\n\nThe solution here is using CMPv2 server (outside of ONAP). DFC requests certificates from the CertService (which receives it from CMPv2 server) and 5g Node should probably directly request certificates from the same CMPv2 server. That way 5g Node and DFC \"have\" each other in their truststores (of course it depends on the configuration of CMPv2 etc). Answering Your question - You should be able to make CMPv2 server use the CA that was used for 5g Node certs or make it return the CA as one of trusted certificates.",
+      "parentUuid": "b9ef0fdf_c8c0b003",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 101,
+        "endChar": 86
+      },
+      "revId": "09076705e2588279daa30a2a9fbda68a9fa55bf7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
