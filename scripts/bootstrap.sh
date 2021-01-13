@@ -1,6 +1,7 @@
 #!/bin/bash
 # ================================================================================
 # Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2021 J. F. Lucas. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +22,8 @@
 #   CM password in CMPASS environment variable (assumes user is "admin")
 #   ONAP common Kubernetes namespace in ONAP_NAMESPACE environment variable
 #   If DCAE components are deployed in a separate Kubernetes namespace, that namespace in DCAE_NAMESPACE variable.
-#   Consul address with port in CONSUL variable
-# 	Blueprints for components to be installed in /blueprints
+#   Blueprints for components to be installed in /blueprints
 #   Input files for components to be installed in /inputs
-#   Configuration JSON files that need to be loaded into Consul in /dcae-configs
-#   Consul is installed in /opt/consul/bin/consul, with base config in /opt/consul/config/00consul.json
 # Optionally, allows:
 #   CM protocol in CMPROTO environment variable (defaults to HTTP)
 #   CM port in CMPORT environment variable (defaults to 80)
@@ -136,16 +134,6 @@ cfy status
 
 # Store the CM password into a Cloudify secret
 cfy secret create -s ${CMPASS} cmpass
-
-# Load configurations into Consul KV store
-for config in /dcae-configs/*.json
-do
-    # The basename of the file is the Consul key
-    key=$(basename ${config} .json)
-    # Strip out comments, empty lines
-    egrep -v "^#|^$" ${config} > /tmp/dcae-upload
-    curl -v -X PUT -H "Content-Type: application/json" --data-binary @/tmp/dcae-upload ${CONSUL}/v1/kv/${key}
-done
 
 # After this point, failures should not stop the script or block later commands
 trap - ERR

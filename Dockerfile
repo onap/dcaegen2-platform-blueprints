@@ -2,6 +2,7 @@
 # org.onap.dcae
 # ================================================================================
 # Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2021 J. F. Lucas.  All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,21 +17,25 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-FROM centos:7.4.1708
-LABEL maintainer="maintainer"
+# cloudify CLI requires python 3.6
+# won't work with 3.7 or later, hence won't work
+# with the ONAP integration-python base images
+FROM python:3.6-alpine
+LABEL maintainer="ONAP DCAE Team"
+LABEL Description="DCAE bootstrap image"
 
-# Install gcc
-RUN yum install -y gcc python-devel
+ARG user=onap
+ARG group=onap
+
+# Install packages needed for cloudify and for running bootstrap script
+RUN apk --no-cache add build-base libffi-dev openssl-dev curl bash
 
 # Install jq
 RUN curl -Ssf -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"  > /bin/jq \
 && chmod +x /bin/jq
 
 # Install pip and Cloudify CLI
-RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-  && python get-pip.py \
-  && rm get-pip.py \
-  && pip install cloudify==20.03.03
+RUN pip install cloudify==5.1.1
 
 # Copy scripts
 RUN mkdir scripts
@@ -45,9 +50,10 @@ ENTRYPOINT exec "/scripts/bootstrap.sh"
 # Make scripts executable & set up a non-root user
 RUN chmod +x /scripts/*.sh \
   && mkdir -p /opt/bootstrap \
-  && useradd -d /opt/bootstrap bootstrap \
-  && chown -R bootstrap:bootstrap /opt/bootstrap \
-  && chown -R bootstrap:bootstrap /scripts \
-  && chown -R bootstrap:bootstrap /blueprints
+  && addgroup -S $group \
+  && adduser -S -D -h /opt/bootstrap -s /bin/bash $user $group \
+  && chown -R $user:$group /opt/bootstrap \
+  && chown -R $user:$group /scripts \
+  && chown -R $user:$group /blueprints
 
-USER bootstrap
+USER $user
