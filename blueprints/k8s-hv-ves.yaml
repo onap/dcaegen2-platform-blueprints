@@ -27,7 +27,7 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.5.1'
+    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.5.0'
   service_component_type:
     type: string
     default: 'dcae-hv-ves-collector'
