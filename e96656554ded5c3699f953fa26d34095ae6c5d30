@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "668cac6e_cde68135",
+        "filename": "releases/2.2.4-k8s-bootstrap-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-01-14T16:47:48Z",
+      "side": 1,
+      "message": "This job corresponds to 3.0.0-SNAPSHOT",
+      "range": {
+        "startLine": 4,
+        "startChar": 57,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "e96656554ded5c3699f953fa26d34095ae6c5d30",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
