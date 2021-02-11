@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [3.0.2] - 2021-02-15
 ### Changed
 - [DCAEGEN2-2628](https://jira.onap.org/browse/DCAEGEN2-2628) - Fix docker image build problem
+- [DCAEGEN2-2528](https://jira.onap.org/browse/DCAEGEN2-2528) - Add HTTPS as new protocol to collect files from xNFs
 
 ## [3.0.1] - 11/02/2021
 ### Changed
