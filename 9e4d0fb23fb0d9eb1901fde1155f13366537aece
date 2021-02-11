@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7fdc9f5_f36d8806",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3435
+      },
+      "writtenOn": "2021-02-11T14:41:21Z",
+      "side": 1,
+      "message": "remove \"## [3.0.0] - 03/02/2021\"  section",
+      "revId": "9e4d0fb23fb0d9eb1901fde1155f13366537aece",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
