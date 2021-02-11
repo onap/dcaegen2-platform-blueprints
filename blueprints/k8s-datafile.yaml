@@ -53,7 +53,7 @@ inputs:
     default: 1
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.5.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.5.3"
   use_tls:
     type: boolean
     default: true
@@ -95,10 +95,10 @@ node_templates:
           PM_MEAS_FILES:
             dmaap_info: <<feed0>>
             type: data_router
-        dmaap.ftpesConfig.keyCert: /opt/app/datafile/etc/cert/cert.p12
-        dmaap.ftpesConfig.keyPasswordPath: /opt/app/datafile/etc/cert/p12.pass
-        dmaap.ftpesConfig.trustedCa: /opt/app/datafile/etc/cert/trust.jks
-        dmaap.ftpesConfig.trustedCaPasswordPath: /opt/app/datafile/etc/cert/trust.pass
+        dmaap.certificateConfig.keyCert: /opt/app/datafile/etc/cert/cert.p12
+        dmaap.certificateConfig.keyPasswordPath: /opt/app/datafile/etc/cert/p12.pass
+        dmaap.certificateConfig.trustedCa: /opt/app/datafile/etc/cert/trust.jks
+        dmaap.certificateConfig.trustedCaPasswordPath: /opt/app/datafile/etc/cert/trust.pass
         dmaap.security.enableDmaapCertAuth: true
         dmaap.security.keyStorePasswordPath: /opt/app/datafile/etc/cert/jks.pass
         dmaap.security.keyStorePath: /opt/app/datafile/etc/cert/cert.jks
