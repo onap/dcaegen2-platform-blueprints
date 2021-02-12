@@ -2,7 +2,7 @@
 # ============LICENSE_START====================================================
 # =============================================================================
 # Copyright (c) 2019 TechMahindra. All rights reserved.
-# Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2020-2021 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # limitations under the License.
 # ============LICENSE_END======================================================
 
-description: "This blueprint deploys the UniversalVESAdapter"
+description: "UniversalVESAdapter blueprint"
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
   - plugin:k8splugin?version=>=3.4.3,<4.0.0
@@ -30,10 +30,7 @@ inputs:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.ONAP-COLLECTOR-SNMPTRAP"
     type: string
   tag_version:
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.mapper.vesadapter.universalvesadaptor:1.1.0"
-    type: string
-  universal_mapper_name:
-    default: "dcaegen2-svc-mapper"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.mapper.vesadapter.universalvesadaptor:1.2.0"
     type: string
   ves_fault_publish_url:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_FAULT_OUTPUT"
@@ -47,6 +44,15 @@ inputs:
   ves_pnfRegistration_publish_url:
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.VES_PNFREG_OUTPUT"
     type: string
+  service_component_type:
+    type: string
+    default: "dcae-svc-vesmapper"
+  service_id:
+    type: string
+    default: "dcae-svc-vesmapper"
+  service_component_name_override:
+    type: string
+    default: "dcae-svc-vesmapper"
 node_templates:
   universalvesadapter:
     interfaces:
@@ -101,8 +107,9 @@ node_templates:
       docker_config: {}
       image:
         get_input: tag_version
-      service_component_type:
-        get_input: universal_mapper_name
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
     type: dcae.nodes.ContainerizedServiceComponent
 tosca_definitions_version: cloudify_dsl_1_3
 

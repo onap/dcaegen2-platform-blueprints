@@ -1,6 +1,6 @@
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Huawei. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ description: >
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=>=3.4.3,<4.0.0
 inputs:
   dmaap_host:
     type: string
@@ -33,7 +33,7 @@ inputs:
     default: "3904"
   tag_version:
     type: string
-    default:  "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.restconfcollector:1.2.2"
+    default:  "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.restconfcollector:1.2.3"
   consul_host:
     type: string
     default: "consul-server.onap.svc.cluster.local"
@@ -53,12 +53,20 @@ inputs:
   notification_publish_url:
     type: string
     default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_RCC_OUTPUT"
+  service_component_type:
+    type: string
+    default: "dcae-restconf-collector"
+  service_id:
+    type: string
+    default: "dcae-restconf-collector"
+  service_component_name_override:
+    type: string
+    default: "dcae-restconf-collector"
 
 node_templates:
   rcc_k8s:
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponent
     properties:
-        name: 'dcaegen2-collectors-rcc'
         docker_config:
             healthcheck:
               endpoint: /healthcheck
@@ -94,6 +102,9 @@ node_templates:
                               get_input: notification_publish_url
                           type: message_router
             rcc_policy: '[{"controller_name":"AccessM&C","controller_restapiUrl":"172.30.0.55:26335","controller_restapiUser":"access","controller_restapiPassword":"Huawei@123","controller_accessTokenUrl":"/rest/plat/smapp/v1/oauth/token","controller_accessTokenFile":"./etc/access-token.json","controller_accessTokenMethod":"put","controller_subsMethod":"post","controller_subscriptionUrl":"/restconf/v1/operations/huawei-nce-notification-action:establish-subscription","controller_disableSsl":"true","event_details":[{"event_name":"ONT_registration","event_description":"ONTregistartionevent","event_sseventUrlEmbed":"true","event_sseventsField":"output.url","event_sseventsUrl":"null","event_subscriptionTemplate":"./etc/ont_registartion_subscription_template.json","event_unSubscriptionTemplate":"./etc/ont_registartion_unsubscription_template.json","event_ruleId":"12345678","modifyData": "true","modifyMethod": "modifyOntEvent","userData": "remote_id=AC9.0234.0337;svlan=100;cvlan=10;"}]}]'
+        service_component_type: { get_input: service_component_type }
+        service_id: { get_input: service_id }
+        service_component_name_override: { get_input: service_component_name_override }
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
@@ -112,5 +123,4 @@ node_templates:
                 CONFIG_BINDING_SERVICE: "config_binding_service"
             ports:
               - concat: ["8080:", { get_input: external_port }]
-
 
