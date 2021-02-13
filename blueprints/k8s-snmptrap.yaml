@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (c) 2018-2019 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
+  - plugin:k8splugin?version=>=3.4.3,<4.0.0
 inputs:
   tag_version:
     type: string
@@ -81,6 +81,16 @@ inputs:
     type: integer
     description: number of instances
     default: 1
+  service_component_type:
+    type: string
+    default: "dcae-snmptrap-collector"
+  service_id:
+    type: string
+    default: "dcae-snmptrap-collector"
+  service_component_name_override:
+    type: string
+    default: "dcae-snmptrap-collector"
+
 
 node_templates:
   snmptrap:
@@ -115,6 +125,8 @@ node_templates:
       image:
         get_input: tag_version
       replicas: {get_input: replicas}
-      name: 'dcae-snmptrap-collector'
-      dns_name: 'dcae-snmptrap-collector'
-    type: dcae.nodes.ContainerizedPlatformComponent
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
+    type: dcae.nodes.ContainerizedServiceComponent
+
