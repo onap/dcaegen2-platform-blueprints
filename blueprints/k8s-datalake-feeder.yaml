@@ -1,6 +1,7 @@
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (C) 2020 QCT
+# Copyright (C) 2020 QCT. All rights reserved.
+# Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,8 +21,8 @@
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=2.0.0
-  - plugin:dcaepolicyplugin?version=2.4.0
+  - plugin:k8splugin?version=>=3.4.3,<4.0.0
+
 inputs:
   mariadb_address:
     type: string
@@ -63,9 +64,19 @@ inputs:
     type: string
     description: external port
     default: "30408"
+  service_component_type:
+    type: string
+    default: "dcae-dl-feeder"
+  service_id:
+    type: string
+    default: "dcae-dl-feeder"
+  service_component_name_override:
+    type: string
+    default: "dcae-dl-feeder"
+
 node_templates:
   datalake:
-    type: dcae.nodes.ContainerizedPlatformComponent
+    type: dcae.nodes.ContainerizedServiceComponent
     interfaces:
       cloudify.interfaces.lifecycle:
         start:
@@ -102,7 +113,7 @@ node_templates:
           timeout: 10s
           type: http
           endpoint: /datalake/v1/topics
-      dns_name: "dl-feeder"
-      name: datalake-feeder
-      container_port: { get_input: container_port }
-      host_port: { get_input: host_port }
+      service_component_type: { get_input: service_component_type }
+      service_id: { get_input: service_id }
+      service_component_name_override: { get_input: service_component_name_override }
+
