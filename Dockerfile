@@ -34,8 +34,15 @@ RUN apk --no-cache add build-base libffi-dev openssl-dev curl bash
 RUN curl -Ssf -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64"  > /bin/jq \
 && chmod +x /bin/jq
 
+# Install rust (needed for "cryptography", needed for "cloudify"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /rustinstall \
+&& chmod +x /rustinstall \
+&& /rustinstall -y
+
 # Install pip and Cloudify CLI
-RUN pip install cloudify==5.1.1
+RUN source /root/.cargo/env \
+&& pip install --upgrade pip \
+&& pip install cloudify==5.1.1
 
 # Copy scripts
 RUN mkdir scripts
