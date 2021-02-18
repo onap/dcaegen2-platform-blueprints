@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23b4f200_3bd2513c",
+        "filename": "releases/3.0.2-k8s-bootstrap-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-18T00:25:19Z",
+      "side": 1,
+      "message": "A newer patch - https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/117854 was merged earlier today under 3.0.2; corresponding snapshot should be used for release",
+      "range": {
+        "startLine": 4,
+        "startChar": 57,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "c45ce6028393c35c80de01cfef1c3e06f82250cc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
