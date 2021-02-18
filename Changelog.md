@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.3] - 2021-02-18
+### Changed
+- [DCAEGEN2-2509](https://jira.onap.org/browse/DCAEGEN2-2509) - Avoid removal of data when insufficient PM data samples are present
+- [DCAEGEN2-2540](https://jira.onap.org/browse/DCAEGEN2-2540) - Slice-analysis-ms and Policy integration issue fixes
+
 ## [3.0.2] - 2021-02-15
 ### Changed
 - [DCAEGEN2-2628](https://jira.onap.org/browse/DCAEGEN2-2628) - Fix docker image build problem
