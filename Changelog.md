@@ -6,16 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.0.3] - 2021-02-18
 ### Changed
-- [DCAEGEN2-2509](https://jira.onap.org/browse/DCAEGEN2-2509) - Avoid removal of data when insufficient PM data samples are present
-- [DCAEGEN2-2540](https://jira.onap.org/browse/DCAEGEN2-2540) - Slice-analysis-ms and Policy integration issue fixes
+         - [DCAEGEN2-2509](https://jira.onap.org/browse/DCAEGEN2-2509) - Avoid removal of data when insufficient PM data samples are present
+         - [DCAEGEN2-2540](https://jira.onap.org/browse/DCAEGEN2-2540) - Slice-analysis-ms and Policy integration issue fixes
+	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - SNMPTrap collector blueprint updated to use ContainerizedServiceComponent and latest k8s plugin
+	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - DL feeder and DL-Admin blueprint updated to use ContainerizedServiceComponent and latest k8s plugin
 
 ## [3.0.2] - 2021-02-15
 ### Changed
-- [DCAEGEN2-2628](https://jira.onap.org/browse/DCAEGEN2-2628) - Fix docker image build problem
-- [DCAEGEN2-2528](https://jira.onap.org/browse/DCAEGEN2-2528) - Add HTTPS as new protocol to collect files from xNFs
+         - [DCAEGEN2-2628](https://jira.onap.org/browse/DCAEGEN2-2628) - Fix docker image build problem
+         - [DCAEGEN2-2528](https://jira.onap.org/browse/DCAEGEN2-2528) - Add HTTPS as new protocol to collect files from xNFs
 
 ## [3.0.1] - 11/02/2021
 ### Changed
-	- [DCAEGEN2-2537](https://jira.onap.org/browse/DCAEGEN2-2537) - Upgrade prh.prh-app-server to 1.5.5
-	- [DCAEGEN2-2493](https://jira.onap.org/browse/DCAEGEN2-2493) - RCC blueprint updated to use latest k8s plugin & 1.2.3 version (vulnerability fixes)
-	- [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes)
+	 - [DCAEGEN2-2537](https://jira.onap.org/browse/DCAEGEN2-2537) - Upgrade prh.prh-app-server to 1.5.5
+	 - [DCAEGEN2-2493](https://jira.onap.org/browse/DCAEGEN2-2493) - RCC blueprint updated to use latest k8s plugin & 1.2.3 version (vulnerability fixes)
+	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes)
+	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes) 
