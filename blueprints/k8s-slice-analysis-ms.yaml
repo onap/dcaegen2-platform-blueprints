@@ -1,6 +1,6 @@
  #
  #============LICENSE_START=======================================================
- #Copyright (C) 2020 Wipro Limited.
+ #Copyright (C) 2020-2021 Wipro Limited.
  #==============================================================================
  #Licensed under the Apache License, Version 2.0 (the "License");
  #you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
   - https://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
-  - plugin:k8splugin?version=>=3.4.3,<4.0.0
+  - plugin:k8splugin?version=3.4.3
   - plugin:pgaas?version=1.3.0
 inputs:
   replicas:
@@ -28,7 +28,7 @@ inputs:
   tag_version:
     type: string
     description: docker image name and version
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.slice-analysis-ms:1.0.3"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.slice-analysis-ms:1.0.4"
   pgaas_cluster_name:
     type: string
     description: pg cluster
@@ -81,6 +81,18 @@ inputs:
     type: string
     description: config db location
     default: "http://config-db:8080"
+  aai:
+    type: string
+    description: aai url
+    default: "https://aai.onap.svc.cluster.local:8443/aai/v21"
+  cps:
+    type: string
+    description: cps url
+    default: "https://cps:8088"
+  configDbEnabled:
+    type: string
+    description: configDb flag
+    default: "true"
   log_path:
     type: string
     description: log location in host
@@ -196,9 +208,13 @@ node_templates:
         sliceanalysisms.cg: { get_input: cg }
         sliceanalysisms.cid: { get_input: cid }
         sliceanalysisms.configDb.service: { get_input: config_db }
+        sliceanalysisms.configDbEnabled: { get_input: configDbEnabled }
+        sliceanalysisms.aai.url: { get_input: aai }
+        sliceanalysisms.cps.url: { get_input: cps }
         sliceanalysisms.samples: { get_input: samples }
         sliceanalysisms.minPercentageChange: { get_input: minimumPercentageChange }
         sliceanalysisms.initialDelaySeconds: { get_input: initialDelaySeconds }
     relationships:
       - type: cloudify.relationships.depends_on
         target: pgaasvm
+
