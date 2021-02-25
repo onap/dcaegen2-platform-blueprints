@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2585](https://jira.onap.org/browse/DCAEGEN2-2585) - Add new Kpi-Computation-ms
          - [DCAEGEN-2536](https://jira.onap.org/browse/DCAEGEN2-2536) - Add JWT support in HTTP/HTTPS based locations
          - [DCAEGEN2-2599](https://jira.onap.org/browse/DCAEGEN2-2599) - Vulnerability removal for son-handler
+         - [DCAEGEN2-2623](https://jira.onap.org/browse/DCAEGEN2-2623) - Add new fields to Slice-analysis-ms blueprint (AAI update)
 
 ## [3.0.2] - 2021-02-15
 ### Changed
