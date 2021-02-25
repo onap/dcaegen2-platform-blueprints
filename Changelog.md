@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2540](https://jira.onap.org/browse/DCAEGEN2-2540) - Slice-analysis-ms and Policy integration issue fixes
 	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - SNMPTrap collector blueprint updated to use ContainerizedServiceComponent and latest k8s plugin
 	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - DL feeder and DL-Admin blueprint updated to use ContainerizedServiceComponent and latest k8s plugin
+	 - [DCAEGEN2-2600](https://jira.onap.org/browse/DCAEGEN2-2600) - PM-Mapper blueprint updated to 1.5.1 version (added files processing config and fixed vulnerabilities)
 
 ## [3.0.2] - 2021-02-15
 ### Changed
