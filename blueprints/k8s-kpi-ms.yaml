@@ -1,0 +1,136 @@
+
+ #
+ #============LICENSE_START=======================================================
+ #Copyright (C) 2021 China Mobile.
+ #==============================================================================
+ #Licensed under the Apache License, Version 2.0 (the "License");
+ #you may not use this file except in compliance with the License.
+ #You may obtain a copy of the License at
+ #
+ #    http://www.apache.org/licenses/LICENSE-2.0
+ #
+ #Unless required by applicable law or agreed to in writing, software
+ #distributed under the License is distributed on an "AS IS" BASIS,
+ #WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ #See the License for the specific language governing permissions and
+ #limitations under the License.
+ #============LICENSE_END=========================================================
+tosca_definitions_version: cloudify_dsl_1_3
+imports:
+  - 'http://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml'
+  - plugin:dmaap?version=1.5.0
+  - plugin:k8splugin?version=>=3.4.3,<4.0.0
+inputs:
+  replicas:
+    type: integer
+    description: replica count for deployment
+    default: 1
+  tag_version:
+    type: string
+    description: docker image name and version
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.kpi-ms:1.0.0"
+  aaf_username:
+    type: string
+    description: aaf username
+    default: "dcae@dcae.onap.org"
+  aaf_password:
+    type: string
+    description: aaf password
+    default: "demo123456!"
+  dmaap_polling_interval:
+    type: integer
+    description: dmaap polling interval
+    default: 20
+  cbs_polling_interval:
+    type: integer
+    description: cbs polling interval
+    default: 60
+  dmaap_polling_timeout:
+    type: integer
+    description: dmaap polling timeout
+    default: 60
+  dmaap:
+    type: string
+    description: dmaap server
+    default: "message-router"
+  cg:
+    type: string
+    description: consumer group
+    default: "kpi-cg"
+  cid:
+    type: string
+    description: consumer id
+    default: "kpi-cid"
+  log_path:
+    type: string
+    description: log location in host
+    default: "/dockerdata-nfs/kpi-ms"
+  performance_management_topic_url:
+    type: string
+    description: performance measurement topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/org.onap.dmaap.mr.PERFORMANCE_MEASUREMENTS"
+  dcae_kpi_topic_url:
+    type: string
+    description: dcae control loop topic url
+    default: "https://message-router.onap.svc.cluster.local:3905/events/unauthenticated.DCAE_KPI_OUTPUT"
+node_templates:
+  kpims:
+    type: dcae.nodes.ContainerizedServiceComponent
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          inputs:
+            envs:
+              STANDALONE: "false"
+            ports:
+              - "8080:0"
+            volumes:
+              - host:
+                  path: { get_input: log_path }
+                container:
+                  bind: /home/kpims/logs
+                  mode: rw
+    properties:
+      image:
+        get_input: tag_version
+      service_component_type: 'dcae-kpi-ms'
+      service_id: 'kpims'
+      service_component_name_override: 'dcae-kpi-ms'
+      always_pull_image: true
+      replicas: {get_input: replicas}
+      docker_config:
+        healthcheck:
+          endpoint: /healthcheck
+          interval: 15s
+          timeout: 1s
+          type: http
+      tls_info:
+        cert_directory: '/opt/app/kpims/etc/cert/'
+        use_tls: true
+      application_config:
+        aafUsername: { get_input: aaf_username }
+        aafPassword: { get_input: aaf_password }
+        trust_store_path: '/opt/app/kpims/etc/cert/trust.jks'
+        trust_store_pass_path: '/opt/app/kpims/etc/cert/trust.pass'
+        streams_subscribes:
+          performance_management_topic:
+            aaf_username: { get_input: aaf_username }
+            aaf_password: { get_input: aaf_password }
+            dmaap_info:
+              topic_url: { get_input: performance_management_topic_url }
+            type: message-router
+        streams_publishes:
+          kpi_topic:
+            dmaap_info:
+              topic_url: { get_input: dcae_kpi_topic_url }
+            type: message-router
+        pollingInterval: { get_input: dmaap_polling_interval}
+        pollingTimeout: { get_input: dmaap_polling_timeout }
+        cbsPollingInterval: { get_input: cbs_polling_interval }
+        dmaap.server:
+          - { get_input: dmaap }
+        cg: { get_input: cg }
+        cid: { get_input: cid }
+        kpi.policy:
+          '{"domain":"measurementsForKpi","methodForKpi":[{"eventName":"perf3gpp_CORE-AMF_pmMeasResult","controlLoopSchemaType":"SLICE","policyScope":"resource=networkSlice;type=configuration","policyName":"configuration.dcae.microservice.kpi-computation","policyVersion":"v0.0.1","kpis":[{"measType":"AMFRegNbr","operation":"SUM","operands":"RM.RegisteredSubNbrMean"}]},{"eventName":"perf3gpp_CORE-UPF_pmMeasResult","controlLoopSchemaType":"SLICE","policyScope":"resource=networkSlice;type=configuration","policyName":"configuration.dcae.microservice.kpi-computation","policyVersion":"v0.0.1","kpis":[{"measType":"UpstreamThr","operation":"SUM","operands":"GTP.InDataOctN3UPF"},{"measType":"DownstreamThr","operation":"SUM","operands":"GTP.OutDataOctN3UPF"}]}]}'
+
