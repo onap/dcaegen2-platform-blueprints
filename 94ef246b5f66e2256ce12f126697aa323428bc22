@@ -68,6 +68,54 @@
       "revId": "94ef246b5f66e2256ce12f126697aa323428bc22",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e2989cc_ae06406f",
+        "filename": "blueprints/k8s-kpi-ms.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-25T18:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d8ad21_a9928f68",
+      "range": {
+        "startLine": 135,
+        "startChar": 194,
+        "endLine": 135,
+        "endChar": 252
+      },
+      "revId": "94ef246b5f66e2256ce12f126697aa323428bc22",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5276daba_c9a93b40",
+        "filename": "blueprints/k8s-kpi-ms.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-25T18:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcbb4f86_0049830c",
+      "range": {
+        "startLine": 135,
+        "startChar": 518,
+        "endLine": 135,
+        "endChar": 563
+      },
+      "revId": "94ef246b5f66e2256ce12f126697aa323428bc22",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
