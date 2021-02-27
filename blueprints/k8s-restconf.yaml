@@ -33,7 +33,7 @@ inputs:
     default: "3904"
   tag_version:
     type: string
-    default:  "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.restconfcollector:1.2.3"
+    default:  "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.restconfcollector:1.2.4"
   consul_host:
     type: string
     default: "consul-server.onap.svc.cluster.local"

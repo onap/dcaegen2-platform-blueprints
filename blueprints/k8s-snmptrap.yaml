@@ -25,7 +25,7 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:2.0.3"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:2.0.4"
   cache:
     type: string
     default:
