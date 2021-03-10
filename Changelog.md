@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.4] - 2021-03-10
+         - [DCAEGEN2-2656](https://jira.onap.org/browse/DCAEGEN2-2656) - fix CRITICAL weak-cryptography issues identified in sonarcloud (hostname verification in DFC)
+
 ## [3.0.3] - 2021-02-18
 ### Changed
          - [DCAEGEN2-2509](https://jira.onap.org/browse/DCAEGEN2-2509) - Avoid removal of data when insufficient PM data samples are present
