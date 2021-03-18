@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.0.4] - 2021-03-10
          - [DCAEGEN2-2656](https://jira.onap.org/browse/DCAEGEN2-2656) - fix CRITICAL weak-cryptography issues identified in sonarcloud (hostname verification in DFC)
+         - [DCAEGEN2-2659](https://jira.onap.org/browse/DCAEGEN2-2659) - PM-Mapper blueprint updated to 1.5.2 version (implement singleton cache for events being processed)
 
 ## [3.0.3] - 2021-02-18
 ### Changed
