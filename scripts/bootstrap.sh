@@ -148,9 +148,6 @@ deploy tcagen2 k8s-tcagen2.yaml k8s-tcagen2-inputs.yaml &
 deploy ves-tls k8s-ves.yaml k8s-ves-inputs-tls.yaml &
 deploy prh k8s-prh.yaml k8s-prh-inputs.yaml &
 deploy hv-ves k8s-hv-ves.yaml k8s-hv_ves-inputs.yaml &
-# holmes_rules must be deployed before holmes_engine, but holmes_rules can go in parallel with other service components
-deploy holmes_rules k8s-holmes-rules.yaml k8s-holmes_rules-inputs.yaml
-deploy holmes_engine k8s-holmes-engine.yaml k8s-holmes_engine-inputs.yaml
 
 # Display deployments, for debugging purposes
 cfy deployments list
