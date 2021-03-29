@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e64553c4_37975362",
+        "filename": "blueprints/k8s-holmes-engine.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-29T19:51:50Z",
+      "side": 1,
+      "message": "2021",
+      "revId": "9ddc69061f82d6c662b803227dec4590e79edac0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096d84bb_5c020609",
+        "filename": "blueprints/k8s-holmes-rules.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-29T19:51:50Z",
+      "side": 1,
+      "message": "2021",
+      "revId": "9ddc69061f82d6c662b803227dec4590e79edac0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95738b4_209c6603",
+        "filename": "scripts/bootstrap.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-03-29T19:51:50Z",
+      "side": 1,
+      "message": "2021",
+      "revId": "9ddc69061f82d6c662b803227dec4590e79edac0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
