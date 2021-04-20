@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71bfbdac_cd374b14",
+        "filename": "Changelog.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-04-20T06:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d86d32f_3a2a8cf8",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20ed720f_683f3d0b",
         "filename": "blueprints/k8s-datalake-des.yaml",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f3e5f03_cc030d57",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-04-20T06:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20ed720f_683f3d0b",
+      "range": {
+        "startLine": 51,
+        "startChar": 93,
+        "endLine": 51,
+        "endChar": 98
+      },
+      "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "805cf981_3ad72b49",
+        "filename": "blueprints/k8s-datalake-feeder.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-04-20T06:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56444285_f3fe4135",
+      "range": {
+        "startLine": 35,
+        "startChar": 82,
+        "endLine": 35,
+        "endChar": 87
+      },
+      "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdc8d332_957fb9c3",
         "filename": "version.properties",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da3fa209_c827647f",
+        "filename": "version.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2021-04-20T06:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc8d332_957fb9c3",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "51c98cc445424eccf3bc7ee2814cc5f3f7cff90e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
