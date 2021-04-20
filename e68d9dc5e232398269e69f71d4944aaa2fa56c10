@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c460377_bedf1256",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-04-20T20:58:12Z",
+      "side": 1,
+      "message": "This will create separate DB instance for DES.. Should this be using same instance created for Feeder? If so, nodetype should be \"feederpgaas\" and use_existing must be true",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 25
+      },
+      "revId": "e68d9dc5e232398269e69f71d4944aaa2fa56c10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
