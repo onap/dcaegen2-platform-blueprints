@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.1.0] - 2021-04-16
          - [DCAEGEN2-2329](https://jira.onap.org/browse/DCAEGEN2-2329) - Update DES and DL-feeder blueprint to use postgres DB for non-root access
+         - [DCAEGEN2-2420](https://jira.onap.org/browse/DCAEGEN2-2420) - PRH 1.6.0 and PM-Mapper 1.6.0 integration base image alignemnt
+         - [DCAEGEN2-2732](https://jira.onap.org/browse/DCAEGEN2-2732) - PM-Mapper 1.6.0 Utilize SDK/Dmaap client 
+         - [DCAEGEN2-2675](https://jira.onap.org/browse/DCAEGEN2-2675) - RESTConf 1.2.5 - xml parsing vulnerability
 
 ## [3.0.4] - 2021-03-10
          - [DCAEGEN2-2656](https://jira.onap.org/browse/DCAEGEN2-2656) - fix CRITICAL weak-cryptography issues identified in sonarcloud (hostname verification in DFC)
