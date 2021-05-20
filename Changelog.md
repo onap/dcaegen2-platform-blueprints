@@ -5,9 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.1.0] - 2021-04-16
-         - [DCAEGEN2-2420](https://jira.onap.org/browse/DCAEGEN2-2420) - PRH 1.6.0 and PM-Mapper 1.6.0 integration base image alignemnt
+         - [DCAEGEN2-2420](https://jira.onap.org/browse/DCAEGEN2-2420) - PRH 1.6.0, PM-Mapper 1.6.0 and TCA-Gen2 1.3.0 integration base image alignemnt
          - [DCAEGEN2-2732](https://jira.onap.org/browse/DCAEGEN2-2732) - PM-Mapper 1.6.0 Utilize SDK/Dmaap client 
          - [DCAEGEN2-2675](https://jira.onap.org/browse/DCAEGEN2-2675) - RESTConf 1.2.5 - xml parsing vulnerability
+         - [DCAEGEN2-2590](https://jira.onap.org/browse/DCAEGEN2-2590) - TCA-Gen2 1.3.0 - vulnerability removal
 
 ## [3.0.4] - 2021-03-10
          - [DCAEGEN2-2656](https://jira.onap.org/browse/DCAEGEN2-2656) - fix CRITICAL weak-cryptography issues identified in sonarcloud (hostname verification in DFC)
