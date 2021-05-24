@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2732](https://jira.onap.org/browse/DCAEGEN2-2732) - PM-Mapper 1.6.0 Utilize SDK/Dmaap client 
          - [DCAEGEN2-2675](https://jira.onap.org/browse/DCAEGEN2-2675) - RESTConf 1.2.5 - xml parsing vulnerability
          - [DCAEGEN2-2590](https://jira.onap.org/browse/DCAEGEN2-2590) - TCA-Gen2 1.3.0 - vulnerability removal
+         - [DCAEGEN2-2713](https://jira.onap.org/browse/DCAEGEN2-2713) - PMSH 1.3.1 - policy config consolidation under app-config
 
 ## [3.0.4] - 2021-03-10
          - [DCAEGEN2-2656](https://jira.onap.org/browse/DCAEGEN2-2656) - fix CRITICAL weak-cryptography issues identified in sonarcloud (hostname verification in DFC)
