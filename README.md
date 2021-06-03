@@ -2,8 +2,7 @@
 This repository holds the source code needed to build the
 Docker image for the DCAE bootstrap container.  The bootstrap
 container runs at DCAE deployment time (via a Helm chart) and
-does initial setup of the DCAE environment.  This includes
-deploying several service components using Cloudify Manager.
+does initial setup of the DCAE environment.
 
 This repository also holds Cloudify blueprints for service components.
 The Docker build process copies these blueprints into the Docker image
@@ -17,13 +16,14 @@ The Docker build process for the bootstrap containter image pulled the blueprint
 
 ## DCAE Bootstrap Container
 This container is responsible for loading blueprints onto the
-DCAE Cloudify Manager instance and for launching DCAE components.
+DCAE inventory component.  It also provides an environment for debugging
+any issues related to Cloudify deployments, since it has the Cloudify
+"cfy" command line tool available.
 
-The Docker image build process loads  blueprints into the
+The Docker image build process loads blueprints into the
 image's file system.   The blueprints are copied from the `blueprints` directory in this repository.
 At run time, the main script in the container
-(`bootstrap.sh`) installs
-components using the blueprints.
+(`bootstrap.sh`) uploads the blueprints to the DCAE inventory component.
 
 The container expects to be started with two environment variables:
   - `CMADDR` -- the address of the target Cloudify Manager

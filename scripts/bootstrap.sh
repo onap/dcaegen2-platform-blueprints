@@ -16,12 +16,24 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-# Install DCAE via Cloudify Manager
+# Prior to the "H" release, this bootstrap script was used to deploy DCAE components
+# during the initial DCAE installation process using Cloudify Manager with Cloudify
+# blueprints.  Over the course of several releases, we have migrated these components to use Helm
+# deployment, starting with the DCAE "platform components" and, in the "H" release, the 4
+# DCAE microservices that are always launched when DCAE is deployed.
+#
+# For the "I" release, we are expecting to migrate all DCAE microservices to Helm deployment,
+# including the microservices that are launched on demand after initial DCAE installation.
+# We are continuing to provide support for Cloudify deployments during the "I" release.  This
+# bootstrap script will deploy the Cloudify blueprint that initializes the Cloudify-based
+# DCAE postgres instance and will upload all of the DCAE Cloudify blueprints to the DCAE
+# inventory component.  The bootstrap container will continue to run after its deployment and
+# upload work is complete.   User can "exec" into the bootstrap container and use the Cloudify
+# "cfy" command to debug any issues related to Cloudify deployments.
+#
 # Expects:
 #   CM address (IP or DNS) in CMADDR environment variable
 #   CM password in CMPASS environment variable (assumes user is "admin")
-#   ONAP common Kubernetes namespace in ONAP_NAMESPACE environment variable
-#   If DCAE components are deployed in a separate Kubernetes namespace, that namespace in DCAE_NAMESPACE variable.
 #   Blueprints for components to be installed in /blueprints
 #   Input files for components to be installed in /inputs
 # Optionally, allows:
@@ -116,7 +128,6 @@ function deploy {
     fi
 }
 
-
 ### END FUNCTION DEFINTIONS ###
 
 set -x
@@ -141,13 +152,6 @@ set +e
 
 # Initialize the DCAE postgres instance
 deploy pgaas_initdb k8s-pgaas-initdb.yaml k8s-pgaas-initdb-inputs.yaml
-
-# Deploy service components
-# tcagen2, ves, prh, hv-ves, datafile-collector can be deployed simultaneously
-deploy tcagen2 k8s-tcagen2.yaml k8s-tcagen2-inputs.yaml &
-deploy ves-tls k8s-ves.yaml k8s-ves-inputs-tls.yaml &
-deploy prh k8s-prh.yaml k8s-prh-inputs.yaml &
-deploy hv-ves k8s-hv-ves.yaml k8s-hv_ves-inputs.yaml &
 
 # Display deployments, for debugging purposes
 cfy deployments list
