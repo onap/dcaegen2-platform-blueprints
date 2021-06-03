@@ -4,9 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.0] - 2021-06-04
+         - [DCAEGEN2-2617](https://jira.onap.org/browse/DCAEGEN2-2617) - Remove DCAE service component deployment from bootstrap container
+
 ## [3.1.0] - 2021-04-16
          - [DCAEGEN2-2420](https://jira.onap.org/browse/DCAEGEN2-2420) - PRH 1.6.0, PM-Mapper 1.6.0 and TCA-Gen2 1.3.0 integration base image alignemnt
-         - [DCAEGEN2-2732](https://jira.onap.org/browse/DCAEGEN2-2732) - PM-Mapper 1.6.0 Utilize SDK/Dmaap client 
+         - [DCAEGEN2-2732](https://jira.onap.org/browse/DCAEGEN2-2732) - PM-Mapper 1.6.0 Utilize SDK/Dmaap client
          - [DCAEGEN2-2675](https://jira.onap.org/browse/DCAEGEN2-2675) - RESTConf 1.2.5 - xml parsing vulnerability
          - [DCAEGEN2-2590](https://jira.onap.org/browse/DCAEGEN2-2590) - TCA-Gen2 1.3.0 - vulnerability removal
          - [DCAEGEN2-2713](https://jira.onap.org/browse/DCAEGEN2-2713) - PMSH 1.3.1 - policy config consolidation under app-config
@@ -30,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2599](https://jira.onap.org/browse/DCAEGEN2-2599) - Vulnerability removal for son-handler
          - [DCAEGEN2-2623](https://jira.onap.org/browse/DCAEGEN2-2623) - Add new fields to Slice-analysis-ms blueprint (AAI update)
          - [DCAEGEN2-2494](https://jira.onap.org/browse/DCAEGEN2-2494) - SNMPtrap collector version revision (pysnmp upgrade)
-         - [DCAEGEN2-2551](https://jira.onap.org/browse/DCAEGEN2-2551) - Vulnerability removal for RESTConf collector 
+         - [DCAEGEN2-2551](https://jira.onap.org/browse/DCAEGEN2-2551) - Vulnerability removal for RESTConf collector
 
 
 ## [3.0.2] - 2021-02-15
@@ -43,4 +46,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 	 - [DCAEGEN2-2537](https://jira.onap.org/browse/DCAEGEN2-2537) - Upgrade prh.prh-app-server to 1.5.5
 	 - [DCAEGEN2-2493](https://jira.onap.org/browse/DCAEGEN2-2493) - RCC blueprint updated to use latest k8s plugin & 1.2.3 version (vulnerability fixes)
 	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes)
-	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes) 
+	 - [DCAEGEN2-2496](https://jira.onap.org/browse/DCAEGEN2-2496) - VES-Mapper blueprint updated to 1.2.0 version (vulnerability fixes)
