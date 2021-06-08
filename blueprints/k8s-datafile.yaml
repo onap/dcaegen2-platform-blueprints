@@ -7,7 +7,7 @@ description: Docker application to collect log file from PNF
 imports:
 - http://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml
 - plugin:k8splugin?version=>=3.4.3,<4.0.0
-- plugin:dmaap?version=1.5.0
+- plugin:dmaap?version=>=1.5.1,<2.0.0
 inputs:
   PM_MEAS_FILES_feed0_location:
     type: string
