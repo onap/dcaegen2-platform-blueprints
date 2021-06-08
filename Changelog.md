@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.2.0] - 2021-06-04
          - [DCAEGEN2-2617](https://jira.onap.org/browse/DCAEGEN2-2617) - Remove DCAE service component deployment from bootstrap container
+         - [DCAEGEN2-2750](https://jira.onap.org/browse/DCAEGEN2-2750) - Update Dmaap plugin version to >=1.5.1,<2.0.0
 
 ## [3.1.0] - 2021-04-16
          - [DCAEGEN2-2420](https://jira.onap.org/browse/DCAEGEN2-2420) - PRH 1.6.0, PM-Mapper 1.6.0 and TCA-Gen2 1.3.0 integration base image alignemnt

@@ -2,6 +2,7 @@
  #
  #============LICENSE_START=======================================================
  #Copyright (C) 2021 China Mobile.
+ #Copyright (C) 2021 Nokia
  #==============================================================================
  #Licensed under the Apache License, Version 2.0 (the "License");
  #you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
   - 'http://www.getcloudify.org/spec/cloudify/4.5.5/types.yaml'
-  - plugin:dmaap?version=1.5.0
+  - plugin:dmaap?version=>=1.5.1,<2.0.0
   - plugin:k8splugin?version=>=3.4.3,<4.0.0
 inputs:
   replicas:
