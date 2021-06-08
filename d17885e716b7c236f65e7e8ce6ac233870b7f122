@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95c24272_6a817ec5",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6044
+      },
+      "writtenOn": "2021-06-08T10:56:54Z",
+      "side": 1,
+      "message": "Consider using\ndmaap?version\u003d\u003e\u003d1.5.1,\u003c2.0.0",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "d17885e716b7c236f65e7e8ce6ac233870b7f122",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
