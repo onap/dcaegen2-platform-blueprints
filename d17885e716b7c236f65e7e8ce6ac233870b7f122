@@ -22,6 +22,30 @@
       "revId": "d17885e716b7c236f65e7e8ce6ac233870b7f122",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "375d6109_5ebf97bb",
+        "filename": "blueprints/k8s-datafile.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3699
+      },
+      "writtenOn": "2021-06-08T11:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95c24272_6a817ec5",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "d17885e716b7c236f65e7e8ce6ac233870b7f122",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
