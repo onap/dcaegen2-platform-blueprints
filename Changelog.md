@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.0] - 2021-07-22
+         - [DCAEGEN2-2804](https://jira.onap.org/browse/DCAEGEN2-2804) - Update datafile-app-server to 1.6.0 - integration base image alignment, vulnerabilities removal
+
 ## [3.2.0] - 2021-06-04
          - [DCAEGEN2-2617](https://jira.onap.org/browse/DCAEGEN2-2617) - Remove DCAE service component deployment from bootstrap container
          - [DCAEGEN2-2750](https://jira.onap.org/browse/DCAEGEN2-2750) - Update Dmaap plugin version to >=1.5.1,<2.0.0
