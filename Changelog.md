@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.1] - 2021-07-27
+         - [DCAEGEN2-2852/DCAEGEN2-2864/DCAEGEN2-2834]- DCAE heartbeat container updated to 2.3.1 - Switched to CBS client lib 2.2.1, dockerfile update, OJSI SQL vulnerability fix
+
 ## [3.3.0] - 2021-07-22
          - [DCAEGEN2-2804](https://jira.onap.org/browse/DCAEGEN2-2804) - Update datafile-app-server to 1.6.0 - integration base image alignment, vulnerabilities removal
 
