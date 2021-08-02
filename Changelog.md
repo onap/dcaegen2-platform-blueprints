@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.2] - 2021-08-02
+         - [DCAEGEN2-2808](https://jira.onap.org/browse/DCAEGEN2-2808)- PRH container updated to 1.6.1 - Update Spring-Boot to version 2.4.8 (fix vulnerabilities)
+
 ## [3.3.1] - 2021-07-29
          - [DCAEGEN2-2852/DCAEGEN2-2864/DCAEGEN2-2834]- DCAE heartbeat container updated to 2.3.1 - Switched to CBS client lib 2.2.1, dockerfile update, OJSI SQL vulnerability fix
          - [DCAEGEN2-2807]- PM-Mapper container updated to 1.7.0 - Update io.undertow:undertow-core to version 2.2.9.Final, org.freemarker:freemarker to version 2.3.31, oparent to version 3.2.0 
