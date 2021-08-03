@@ -25,7 +25,7 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:2.0.4"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.snmptrap:2.0.5"
   cache:
     type: string
     default:
@@ -72,7 +72,7 @@ inputs:
     type: string
     default:
       "title: Collector for receiving SNMP traps and publishing to DMAAP/MR
-      version: 2.0.3"
+      version: 2.0.5"
   external_port:
     type: string
     description: Kubernetes node port on which collector is exposed
