@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.3.3] - 2021-08-03
          - [DCAEGEN2-2853] SNMPTrap container updated to 2.0.5 - Switched to CBS client lib to 2.2.1
+         - [DCAEGEN2-2863] PRH Change AAI variable syntax in URL config
+         - [DCAEGEN2-1531] PRH Update config to use AAI v23 API
 
 ## [3.3.2] - 2021-08-02
          - [DCAEGEN2-2808](https://jira.onap.org/browse/DCAEGEN2-2808)- PRH container updated to 1.6.1 - Update Spring-Boot to version 2.4.8 (fix vulnerabilities)

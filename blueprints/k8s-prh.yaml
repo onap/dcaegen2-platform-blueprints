@@ -26,10 +26,10 @@ imports:
 inputs:
   pnfUrl:
     type: string
-    default: "https://aai.onap.svc.cluster.local:8443/aai/v12/network/pnfs/pnf"
+    default: "https://aai.onap.svc.cluster.local:8443/aai/v23/network/pnfs/pnf"
   baseUrl:
     type: string
-    default: "https://aai.onap.svc.cluster.local:8443/aai/v12"
+    default: "https://aai.onap.svc.cluster.local:8443/aai/v23"
   aaiEnrichmentHost:
     type: string
     default: "aai.onap.svc.cluster.local"
@@ -63,7 +63,7 @@ inputs:
     default: "admin"
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.6.1"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.prh.prh-app-server:1.7.0"
   replicas:
     type: integer
     description: number of instances
@@ -112,9 +112,9 @@ node_templates:
         aai.aaiClientConfiguration.aaiUserName: { get_input: aaiEnrichmentUser }
         aai.aaiClientConfiguration.aaiUserPassword: { get_input: aaiEnrichmentPasswd }
         aai.aaiClientConfiguration.aaiIgnoreSslCertificateErrors: true
-        aai.aaiClientConfiguration.aaiBasePath: "/aai/v12"
+        aai.aaiClientConfiguration.aaiBasePath: "/aai/v23"
         aai.aaiClientConfiguration.aaiPnfPath: "/network/pnfs/pnf"
-        aai.aaiClientConfiguration.aaiServiceInstancePath: "/business/customers/customer/${customer}/service-subscriptions/service-subscription/${serviceType}/service-instances/service-instance/${serviceInstanceId}"
+        aai.aaiClientConfiguration.aaiServiceInstancePath: "/business/customers/customer/{{customer}}/service-subscriptions/service-subscription/{{serviceType}}/service-instances/service-instance/{{serviceInstanceId}}"
         aai.aaiClientConfiguration.aaiHeaders:
             X-FromAppId: "prh"
             X-TransactionId: "9999"
