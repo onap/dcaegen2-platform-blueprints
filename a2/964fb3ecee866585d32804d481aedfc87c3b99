@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Piotr Marcinkiewicz <piotr.marcinkiewicz@nokia.com>
+Code-Review+2: Joanna Jeremicz <joanna.jeremicz@nokia.com>
+Submitted-by: Joanna Jeremicz <joanna.jeremicz@nokia.com>
+Submitted-at: Mon, 16 Aug 2021 06:55:05 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/platform/blueprints/+/123245
+Project: dcaegen2/platform/blueprints
+Branch: refs/heads/master
