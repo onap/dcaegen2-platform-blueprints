@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.4]
+         - [DCAEGEN2-2873] PM Mapper updated to 1.7.1 - Fix granularityPeriod issue
+
 ## [3.3.3] - 2021-08-03
          - [DCAEGEN2-2853] SNMPTrap container updated to 2.0.5 - Switched to CBS client lib to 2.2.1
          - [DCAEGEN2-2863] PRH Change AAI variable syntax in URL config
