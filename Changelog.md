@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [3.3.4]
+## [3.3.4] - 2021-08-30
          - [DCAEGEN2-2873] PM Mapper updated to 1.7.1 - Fix granularityPeriod issue
+         - [DCAEGEN2-2806/DCAEGEN2-2858/DCAEGEN2-2859] - VES Mapper updated to 1.3.0 - includes Istanbul vulnerability fixes, CBS client SDK to 1.8.7 and switched to integration-java11:9.0.0  base image
+         - [DCAEGEN2-2892] - Set resource limits for TCAgen2 blueprints
 
 ## [3.3.3] - 2021-08-03
          - [DCAEGEN2-2853] SNMPTrap container updated to 2.0.5 - Switched to CBS client lib to 2.2.1

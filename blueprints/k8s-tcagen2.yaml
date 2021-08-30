@@ -1,6 +1,6 @@
 # ============LICENSE_START====================================================
 # =============================================================================
-# Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (C) 2019-2021 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -60,7 +60,18 @@ inputs:
   tca_consumer_group:
     type: string
     default: "cg1"
-
+  cpu_limit:
+    type: string
+    default: "2000m"
+  cpu_request:
+    type: string
+    default: "1000m"
+  memory_limit:
+    type: string
+    default: "2048Mi"
+  memory_request:
+    type: string
+    default: "1024Mi"
 node_templates:
   docker.tca:
     type: dcae.nodes.ContainerizedServiceComponent
@@ -119,6 +130,17 @@ node_templates:
           type: http
       image:
         get_input: tag_version
+      resource_config:
+        limits:
+          cpu:
+            get_input: cpu_limit
+          memory:
+            get_input: memory_limit
+        requests:
+          cpu:
+            get_input: cpu_request
+          memory:
+            get_input: memory_request
       log_info:
         log_directory:
           get_input: log_directory
