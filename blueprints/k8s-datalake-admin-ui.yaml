@@ -27,7 +27,7 @@ inputs:
   image_name:
     description: datalake feeder image URL.
     type: string
-    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakeadminui:1.1.0
+    default: nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.datalakeadminui:1.1.1
   container_port:
     type: string
     description: exposed container port

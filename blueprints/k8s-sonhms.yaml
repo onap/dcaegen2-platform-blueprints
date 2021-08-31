@@ -1,20 +1,21 @@
- #============LICENSE_START=======================================================
+ #   ============LICENSE_START=======================================================
  #    son-handler
  #   ================================================================================
  #     Copyright (C) 2019-2020 Wipro Limited.
- #     ==============================================================================
- #       Licensed under the Apache License, Version 2.0 (the "License");
- #       you may not use this file except in compliance with the License.
- #       You may obtain a copy of the License at
+ #     Copyright (c) 2021 AT&T Intellectual Property. All rights reserved.
+ #   ================================================================================
+ #     Licensed under the Apache License, Version 2.0 (the "License");
+ #     you may not use this file except in compliance with the License.
+ #     You may obtain a copy of the License at
  #
- #            http://www.apache.org/licenses/LICENSE-2.0
+ #          http://www.apache.org/licenses/LICENSE-2.0
  #
- #       Unless required by applicable law or agreed to in writing, software
- #       distributed under the License is distributed on an "AS IS" BASIS,
- #       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- #       See the License for the specific language governing permissions and
- #       limitations under the License.
- #       ============LICENSE_END=========================================================
+ #     Unless required by applicable law or agreed to in writing, software
+ #     distributed under the License is distributed on an "AS IS" BASIS,
+ #     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ #     See the License for the specific language governing permissions and
+ #     limitations under the License.
+ #   ============LICENSE_END=========================================================
 
 tosca_definitions_version: cloudify_dsl_1_3
 imports:
@@ -30,7 +31,7 @@ inputs:
   tag_version:
     type: string
     description: docker image name and version
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.son-handler:2.1.3"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.son-handler:2.1.4"
   pgaas_cluster_name:
     type: string
     description: pg cluster
