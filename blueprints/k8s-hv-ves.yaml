@@ -3,7 +3,7 @@
 # ============LICENSE_START========================================================
 # =================================================================================
 # Copyright (C) 2018-2019 NOKIA
-# Modifications copyright (c) 2020 AT&T Intellectual Property.  All Rights Reserved
+# Modifications copyright (c) 2020-2021 AT&T Intellectual Property.  All Rights Reserved
 # =================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ imports:
 inputs:
   tag_version:
     type: string
-    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.6.0'
+    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.hv-ves.hv-collector-main:1.9.1'
   service_component_type:
     type: string
     default: 'dcae-hv-ves-collector'
