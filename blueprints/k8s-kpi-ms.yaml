@@ -1,4 +1,3 @@
-
  #
  #============LICENSE_START=======================================================
  #Copyright (C) 2021 China Mobile.
@@ -29,7 +28,7 @@ inputs:
   tag_version:
     type: string
     description: docker image name and version
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.kpi-ms:1.0.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.components.kpi-ms:1.0.1"
   aaf_username:
     type: string
     description: aaf username
