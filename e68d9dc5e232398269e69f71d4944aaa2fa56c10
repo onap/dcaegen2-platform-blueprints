@@ -22,6 +22,30 @@
       "revId": "e68d9dc5e232398269e69f71d4944aaa2fa56c10",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854dd23d_2641acb0",
+        "filename": "blueprints/k8s-datalake-des.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-09-01T15:48:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c460377_bedf1256",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 75,
+        "endChar": 25
+      },
+      "revId": "e68d9dc5e232398269e69f71d4944aaa2fa56c10",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
