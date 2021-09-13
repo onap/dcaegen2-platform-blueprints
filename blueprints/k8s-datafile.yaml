@@ -1,6 +1,7 @@
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2021 Nokia
+#  Copyright (c) 2021 AT&T Intellectual Property. All rights reserved
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the 'License');
 # you may not use this file except in compliance with the License.
@@ -72,7 +73,7 @@ inputs:
     default: 1
   tag_version:
     type: string
-    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.6.0"
+    default: "nexus3.onap.org:10001/onap/org.onap.dcaegen2.collectors.datafile.datafile-app-server:1.6.1"
   use_tls:
     type: boolean
     default: true

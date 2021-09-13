@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.5] - 2021-09-10
+         - [DCAEGEN2-2904] DCAE blueprint version updates for Istanbul release BBS-Ep/DFC/HV-VES/KPI-MS/Slice-Analysis/SON-handler/TCAgen2/VESCollector/PMSH/PM-mapper
+
 ## [3.3.4] - 2021-08-30
          - [DCAEGEN2-2873] PM Mapper updated to 1.7.1 - Fix granularityPeriod issue
          - [DCAEGEN2-2806/DCAEGEN2-2858/DCAEGEN2-2859] - VES Mapper updated to 1.3.0 - includes Istanbul vulnerability fixes, CBS client SDK to 1.8.7 and switched to integration-java11:9.0.0  base image
@@ -64,7 +67,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
          - [DCAEGEN2-2628](https://jira.onap.org/browse/DCAEGEN2-2628) - Fix docker image build problem
          - [DCAEGEN2-2528](https://jira.onap.org/browse/DCAEGEN2-2528) - Add HTTPS as new protocol to collect files from xNFs
 
-## [3.0.1] - 11/02/2021
+## [3.0.1] - 2021-02-11
 ### Changed
 	 - [DCAEGEN2-2537](https://jira.onap.org/browse/DCAEGEN2-2537) - Upgrade prh.prh-app-server to 1.5.5
 	 - [DCAEGEN2-2493](https://jira.onap.org/browse/DCAEGEN2-2493) - RCC blueprint updated to use latest k8s plugin & 1.2.3 version (vulnerability fixes)
