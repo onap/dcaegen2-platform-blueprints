@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a1b94aa_771e3d6e",
+        "filename": "Changelog.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-09-13T19:10:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6b8ab4f_7b877705",
+      "revId": "5d6fc257955f9d9006e1734a1876aea9ee483f7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c145a00b_b6dfa42a",
         "filename": "blueprints/k8s-hv-ves.yaml",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "5d6fc257955f9d9006e1734a1876aea9ee483f7f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8013190d_19f4cfbf",
+        "filename": "blueprints/k8s-hv-ves.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-09-13T19:10:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c145a00b_b6dfa42a",
+      "revId": "5d6fc257955f9d9006e1734a1876aea9ee483f7f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
