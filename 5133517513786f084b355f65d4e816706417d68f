@@ -34,6 +34,24 @@
       "revId": "5133517513786f084b355f65d4e816706417d68f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ab3431d_0947856d",
+        "filename": "blueprints/k8s-sonhms.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-09-13T17:01:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f713d688_d0539132",
+      "revId": "5133517513786f084b355f65d4e816706417d68f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
