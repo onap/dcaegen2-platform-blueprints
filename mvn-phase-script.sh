@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ================================================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@ echo "MVN_DOCKERREGISTRY_PUBLIC is       [$MVN_DOCKERREGISTRY_PUBLIC]"
 echo "HOME is                            [$HOME]"
 echo "PROJECT_ROOT is                    [$PROJECT_ROOT]"
 
-MVN_RELEASE_TAG="${MVN_RELEASE_TAG:-R9}"
+MVN_RELEASE_TAG="${MVN_RELEASE_TAG:-R10}"
 
 
 if ! wget -O ${PROJECT_ROOT}/mvn-phase-lib.sh \
