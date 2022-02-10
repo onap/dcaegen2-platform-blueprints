@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.6] - 2022-02-10
+         - [DCAEGEN2-3077] Address inventory upload issue due to int type restriction 
+
 ## [3.3.5] - 2021-09-10
          - [DCAEGEN2-2904] DCAE blueprint version updates for Istanbul release BBS-Ep/DFC/HV-VES/KPI-MS/Slice-Analysis/SON-handler/TCAgen2/VESCollector/PMSH/PM-mapper
 

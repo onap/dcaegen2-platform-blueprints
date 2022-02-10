@@ -1,6 +1,6 @@
 #!/bin/bash
 # ================================================================================
-# Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2020-2022 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ function create_service_type {
    {
     \"vnfTypes\": [],
     \"owner\": \"${OWNER}\",
-    \"typeVersion\": $(date +%y%m%d%I%M),
+    \"typeVersion\": $(date +%y%m%d%H),
     \"typeName\": \"$(basename $1 .yaml)\",
     \"component\": \"${COMPONENT}\",
     \"application\": \"${APPLICATION}\",
