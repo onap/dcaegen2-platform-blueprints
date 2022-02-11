@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e198a8d5_2a630429",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-11T01:25:25Z",
+      "side": 1,
+      "message": "there should be a LICENSE_START line to match the LICENSE_END line",
+      "revId": "430e707c07df5bd1ee3bf5ea675bb53b7be5d712",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a74b5ad9_f646e2d7",
+        "filename": "scripts/inventory.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-02-11T01:25:25Z",
+      "side": 1,
+      "message": "there should be a LICENSE_START line to match the LICENSE_END line",
+      "revId": "430e707c07df5bd1ee3bf5ea675bb53b7be5d712",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
