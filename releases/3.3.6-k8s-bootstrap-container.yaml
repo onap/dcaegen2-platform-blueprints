@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '3.3.6'
+project: 'dcaegen2/blueprints'
+log_dir: 'dcaegen2-platform-blueprints-istanbul-merge-java/1'
+ref: 9d8dd5ed3fbc7aad7133f1db49ffec09b4a30c16
+containers:
+  - name: 'org.onap.dcaegen2.deployments.k8s-bootstrap-container'
+    version: '3.3.6-SNAPSHOT-20220215T150839Z'
